@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
-import { getAllCountries, getAllRoutes } from "@/lib/db";
+import { getAllCountries, getAllRouteSlugs } from "@/lib/db";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://shipcalcwize.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const countries = getAllCountries();
-  const routes = getAllRoutes();
+  const routes = getAllRouteSlugs(49000);
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: SITE_URL, changeFrequency: "weekly", priority: 1.0 },
@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const routePages: MetadataRoute.Sitemap = routes.map((r) => ({
+  const routePages: MetadataRoute.Sitemap = routes.map((r: { slug: string }) => ({
     url: `${SITE_URL}/route/${r.slug}`,
     changeFrequency: "weekly" as const,
     priority: 0.7,

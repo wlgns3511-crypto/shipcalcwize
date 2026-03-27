@@ -158,6 +158,10 @@ export function getAllPorts(): PortInfo[] {
   return getDb().prepare('SELECT * FROM port_info ORDER BY country_code, port_type, port_name').all() as PortInfo[];
 }
 
+export function getAllRouteSlugs(limit = 49000): { slug: string }[] {
+  return getDb().prepare('SELECT slug FROM routes ORDER BY slug LIMIT ?').all(limit) as { slug: string }[];
+}
+
 export function getCountriesByRegion(): Record<string, Country[]> {
   const countries = getAllCountries();
   const grouped: Record<string, Country[]> = {};

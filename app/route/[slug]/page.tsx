@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getAllRoutes, getRouteBySlug, getAllCountries, getCarriers, getCountryByCode } from "@/lib/db";
+import { getAllRoutes, getAllRouteSlugs, getRouteBySlug, getAllCountries, getCarriers, getCountryByCode } from "@/lib/db";
 import { formatCost, formatDays, countryCodeToFlag } from "@/lib/format";
 import { ShippingCalculator } from "@/components/ShippingCalculator";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const routes = getAllRoutes();
+  const routes = getAllRouteSlugs(500);
   return routes.map((r) => ({ slug: r.slug }));
 }
 
