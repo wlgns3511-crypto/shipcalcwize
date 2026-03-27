@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getAllRoutes, getAllCountries } from "@/lib/db";
+import { getPopularRoutes, getAllCountries } from "@/lib/db";
 import { formatCost, formatDays } from "@/lib/format";
 import { AdSlot } from "@/components/AdSlot";
 import { webPageSchema } from "@/lib/schema";
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function ComparePage() {
-  const routes = getAllRoutes();
+  const routes = getPopularRoutes(200);  // 인기 200개만 표시 (페이지 크기 제한)
   const countries = getAllCountries();
 
   // Group routes by origin
@@ -32,15 +32,15 @@ export default function ComparePage() {
         Compare International Shipping Routes
       </h1>
       <p className="text-lg text-slate-600 mb-8">
-        Side-by-side comparison of shipping costs and transit times across {routes.length} international routes.
-        Find the cheapest and fastest shipping options between countries.
+        Side-by-side comparison of shipping costs and transit times across 15,000+ international routes.
+        Browse our most popular routes below, or search for any country pair.
       </p>
 
       <AdSlot id="4567890123" />
 
       {/* Full comparison table */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-4">All Routes Comparison</h2>
+        <h2 className="text-2xl font-bold mb-4">Popular Routes Comparison (Top 200)</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
             <thead>
