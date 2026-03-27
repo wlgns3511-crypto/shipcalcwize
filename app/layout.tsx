@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const SITE_NAME = "ShipCalcWize";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://shipcalcwize.com";
-const GA_ID = "G-XXXXXXXXXX";
+const GA_ID = "G-WD86MC4KYY";
 const ADSENSE_ID = "ca-pub-5724806562146685";
 
 export const metadata: Metadata = {
