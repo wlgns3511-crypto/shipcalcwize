@@ -309,101 +309,338 @@ def insert_carriers(conn: sqlite3.Connection):
 
 
 def insert_routes(conn: sqlite3.Connection):
-    routes = [
-        # FROM US
-        ("US", "GB", 12.50, 3.50, 5, 28, "UK customs duty applies on goods over GBP135. VAT at 20% on most items."),
-        ("US", "DE", 13.00, 3.80, 5, 30, "German customs duty for non-EU goods. VAT at 19%. EORI number needed for commercial shipments."),
-        ("US", "FR", 13.50, 3.80, 5, 30, "French customs apply EU common external tariff. TVA at 20%."),
-        ("US", "JP", 14.00, 4.00, 4, 25, "Japan consumption tax 10%. Customs duty varies by product category."),
-        ("US", "CN", 12.00, 3.00, 5, 32, "Chinese customs duties vary widely. Cross-border e-commerce has special rates."),
-        ("US", "KR", 13.00, 3.50, 4, 24, "Korea customs duty + VAT 10%. FTA benefits for qualifying US goods."),
-        ("US", "AU", 14.00, 3.80, 5, 28, "Australian GST 10% on imports over AUD1000. No general customs duty for most US goods under AUSFTA."),
-        ("US", "CA", 8.00, 2.50, 2, 12, "USMCA/CUSMA duty-free for qualifying goods. GST/HST applies. De minimis CAD150."),
-        ("US", "MX", 9.50, 2.80, 3, 15, "USMCA benefits. Mexican VAT 16%. Customs duties vary by tariff classification."),
-        ("US", "IN", 13.00, 3.20, 6, 32, "Indian customs duties vary from 0-150%. GST applies. Complex import regulations."),
-        ("US", "BR", 15.00, 4.00, 6, 32, "Brazilian import taxes total 60%+ on many goods. ICMS, IPI, PIS, COFINS apply."),
-        ("US", "SG", 11.00, 2.80, 4, 24, "Singapore has no customs duty on most goods. GST 9%."),
-        ("US", "AE", 12.00, 3.00, 5, 26, "UAE VAT 5%. No customs duty in free zones. Standard rate 5% on most goods."),
-        ("US", "NL", 12.50, 3.50, 4, 27, "Netherlands follows EU customs. VAT 21%. Rotterdam is major port of entry."),
-        ("US", "IT", 13.50, 3.80, 5, 30, "Italian customs follow EU tariff. IVA at 22%."),
-        ("US", "ES", 13.50, 3.80, 5, 30, "Spanish customs follow EU tariff. IVA at 21%."),
-        ("US", "TH", 12.50, 3.00, 5, 30, "Thai customs duties vary. VAT 7%. Some goods require import permits."),
-        ("US", "VN", 12.00, 2.80, 6, 32, "Vietnam import duties vary widely. VAT 10%. Special consumption tax on luxury goods."),
-        ("US", "PH", 13.00, 3.20, 6, 32, "Philippines customs duties from 0-65%. VAT 12%."),
-        ("US", "IL", 14.00, 3.80, 5, 28, "Israel customs + VAT 17%. US-Israel FTA provides duty-free on many goods."),
-        # FROM China
-        ("CN", "US", 7.00, 1.80, 5, 30, "US customs duties apply. De minimis $800. Section 301 tariffs on Chinese goods."),
-        ("CN", "GB", 8.00, 2.00, 7, 32, "UK customs duty + VAT 20%. Low value consignment relief for items under GBP135."),
-        ("CN", "DE", 8.50, 2.20, 7, 33, "EU anti-dumping duties may apply. Standard customs + 19% MwSt."),
-        ("CN", "JP", 7.50, 1.50, 3, 18, "Japan customs duty varies. Consumption tax 10%. Many items have preferential rates."),
-        ("CN", "KR", 6.50, 1.20, 2, 12, "Korea-China FTA benefits. Customs duty + VAT 10%."),
-        ("CN", "AU", 9.00, 2.00, 5, 25, "ChAFTA reduces duties on many Chinese goods. GST 10% on imports over AUD1000."),
-        ("CN", "SG", 5.50, 1.20, 3, 18, "Most goods duty-free into Singapore. GST 9%."),
-        ("CN", "CA", 9.00, 2.20, 6, 30, "Canadian customs duties vary. GST/HST applies. De minimis CAD20 for postal."),
-        ("CN", "MY", 6.00, 1.30, 4, 20, "Malaysian customs duties vary. SST applies. ACFTA preferential rates."),
-        ("CN", "TH", 5.50, 1.20, 4, 20, "ACFTA duty-free for many goods. VAT 7%."),
-        ("CN", "IN", 8.00, 2.00, 5, 28, "Indian customs duties on Chinese goods can be very high. BIS standards apply."),
-        ("CN", "BR", 12.00, 3.00, 8, 38, "Brazilian import taxes very high on Chinese goods. 60%+ total tax burden."),
-        ("CN", "AE", 7.00, 1.50, 5, 25, "UAE customs 5% standard rate. Free zone benefits available."),
-        ("CN", "RU", 7.50, 1.80, 5, 25, "Russian customs duties vary. VAT 20%. Growing cross-border e-commerce."),
-        # FROM South Korea
-        ("KR", "US", 12.00, 3.00, 4, 24, "KORUS FTA eliminates most duties. US customs still apply on some goods."),
-        ("KR", "JP", 8.00, 1.80, 2, 12, "Short transit times. Japan customs duties vary by product."),
-        ("KR", "CN", 7.00, 1.50, 2, 12, "Korea-China FTA benefits. Short sea transit."),
-        ("KR", "VN", 7.50, 1.80, 3, 18, "KVFTA preferential rates. Growing trade corridor."),
-        ("KR", "DE", 13.00, 3.50, 5, 32, "EU-Korea FTA eliminates most duties. VAT 19% applies."),
-        ("KR", "AU", 12.00, 3.00, 5, 24, "KAFTA provides preferential rates. GST 10%."),
-        # FROM Japan
-        ("JP", "US", 13.00, 3.50, 4, 24, "US-Japan Trade Agreement benefits. Well-established shipping lanes."),
-        ("JP", "CN", 8.00, 1.50, 3, 14, "Short transit. RCEP benefits for qualifying goods."),
-        ("JP", "KR", 8.00, 1.80, 2, 10, "Very short sea route. RCEP framework."),
-        ("JP", "AU", 12.00, 3.00, 5, 22, "JAEPA eliminates most duties. GST 10%."),
-        ("JP", "GB", 13.50, 3.80, 5, 35, "UK-Japan CEPA provides preferential rates."),
-        ("JP", "SG", 9.00, 2.00, 4, 18, "JSEPA benefits. Singapore mostly duty-free."),
-        # FROM Germany
-        ("DE", "US", 12.50, 3.50, 5, 28, "US customs duties apply. Strong shipping infrastructure."),
-        ("DE", "CN", 10.00, 2.50, 6, 32, "Chinese customs duties apply. Growing rail freight option."),
-        ("DE", "GB", 8.00, 2.00, 3, 14, "Post-Brexit customs declarations required. Short transit."),
-        ("DE", "JP", 13.00, 3.80, 5, 32, "EU-Japan EPA reduces many duties."),
-        ("DE", "AU", 14.00, 4.00, 6, 35, "GST 10%. Long shipping distance."),
-        ("DE", "KR", 13.00, 3.50, 5, 30, "EU-Korea FTA benefits."),
-        # FROM UK
-        ("GB", "US", 12.00, 3.50, 5, 28, "US customs duties apply. Well-established lane."),
-        ("GB", "DE", 8.50, 2.20, 3, 14, "Post-Brexit EU customs apply. Short transit."),
-        ("GB", "AU", 13.50, 3.80, 6, 35, "UK-Australia FTA benefits. GST 10%."),
-        ("GB", "JP", 13.50, 3.80, 5, 35, "UK-Japan CEPA preferential rates."),
-        ("GB", "CA", 11.00, 3.00, 4, 22, "UK-Canada continuity agreement. GST/HST applies."),
-        ("GB", "IN", 12.00, 3.00, 6, 30, "Indian customs duties vary significantly. Complex regulations."),
-        # FROM Australia
-        ("AU", "US", 14.00, 3.80, 5, 28, "AUSFTA benefits. US customs apply."),
-        ("AU", "NZ", 8.00, 2.00, 2, 8, "CER agreement. Very short transit."),
-        ("AU", "JP", 12.00, 3.00, 4, 18, "JAEPA benefits. Major trade partner."),
-        ("AU", "SG", 10.00, 2.50, 4, 14, "SAFTA benefits. Singapore mostly duty-free."),
-        # FROM India
-        ("IN", "US", 12.00, 2.80, 6, 32, "US customs duties apply. GSP program expired but some benefits."),
-        ("IN", "GB", 11.00, 2.50, 6, 28, "UK customs apply. India-UK FTA negotiations ongoing."),
-        ("IN", "AE", 8.00, 1.80, 4, 18, "India-UAE CEPA benefits. Short transit. Major trade lane."),
-        ("IN", "SG", 9.00, 2.00, 4, 16, "India-Singapore CECA benefits."),
-        # Other popular
-        ("SG", "US", 12.00, 2.80, 4, 26, "US-Singapore FTA benefits. Well-connected hub."),
-        ("SG", "AU", 10.00, 2.50, 4, 14, "Short transit. SAFTA benefits."),
-        ("AE", "IN", 8.00, 1.80, 4, 16, "UAE-India CEPA. Major trade corridor."),
-        ("AE", "GB", 11.00, 2.80, 5, 28, "UK customs apply. Dubai is major transshipment hub."),
-        ("NL", "US", 12.00, 3.20, 4, 26, "Rotterdam hub advantage. US customs apply."),
-        ("MX", "US", 8.50, 2.50, 2, 10, "USMCA benefits. Very short transit. Major trade lane."),
-        ("CA", "US", 7.50, 2.00, 2, 8, "USMCA duty-free for qualifying goods. Shortest transit."),
-        ("VN", "US", 11.00, 2.50, 6, 30, "Growing trade lane. US customs duties apply."),
-        ("TH", "US", 12.00, 2.80, 5, 28, "Thai goods may qualify for GSP. US customs apply."),
-        ("BR", "US", 14.00, 3.50, 6, 25, "US customs duties apply. Growing e-commerce trade."),
-    ]
+    import math
+    import hashlib
 
-    for r in routes:
-        origin, dest, air_cost, sea_cost, air_days, sea_days, notes = r
+    # Hand-curated routes with specific customs notes (used as overrides)
+    curated = {
+        ("US", "GB"): (12.50, 3.50, 5, 28, "UK customs duty applies on goods over GBP135. VAT at 20% on most items."),
+        ("US", "DE"): (13.00, 3.80, 5, 30, "German customs duty for non-EU goods. VAT at 19%. EORI number needed for commercial shipments."),
+        ("US", "FR"): (13.50, 3.80, 5, 30, "French customs apply EU common external tariff. TVA at 20%."),
+        ("US", "JP"): (14.00, 4.00, 4, 25, "Japan consumption tax 10%. Customs duty varies by product category."),
+        ("US", "CN"): (12.00, 3.00, 5, 32, "Chinese customs duties vary widely. Cross-border e-commerce has special rates."),
+        ("US", "KR"): (13.00, 3.50, 4, 24, "Korea customs duty + VAT 10%. FTA benefits for qualifying US goods."),
+        ("US", "AU"): (14.00, 3.80, 5, 28, "Australian GST 10% on imports over AUD1000. No general customs duty for most US goods under AUSFTA."),
+        ("US", "CA"): (8.00, 2.50, 2, 12, "USMCA/CUSMA duty-free for qualifying goods. GST/HST applies. De minimis CAD150."),
+        ("US", "MX"): (9.50, 2.80, 3, 15, "USMCA benefits. Mexican VAT 16%. Customs duties vary by tariff classification."),
+        ("US", "IN"): (13.00, 3.20, 6, 32, "Indian customs duties vary from 0-150%. GST applies. Complex import regulations."),
+        ("US", "BR"): (15.00, 4.00, 6, 32, "Brazilian import taxes total 60%+ on many goods. ICMS, IPI, PIS, COFINS apply."),
+        ("US", "SG"): (11.00, 2.80, 4, 24, "Singapore has no customs duty on most goods. GST 9%."),
+        ("US", "AE"): (12.00, 3.00, 5, 26, "UAE VAT 5%. No customs duty in free zones. Standard rate 5% on most goods."),
+        ("US", "NL"): (12.50, 3.50, 4, 27, "Netherlands follows EU customs. VAT 21%. Rotterdam is major port of entry."),
+        ("US", "IT"): (13.50, 3.80, 5, 30, "Italian customs follow EU tariff. IVA at 22%."),
+        ("US", "ES"): (13.50, 3.80, 5, 30, "Spanish customs follow EU tariff. IVA at 21%."),
+        ("US", "TH"): (12.50, 3.00, 5, 30, "Thai customs duties vary. VAT 7%. Some goods require import permits."),
+        ("US", "VN"): (12.00, 2.80, 6, 32, "Vietnam import duties vary widely. VAT 10%. Special consumption tax on luxury goods."),
+        ("US", "SE"): (13.50, 3.80, 5, 30, "Swedish customs follow EU tariff. Moms at 25%."),
+        ("US", "PL"): (13.00, 3.50, 5, 30, "Polish customs follow EU tariff. VAT 23%."),
+        ("US", "SA"): (13.00, 3.20, 5, 28, "Saudi customs duty 5-20%. VAT 15%."),
+        ("US", "ZA"): (15.00, 4.00, 6, 32, "South African customs duties vary. VAT 15%. AGOA benefits for some goods."),
+        ("US", "ID"): (13.50, 3.20, 6, 32, "Indonesian customs duties vary widely. VAT 11%."),
+        ("US", "TR"): (13.50, 3.50, 5, 30, "Turkish customs duties vary. KDV at 20%."),
+        ("US", "BE"): (12.50, 3.40, 4, 27, "Belgian customs follow EU tariff. BTW at 21%."),
+        ("US", "IE"): (12.50, 3.50, 5, 28, "Irish customs follow EU tariff. VAT at 23%."),
+        ("US", "NZ"): (15.00, 4.00, 6, 30, "NZ GST 15%. Most goods subject to customs duty."),
+        ("US", "NO"): (14.00, 3.80, 5, 30, "Norwegian customs + MVA 25%. Not EU member."),
+        ("US", "DK"): (13.50, 3.70, 5, 29, "Danish customs follow EU tariff. Moms at 25%."),
+        ("CN", "US"): (7.00, 1.80, 5, 30, "US customs duties apply. De minimis $800. Section 301 tariffs on Chinese goods."),
+        ("CN", "GB"): (8.00, 2.00, 7, 32, "UK customs duty + VAT 20%. Low value consignment relief for items under GBP135."),
+        ("CN", "DE"): (8.50, 2.20, 7, 33, "EU anti-dumping duties may apply. Standard customs + 19% MwSt."),
+        ("CN", "JP"): (7.50, 1.50, 3, 18, "Japan customs duty varies. Consumption tax 10%. Many items have preferential rates."),
+        ("CN", "KR"): (6.50, 1.20, 2, 12, "Korea-China FTA benefits. Customs duty + VAT 10%."),
+        ("CN", "AU"): (9.00, 2.00, 5, 25, "ChAFTA reduces duties on many Chinese goods. GST 10% on imports over AUD1000."),
+        ("CN", "SG"): (5.50, 1.20, 3, 18, "Most goods duty-free into Singapore. GST 9%."),
+        ("CN", "CA"): (9.00, 2.20, 6, 30, "Canadian customs duties vary. GST/HST applies. De minimis CAD20 for postal."),
+        ("CN", "TH"): (5.50, 1.20, 4, 20, "ACFTA duty-free for many goods. VAT 7%."),
+        ("CN", "IN"): (8.00, 2.00, 5, 28, "Indian customs duties on Chinese goods can be very high. BIS standards apply."),
+        ("CN", "BR"): (12.00, 3.00, 8, 38, "Brazilian import taxes very high on Chinese goods. 60%+ total tax burden."),
+        ("CN", "AE"): (7.00, 1.50, 5, 25, "UAE customs 5% standard rate. Free zone benefits available."),
+        ("CN", "FR"): (8.50, 2.20, 7, 33, "French customs apply EU common external tariff. TVA at 20%."),
+        ("CN", "NL"): (8.00, 2.00, 6, 30, "Netherlands follows EU customs. VAT 21%. Rotterdam major entry point."),
+        ("CN", "IT"): (9.00, 2.30, 7, 33, "Italian customs follow EU tariff. IVA at 22%."),
+        ("CN", "ES"): (9.00, 2.30, 7, 34, "Spanish customs follow EU tariff. IVA at 21%."),
+        ("CN", "VN"): (5.00, 1.00, 3, 14, "ACFTA and RCEP benefits. Very close proximity."),
+        ("CN", "ID"): (6.50, 1.50, 4, 22, "ACFTA benefits. Indonesian customs duties vary. VAT 11%."),
+        ("CN", "MX"): (10.00, 2.50, 6, 32, "Mexican customs duties apply. VAT 16%."),
+        ("CN", "SE"): (9.00, 2.40, 7, 34, "Swedish customs follow EU tariff. Moms at 25%."),
+        ("CN", "PL"): (8.50, 2.20, 6, 32, "Polish customs follow EU tariff. VAT 23%."),
+        ("CN", "SA"): (7.50, 1.80, 5, 26, "Saudi customs 5-20%. VAT 15%."),
+        ("CN", "ZA"): (10.00, 2.50, 7, 32, "South African customs duties vary. VAT 15%."),
+        ("CN", "TR"): (8.50, 2.00, 5, 28, "Turkish customs duties vary. KDV at 20%."),
+        ("CN", "NZ"): (10.00, 2.30, 6, 28, "NZ GST 15%. RCEP benefits."),
+        ("CN", "DK"): (8.80, 2.30, 7, 33, "Danish customs follow EU tariff. Moms at 25%."),
+        ("CN", "BE"): (8.20, 2.10, 6, 31, "Belgian customs follow EU tariff. BTW at 21%."),
+        ("CN", "IE"): (8.50, 2.20, 7, 33, "Irish customs follow EU tariff. VAT at 23%."),
+        ("CN", "NO"): (9.50, 2.50, 7, 34, "Norwegian customs + MVA 25%. Not EU member."),
+        ("KR", "US"): (12.00, 3.00, 4, 24, "KORUS FTA eliminates most duties. US customs still apply on some goods."),
+        ("KR", "JP"): (8.00, 1.80, 2, 12, "Short transit times. Japan customs duties vary by product."),
+        ("KR", "CN"): (7.00, 1.50, 2, 12, "Korea-China FTA benefits. Short sea transit."),
+        ("KR", "VN"): (7.50, 1.80, 3, 18, "KVFTA preferential rates. Growing trade corridor."),
+        ("KR", "DE"): (13.00, 3.50, 5, 32, "EU-Korea FTA eliminates most duties. VAT 19% applies."),
+        ("KR", "AU"): (12.00, 3.00, 5, 24, "KAFTA provides preferential rates. GST 10%."),
+        ("KR", "GB"): (13.00, 3.50, 5, 33, "UK-Korea FTA benefits. VAT 20%."),
+        ("KR", "IN"): (10.00, 2.50, 5, 26, "India-Korea CEPA benefits. Growing trade corridor."),
+        ("KR", "SG"): (8.50, 2.00, 3, 18, "Korea-Singapore FTA benefits. Singapore mostly duty-free."),
+        ("KR", "TH"): (8.00, 1.80, 3, 18, "AKFTA benefits. VAT 7%."),
+        ("KR", "ID"): (9.00, 2.20, 4, 22, "Korea-Indonesia FTA benefits. VAT 11%."),
+        ("JP", "US"): (13.00, 3.50, 4, 24, "US-Japan Trade Agreement benefits. Well-established shipping lanes."),
+        ("JP", "CN"): (8.00, 1.50, 3, 14, "Short transit. RCEP benefits for qualifying goods."),
+        ("JP", "KR"): (8.00, 1.80, 2, 10, "Very short sea route. RCEP framework."),
+        ("JP", "AU"): (12.00, 3.00, 5, 22, "JAEPA eliminates most duties. GST 10%."),
+        ("JP", "GB"): (13.50, 3.80, 5, 35, "UK-Japan CEPA provides preferential rates."),
+        ("JP", "SG"): (9.00, 2.00, 4, 18, "JSEPA benefits. Singapore mostly duty-free."),
+        ("JP", "DE"): (13.50, 3.80, 5, 33, "EU-Japan EPA reduces many duties. VAT 19%."),
+        ("JP", "IN"): (11.00, 2.80, 5, 28, "India-Japan CEPA benefits. Growing trade lane."),
+        ("JP", "TH"): (9.00, 2.00, 4, 20, "JTEPA benefits. VAT 7%."),
+        ("JP", "VN"): (9.00, 2.00, 4, 20, "RCEP and AJCEP benefits. Growing trade lane."),
+        ("DE", "US"): (12.50, 3.50, 5, 28, "US customs duties apply. Strong shipping infrastructure."),
+        ("DE", "CN"): (10.00, 2.50, 6, 32, "Chinese customs duties apply. Growing rail freight option."),
+        ("DE", "GB"): (8.00, 2.00, 3, 14, "Post-Brexit customs declarations required. Short transit."),
+        ("DE", "JP"): (13.00, 3.80, 5, 32, "EU-Japan EPA reduces many duties."),
+        ("DE", "AU"): (14.00, 4.00, 6, 35, "GST 10%. Long shipping distance."),
+        ("DE", "KR"): (13.00, 3.50, 5, 30, "EU-Korea FTA benefits."),
+        ("DE", "FR"): (6.50, 1.80, 2, 10, "EU single market. No customs. Short transit."),
+        ("DE", "NL"): (6.00, 1.50, 2, 8, "EU single market. No customs. Very short transit."),
+        ("DE", "IT"): (7.00, 2.00, 2, 12, "EU single market. No customs."),
+        ("DE", "ES"): (7.50, 2.20, 3, 14, "EU single market. No customs."),
+        ("DE", "IN"): (12.00, 3.00, 6, 30, "Indian customs duties vary significantly."),
+        ("DE", "BR"): (14.50, 4.00, 7, 35, "Brazilian import taxes very high."),
+        ("DE", "TR"): (9.50, 2.50, 4, 22, "Turkey customs union with EU for industrial goods."),
+        ("DE", "PL"): (6.00, 1.50, 2, 8, "EU single market. No customs. Very short transit."),
+        ("DE", "SE"): (7.00, 2.00, 3, 12, "EU single market. No customs."),
+        ("GB", "US"): (12.00, 3.50, 5, 28, "US customs duties apply. Well-established lane."),
+        ("GB", "DE"): (8.50, 2.20, 3, 14, "Post-Brexit EU customs apply. Short transit."),
+        ("GB", "AU"): (13.50, 3.80, 6, 35, "UK-Australia FTA benefits. GST 10%."),
+        ("GB", "JP"): (13.50, 3.80, 5, 35, "UK-Japan CEPA preferential rates."),
+        ("GB", "CA"): (11.00, 3.00, 4, 22, "UK-Canada continuity agreement. GST/HST applies."),
+        ("GB", "IN"): (12.00, 3.00, 6, 30, "Indian customs duties vary significantly. Complex regulations."),
+        ("GB", "FR"): (7.50, 2.00, 2, 10, "Post-Brexit EU customs apply. Short transit via Channel."),
+        ("GB", "NL"): (7.50, 2.00, 2, 10, "Post-Brexit EU customs. Short sea crossing."),
+        ("GB", "CN"): (11.00, 2.80, 6, 33, "Chinese customs duties apply."),
+        ("GB", "KR"): (13.00, 3.50, 5, 33, "UK-Korea FTA benefits."),
+        ("GB", "IE"): (7.00, 1.80, 2, 8, "Very short transit. NI protocol considerations."),
+        ("IN", "US"): (12.00, 2.80, 6, 32, "US customs duties apply. GSP program expired but some benefits."),
+        ("IN", "GB"): (11.00, 2.50, 6, 28, "UK customs apply. India-UK FTA negotiations ongoing."),
+        ("IN", "AE"): (8.00, 1.80, 4, 18, "India-UAE CEPA benefits. Short transit. Major trade lane."),
+        ("IN", "SG"): (9.00, 2.00, 4, 16, "India-Singapore CECA benefits."),
+        ("IN", "DE"): (12.00, 3.00, 6, 30, "EU customs apply. Growing trade corridor."),
+        ("IN", "JP"): (11.00, 2.80, 5, 28, "India-Japan CEPA benefits."),
+        ("IN", "AU"): (11.00, 2.80, 5, 24, "India-Australia ECTA benefits. GST 10%."),
+        ("IN", "CN"): (9.00, 2.20, 5, 26, "Chinese customs duties apply."),
+        ("IN", "KR"): (10.00, 2.50, 5, 24, "India-Korea CEPA benefits."),
+        ("VN", "US"): (11.00, 2.50, 6, 30, "Growing trade lane. US customs duties apply."),
+        ("VN", "JP"): (8.00, 1.80, 3, 16, "RCEP and AJCEP benefits. Short transit."),
+        ("VN", "KR"): (8.00, 1.80, 3, 14, "KVFTA benefits. Short transit."),
+        ("VN", "CN"): (5.50, 1.20, 2, 10, "ACFTA and RCEP benefits. Very close proximity."),
+        ("VN", "DE"): (12.00, 3.00, 7, 33, "EU-Vietnam FTA benefits."),
+        ("VN", "AU"): (10.00, 2.50, 5, 22, "Growing trade lane. GST 10%."),
+        ("TH", "US"): (12.00, 2.80, 5, 28, "Thai goods may qualify for GSP. US customs apply."),
+        ("TH", "JP"): (8.50, 2.00, 3, 16, "JTEPA benefits. Short transit."),
+        ("TH", "CN"): (6.00, 1.30, 3, 16, "ACFTA benefits."),
+        ("TH", "AU"): (10.00, 2.50, 5, 22, "TAFTA benefits. GST 10%."),
+        ("TW", "US"): (12.00, 3.00, 4, 26, "US customs apply. Strong electronics trade lane."),
+        ("TW", "JP"): (8.00, 1.80, 2, 12, "Short transit. Major trade partner."),
+        ("TW", "CN"): (6.00, 1.20, 2, 10, "Cross-strait trade. Short transit."),
+        ("FR", "US"): (12.50, 3.50, 5, 28, "US customs duties apply."),
+        ("FR", "GB"): (7.50, 2.00, 2, 10, "Post-Brexit customs. Channel crossing."),
+        ("FR", "DE"): (6.50, 1.80, 2, 10, "EU single market. No customs."),
+        ("FR", "CN"): (10.00, 2.50, 6, 33, "Chinese customs duties apply."),
+        ("IT", "US"): (13.00, 3.60, 5, 28, "US customs duties apply."),
+        ("IT", "DE"): (7.00, 2.00, 2, 12, "EU single market. No customs."),
+        ("IT", "GB"): (8.50, 2.30, 3, 16, "Post-Brexit UK customs apply."),
+        ("IT", "FR"): (6.50, 1.80, 2, 10, "EU single market. No customs."),
+        ("CA", "US"): (7.50, 2.00, 2, 8, "USMCA duty-free for qualifying goods. Shortest transit."),
+        ("CA", "GB"): (11.00, 3.00, 4, 22, "UK-Canada continuity agreement."),
+        ("CA", "CN"): (11.00, 2.80, 6, 28, "Chinese customs duties apply."),
+        ("CA", "JP"): (12.00, 3.20, 4, 22, "CPTPP benefits."),
+        ("MX", "US"): (8.50, 2.50, 2, 10, "USMCA benefits. Very short transit. Major trade lane."),
+        ("MX", "CA"): (10.00, 3.00, 3, 18, "USMCA benefits."),
+        ("MX", "DE"): (13.00, 3.50, 6, 30, "EU-Mexico FTA benefits."),
+        ("BR", "US"): (14.00, 3.50, 6, 25, "US customs duties apply. Growing e-commerce trade."),
+        ("BR", "DE"): (14.00, 3.80, 7, 32, "EU customs apply."),
+        ("BR", "CN"): (13.00, 3.20, 8, 35, "Chinese customs apply. Major commodity trade."),
+        ("AU", "US"): (14.00, 3.80, 5, 28, "AUSFTA benefits. US customs apply."),
+        ("AU", "NZ"): (8.00, 2.00, 2, 8, "CER agreement. Very short transit."),
+        ("AU", "JP"): (12.00, 3.00, 4, 18, "JAEPA benefits. Major trade partner."),
+        ("AU", "SG"): (10.00, 2.50, 4, 14, "SAFTA benefits. Singapore mostly duty-free."),
+        ("AU", "GB"): (13.50, 3.80, 6, 35, "UK-Australia FTA benefits."),
+        ("AU", "CN"): (10.00, 2.50, 5, 22, "ChAFTA benefits."),
+        ("AU", "IN"): (11.00, 2.80, 5, 24, "India-Australia ECTA benefits."),
+        ("AU", "KR"): (11.00, 2.80, 4, 20, "KAFTA benefits."),
+        ("ID", "US"): (13.00, 3.00, 6, 30, "US customs apply."),
+        ("ID", "JP"): (9.00, 2.00, 4, 18, "IJEPA benefits."),
+        ("ID", "CN"): (7.00, 1.50, 4, 20, "ACFTA benefits."),
+        ("ID", "AU"): (10.00, 2.50, 4, 16, "IA-CEPA benefits. GST 10%."),
+        ("TR", "US"): (13.00, 3.50, 5, 30, "US customs apply."),
+        ("TR", "DE"): (9.00, 2.30, 4, 20, "Customs union with EU for industrial goods."),
+        ("TR", "GB"): (10.00, 2.80, 4, 24, "UK-Turkey FTA benefits."),
+        ("NL", "US"): (12.00, 3.20, 4, 26, "Rotterdam hub advantage. US customs apply."),
+        ("NL", "GB"): (7.50, 2.00, 2, 10, "Post-Brexit UK customs. Short sea crossing."),
+        ("NL", "DE"): (5.50, 1.50, 1, 6, "EU single market. No customs. Very short transit."),
+        ("ES", "US"): (13.00, 3.60, 5, 28, "US customs apply."),
+        ("ES", "GB"): (8.50, 2.30, 3, 16, "Post-Brexit UK customs."),
+        ("ES", "DE"): (7.50, 2.00, 3, 14, "EU single market. No customs."),
+        ("ES", "FR"): (6.50, 1.80, 2, 10, "EU single market. No customs."),
+    }
+
+    # Geographic coordinates for distance calculation (lat, lon)
+    COORDS = {
+        "US": (38.9, -77.0), "CN": (31.2, 121.5), "KR": (37.6, 127.0),
+        "JP": (35.7, 139.7), "DE": (50.1, 8.7), "GB": (51.5, -0.1),
+        "IN": (19.1, 72.9), "VN": (10.8, 106.6), "TH": (13.8, 100.5),
+        "TW": (25.0, 121.5), "FR": (48.9, 2.3), "IT": (41.9, 12.5),
+        "CA": (43.7, -79.4), "MX": (19.4, -99.1), "BR": (-23.5, -46.6),
+        "AU": (-33.9, 151.2), "ID": (-6.2, 106.8), "TR": (41.0, 29.0),
+        "NL": (52.4, 4.9), "ES": (40.4, -3.7),
+        # Destination-only extras
+        "SE": (59.3, 18.1), "SG": (1.3, 103.8), "AE": (25.3, 55.3),
+        "SA": (21.5, 39.2), "ZA": (-33.9, 18.4), "PL": (52.2, 21.0),
+        "BE": (50.8, 4.3), "IE": (53.3, -6.3), "NZ": (-36.8, 174.8),
+        "NO": (59.9, 10.8), "DK": (55.7, 12.6),
+    }
+
+    # 20 origin countries
+    ORIGINS = ["US", "CN", "KR", "JP", "DE", "GB", "IN", "VN", "TH", "TW",
+               "FR", "IT", "CA", "MX", "BR", "AU", "ID", "TR", "NL", "ES"]
+
+    # 30 destination countries
+    DESTS = ["US", "GB", "DE", "FR", "CA", "AU", "JP", "KR", "CN", "IN",
+             "BR", "MX", "NL", "ES", "IT", "SE", "SG", "AE", "SA", "ZA",
+             "TH", "VN", "ID", "TR", "PL", "BE", "IE", "NZ", "NO", "DK"]
+
+    # Country name lookup from countries list
+    country_names = {}
+    for row in conn.execute("SELECT code, name FROM countries").fetchall():
+        country_names[row[0]] = row[1]
+
+    # VAT/tax info for destination countries
+    dest_vat = {
+        "US": "US customs duties vary by product. De minimis $800.",
+        "GB": "UK customs duty + VAT 20%.",
+        "DE": "German customs + VAT (MwSt) 19%.",
+        "FR": "French customs + TVA 20%.",
+        "CA": "Canadian customs + GST/HST. CUSMA may apply.",
+        "AU": "Australian GST 10% on imports over AUD1000.",
+        "JP": "Japan consumption tax 10%. Customs duty varies.",
+        "KR": "Korea customs duty + VAT 10%.",
+        "CN": "Chinese customs duties vary. Cross-border e-commerce rates apply.",
+        "IN": "Indian customs duties vary (0-150%). GST applies.",
+        "BR": "Brazilian import taxes total 60%+ on many goods.",
+        "MX": "Mexican customs duties vary. IVA 16%.",
+        "NL": "Netherlands follows EU customs. BTW 21%.",
+        "ES": "Spanish customs follow EU tariff. IVA 21%.",
+        "IT": "Italian customs follow EU tariff. IVA 22%.",
+        "SE": "Swedish customs follow EU tariff. Moms 25%.",
+        "SG": "Singapore has no customs duty on most goods. GST 9%.",
+        "AE": "UAE VAT 5%. Customs duty 5% standard rate.",
+        "SA": "Saudi customs duty 5-20%. VAT 15%.",
+        "ZA": "South African customs duties vary. VAT 15%.",
+        "TH": "Thai customs duties vary. VAT 7%.",
+        "VN": "Vietnam customs duties vary. VAT 10%.",
+        "ID": "Indonesian customs duties vary. VAT 11%.",
+        "TR": "Turkish customs duties vary. KDV 20%.",
+        "PL": "Polish customs follow EU tariff. VAT 23%.",
+        "BE": "Belgian customs follow EU tariff. BTW 21%.",
+        "IE": "Irish customs follow EU tariff. VAT 23%.",
+        "NZ": "New Zealand GST 15%. Customs duties apply.",
+        "NO": "Norwegian customs + MVA 25%. Not EU member.",
+        "DK": "Danish customs follow EU tariff. Moms 25%.",
+    }
+
+    # EU member codes (intra-EU = no customs)
+    EU = {"DE", "FR", "NL", "ES", "IT", "SE", "PL", "BE", "IE", "NO", "DK",
+          "AT", "CZ", "PT", "GR", "HU", "RO", "BG", "HR", "SK", "SI",
+          "LT", "LV", "EE", "LU", "MT", "CY", "FI"}
+    # Note: NO is EEA not EU, but treated similarly for shipping simplicity
+
+    def haversine(c1, c2):
+        """Distance in km between two (lat, lon) pairs."""
+        lat1, lon1 = math.radians(c1[0]), math.radians(c1[1])
+        lat2, lon2 = math.radians(c2[0]), math.radians(c2[1])
+        dlat = lat2 - lat1
+        dlon = lon2 - lon1
+        a = math.sin(dlat/2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2
+        return 6371 * 2 * math.asin(math.sqrt(a))
+
+    def deterministic_noise(origin, dest, seed_str):
+        """Small deterministic variation based on route pair."""
+        h = int(hashlib.md5(f"{origin}-{dest}-{seed_str}".encode()).hexdigest()[:8], 16)
+        return (h % 100 - 50) / 100.0  # -0.50 to +0.49
+
+    def generate_route(origin, dest):
+        """Generate realistic shipping data based on distance and country characteristics."""
+        if origin not in COORDS or dest not in COORDS:
+            return None
+        dist = haversine(COORDS[origin], COORDS[dest])
+
+        # Both in EU = much cheaper, faster
+        intra_eu = origin in EU and dest in EU
+
+        if intra_eu:
+            # Intra-EU: short distances, no customs
+            air_cost = round(5.50 + dist / 3000 * 3.0 + deterministic_noise(origin, dest, "ac") * 0.5, 2)
+            sea_cost = round(1.30 + dist / 3000 * 1.5 + deterministic_noise(origin, dest, "sc") * 0.3, 2)
+            air_days = max(1, round(1 + dist / 3000 * 2 + deterministic_noise(origin, dest, "ad") * 0.5))
+            sea_days = max(4, round(5 + dist / 1000 * 3 + deterministic_noise(origin, dest, "sd") * 1))
+            notes = f"EU single market. No customs duties between {country_names.get(origin, origin)} and {country_names.get(dest, dest)}."
+        else:
+            # Base cost scales with distance
+            air_base = 8.0 + dist / 2000 * 4.0
+            sea_base = 1.80 + dist / 2000 * 1.5
+
+            # Adjust for origin cost factor (cheaper origins like CN, VN)
+            origin_factor = {
+                "CN": 0.70, "VN": 0.75, "TH": 0.78, "ID": 0.80, "IN": 0.80,
+                "TW": 0.82, "KR": 0.88, "MX": 0.85, "TR": 0.85,
+                "BR": 1.05, "AU": 1.05, "JP": 1.00, "US": 1.00,
+                "DE": 0.95, "GB": 0.95, "FR": 0.97, "IT": 0.98,
+                "NL": 0.93, "ES": 0.97, "CA": 0.95,
+            }.get(origin, 1.0)
+
+            air_cost = round(air_base * origin_factor + deterministic_noise(origin, dest, "ac") * 1.0, 2)
+            sea_cost = round(sea_base * origin_factor + deterministic_noise(origin, dest, "sc") * 0.3, 2)
+            air_days = max(2, round(2 + dist / 3000 * 4 + deterministic_noise(origin, dest, "ad") * 0.5))
+            sea_days = max(8, round(8 + dist / 1000 * 2.5 + deterministic_noise(origin, dest, "sd") * 2))
+
+            dest_name = country_names.get(dest, dest)
+            origin_name = country_names.get(origin, origin)
+            notes = dest_vat.get(dest, f"Customs duties for {dest_name} vary by product category.")
+
+        # Clamp to reasonable ranges
+        air_cost = max(5.0, min(20.0, air_cost))
+        sea_cost = max(1.0, min(6.0, sea_cost))
+        air_days = max(1, min(12, air_days))
+        sea_days = max(4, min(45, sea_days))
+
+        return (air_cost, sea_cost, air_days, sea_days, notes)
+
+    inserted = set()
+    # First insert curated routes
+    for (origin, dest), (air_cost, sea_cost, air_days, sea_days, notes) in curated.items():
         slug = f"{origin.lower()}-to-{dest.lower()}"
         conn.execute(
             "INSERT INTO routes (origin_code, dest_code, slug, avg_cost_kg_air, avg_cost_kg_sea, avg_days_air, avg_days_sea, customs_notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
             (origin, dest, slug, air_cost, sea_cost, air_days, sea_days, notes)
         )
+        inserted.add((origin, dest))
+
+    # Then generate remaining routes
+    for origin in ORIGINS:
+        for dest in DESTS:
+            if origin == dest:
+                continue
+            if (origin, dest) in inserted:
+                continue
+            data = generate_route(origin, dest)
+            if data is None:
+                continue
+            air_cost, sea_cost, air_days, sea_days, notes = data
+            slug = f"{origin.lower()}-to-{dest.lower()}"
+            conn.execute(
+                "INSERT INTO routes (origin_code, dest_code, slug, avg_cost_kg_air, avg_cost_kg_sea, avg_days_air, avg_days_sea, customs_notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                (origin, dest, slug, air_cost, sea_cost, air_days, sea_days, notes)
+            )
+            inserted.add((origin, dest))
 
 
 def insert_ports(conn: sqlite3.Connection):
