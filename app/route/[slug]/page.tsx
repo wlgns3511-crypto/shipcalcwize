@@ -213,6 +213,15 @@ export default async function RoutePage({ params }: Props) {
         </div>
       </section>
 
+      {/* Related Data Resources */}
+      <section className="mb-8 p-4 bg-slate-50 rounded-lg">
+        <h3 className="text-sm font-semibold text-slate-500 mb-2">Related Data Resources</h3>
+        <div className="flex flex-wrap gap-3 text-sm">
+          <a href="https://tariffpeek.com" className="text-amber-600 hover:underline">TariffPeek - HS codes &amp; tariff rates &rarr;</a>
+          <a href="https://calcpeek.com" className="text-amber-600 hover:underline">CalcPeek - Unit converters &rarr;</a>
+        </div>
+      </section>
+
       {/* Cross-links */}
       <div className="flex flex-wrap gap-3 text-sm mb-6">
         <a href={`/country/${route.origin_slug}`} className="text-amber-600 hover:underline">All {route.origin_name} routes</a>
