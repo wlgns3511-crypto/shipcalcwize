@@ -70,6 +70,7 @@ export default function RootLayout({
               <a href="/calculator" className="text-slate-600 hover:text-amber-600">Calculator</a>
               <a href="/compare" className="text-slate-600 hover:text-amber-600">Compare</a>
               <a href="/about" className="text-slate-600 hover:text-amber-600">About</a>
+              <a href="/es/" className="text-slate-600 hover:text-amber-600 font-semibold">ES</a>
             </nav>
           </div>
         </header>

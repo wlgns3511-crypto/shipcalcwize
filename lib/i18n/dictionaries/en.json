@@ -1,0 +1,19 @@
+{
+  "siteName": "ShipCalcWize",
+  "title": "International Shipping Cost Calculator",
+  "description": "Compare international shipping costs, transit times, and carriers.",
+  "shipping": "Shipping",
+  "shippingCost": "Shipping Cost",
+  "airFreight": "Air Freight",
+  "seaFreight": "Sea Freight",
+  "expressCourier": "Express Courier",
+  "transitDays": "Transit Days",
+  "perKg": "/kg",
+  "transit": "transit",
+  "costComparison": "Cost Comparison",
+  "carrierOptions": "Carrier Options",
+  "requiredDocs": "Required Shipping Documents",
+  "faq": "Frequently Asked Questions",
+  "viewInEnglish": "English version",
+  "viewInSpanish": "Espa\u00f1ol"
+}

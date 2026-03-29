@@ -1,0 +1,19 @@
+{
+  "siteName": "ShipCalcWize",
+  "title": "Calculadora de Costos de Env\u00edo Internacional",
+  "description": "Compara costos de env\u00edo internacional, tiempos de tr\u00e1nsito y transportistas.",
+  "shipping": "Env\u00edo",
+  "shippingCost": "Costo de Env\u00edo",
+  "airFreight": "Flete A\u00e9reo",
+  "seaFreight": "Flete Mar\u00edtimo",
+  "expressCourier": "Mensajer\u00eda Express",
+  "transitDays": "D\u00edas de Tr\u00e1nsito",
+  "perKg": "/kg",
+  "transit": "tr\u00e1nsito",
+  "costComparison": "Comparaci\u00f3n de Costos",
+  "carrierOptions": "Opciones de Transportista",
+  "requiredDocs": "Documentos de Env\u00edo Requeridos",
+  "faq": "Preguntas Frecuentes",
+  "viewInEnglish": "English version",
+  "viewInSpanish": "Espa\u00f1ol"
+}
