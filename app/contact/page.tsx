@@ -39,6 +39,19 @@ export default function ContactPage() {
         Our shipping cost data is based on published carrier rates and industry averages. If you believe there is an
         error in the data displayed on our site, please email us with the specific page URL and a description of the issue.
       </p>
+
+      <h2 className="text-xl font-semibold mt-8 mb-3">DataPeek Facts Network</h2>
+      <p>
+        ShipCalcWize is part of the{" "}
+        <a href="https://datapeekfacts.com" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
+          DataPeek Facts
+        </a>{" "}
+        network of free US data tools. For general inquiries about the network, partnerships, or cross-platform
+        questions, contact the DataPeek Facts team at{" "}
+        <a href="mailto:datapeekfacts@gmail.com" className="text-blue-600 hover:underline">
+          datapeekfacts@gmail.com
+        </a>.
+      </p>
     </article>
   );
 }
