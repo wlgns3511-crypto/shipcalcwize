@@ -40,6 +40,25 @@ export default function RootLayout({
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_ID}`}
           crossOrigin="anonymous"
         />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebSite",
+              "name": "ShipCalcWize",
+              "url": "https://shipcalcwize.com",
+              "description": "Compare international shipping costs, transit times, and carriers. Free calculator for air freight, ocean freight, and express shipping rates worldwide.",
+              "inLanguage": "en-US"
+            },
+            {
+              "@type": "Organization",
+              "name": "ShipCalcWize",
+              "url": "https://shipcalcwize.com",
+              "description": "Compare international shipping costs, transit times, and carriers. Free calculator for air freight, ocean freight, and express shipping rates worldwide.",
+              "sameAs": []
+            }
+          ]
+        }) }} />
       </head>
       <body className={`${inter.className} antialiased bg-white text-slate-900 min-h-screen flex flex-col`}>
         <header className="border-b border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50">
