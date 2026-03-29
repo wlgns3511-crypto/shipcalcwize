@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getAllRoutes, getAllRouteSlugs, getRouteBySlug, getAllCountries, getCarriers, getCountryByCode } from "@/lib/db";
+import { getAllRoutes, getAllRouteSlugs, getRouteBySlug, getAllCountries, getCarriers, getCountryByCode, getRoutesByOrigin, getRoutesByDest } from "@/lib/db";
 import { formatCost, formatDays, countryCodeToFlag } from "@/lib/format";
 import { ShippingCalculator } from "@/components/ShippingCalculator";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -37,6 +37,8 @@ export default async function RoutePage({ params }: Props) {
 
   const allCountries = getAllCountries();
   const carriers = getCarriers();
+  const sameOriginRoutes = getRoutesByOrigin(route.origin_code).filter(r => r.slug !== slug).slice(0, 6);
+  const sameDestRoutes = getRoutesByDest(route.dest_code).filter(r => r.slug !== slug).slice(0, 6);
   const expressCarriers = carriers.filter((c) => c.type === "express");
   const seaCarriers = carriers.filter((c) => c.type === "sea");
   const airCarriers = carriers.filter((c) => c.type === "air");
@@ -221,6 +223,44 @@ export default async function RoutePage({ params }: Props) {
           <a href="https://calcpeek.com" className="text-amber-600 hover:underline">CalcPeek - Unit converters &rarr;</a>
         </div>
       </section>
+
+      {/* Compare with other routes */}
+      {(sameOriginRoutes.length > 0 || sameDestRoutes.length > 0) && (
+        <section className="mb-8">
+          <h2 className="text-xl font-bold mb-3">Compare Shipping Routes</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {sameOriginRoutes.length > 0 && (
+              <div>
+                <h3 className="font-semibold text-amber-800 mb-2">Other Routes from {route.origin_name}</h3>
+                <div className="space-y-2">
+                  {sameOriginRoutes.map((r) => {
+                    const costDiff = (r.avg_cost_kg_air ?? 0) - (route.avg_cost_kg_air ?? 0);
+                    return (
+                      <a key={r.slug} href={`/route/${r.slug}`} className="flex justify-between items-center p-3 border border-slate-200 rounded-lg hover:border-amber-300 hover:bg-amber-50 transition-all text-sm">
+                        <span className="font-medium text-amber-700">{route.origin_name} to {r.dest_name}</span>
+                        <span className="text-xs text-slate-500">Air: {formatCost(r.avg_cost_kg_air)}/kg</span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            {sameDestRoutes.length > 0 && (
+              <div>
+                <h3 className="font-semibold text-blue-800 mb-2">Other Routes to {route.dest_name}</h3>
+                <div className="space-y-2">
+                  {sameDestRoutes.map((r) => (
+                    <a key={r.slug} href={`/route/${r.slug}`} className="flex justify-between items-center p-3 border border-slate-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-all text-sm">
+                      <span className="font-medium text-blue-700">{r.origin_name} to {route.dest_name}</span>
+                      <span className="text-xs text-slate-500">Air: {formatCost(r.avg_cost_kg_air)}/kg</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Cross-links */}
       <div className="flex flex-wrap gap-3 text-sm mb-6">
