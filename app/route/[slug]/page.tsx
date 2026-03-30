@@ -9,6 +9,7 @@ import { EmbedButton } from "@/components/EmbedButton";
 import { DataFeedback } from "@/components/DataFeedback";
 import { FreshnessTag } from "@/components/FreshnessTag";
 import { breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/schema";
+import { AuthorBox } from "@/components/AuthorBox";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -281,6 +282,7 @@ export default async function RoutePage({ params }: Props) {
       />
       <DataFeedback />
       <FreshnessTag source="Carrier rate sheets, industry averages" />
+      <AuthorBox />
     </div>
   );
 }
