@@ -10,6 +10,10 @@ import { DataFeedback } from "@/components/DataFeedback";
 import { FreshnessTag } from "@/components/FreshnessTag";
 import { breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/schema";
 import { AuthorBox } from "@/components/AuthorBox";
+import { EditorNote } from "@/components/EditorNote";
+import { DidYouKnow } from "@/components/DidYouKnow";
+import { DataSourceBadge } from "@/components/DataSourceBadge";
+import { CrossSiteLinks } from "@/components/CrossSiteLinks";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -65,11 +69,15 @@ export default async function RoutePage({ params }: Props) {
 
   return (
     <div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema(
-        `Shipping from ${route.origin_name} to ${route.dest_name}`,
-        `International shipping costs and transit times from ${route.origin_name} to ${route.dest_name}`,
-        `/route/${slug}`
-      )) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        ...webPageSchema(
+          `Shipping from ${route.origin_name} to ${route.dest_name}`,
+          `International shipping costs and transit times from ${route.origin_name} to ${route.dest_name}`,
+          `/route/${slug}`
+        ),
+        dateModified: "2026-03-31",
+        author: { "@type": "Organization", name: "DataPeek" },
+      }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([
         { name: "Home", url: "/" },
         { name: route.origin_name, url: `/country/${route.origin_slug}` },
@@ -90,6 +98,8 @@ export default async function RoutePage({ params }: Props) {
         Compare air freight, sea freight, and express shipping costs and transit times
         for the {route.origin_name} to {route.dest_name} route.
       </p>
+
+      <EditorNote note={`Shipping costs between ${route.origin_name} and ${route.dest_name} can vary significantly by carrier, season, and cargo type. The rates shown below are industry averages — always request quotes from multiple carriers for the best deal.`} />
 
       {/* Cost comparison cards */}
       <div className="grid gap-4 md:grid-cols-3 mb-8">
@@ -201,6 +211,8 @@ export default async function RoutePage({ params }: Props) {
         </section>
       )}
 
+      <DidYouKnow fact="Over 80% of global trade by volume is carried by sea. A single large container ship can carry over 20,000 TEUs (twenty-foot equivalent units) — enough to hold 745 million bananas." />
+
       <AdSlot id="3456789013" />
 
       {/* FAQs */}
@@ -273,6 +285,14 @@ export default async function RoutePage({ params }: Props) {
         <span className="text-slate-300">|</span>
         <a href="https://tariffpeek.com" className="text-amber-600 hover:underline">HS Codes &amp; Tariffs</a>
       </div>
+
+      <DataSourceBadge sources={[
+        { name: "USPS", url: "https://www.usps.com" },
+        { name: "FedEx", url: "https://www.fedex.com" },
+        { name: "UPS", url: "https://www.ups.com" },
+      ]} />
+
+      <CrossSiteLinks current="ShipCalcWize" />
 
       <EmbedButton
         url={`https://shipcalcwize.com/embed/shipping-calc?origin=${route.origin_code}&dest=${route.dest_code}`}

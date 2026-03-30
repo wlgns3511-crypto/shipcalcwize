@@ -27,7 +27,7 @@ export default async function SearchPage({ searchParams }: Props) {
   const { q } = await searchParams;
   const query = (q ?? "").trim();
 
-  const results = query.length >= 2 ? searchRoutes(query, 50) : [];
+  const results = query.length >= 2 ? searchRoutes(query).slice(0, 50) : [];
   const popular = query ? [] : getPopularRoutes(12);
 
   return (
