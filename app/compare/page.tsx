@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getPopularRoutes, getAllCountries } from "@/lib/db";
 import { formatCost, formatDays } from "@/lib/format";
 import { AdSlot } from "@/components/AdSlot";
-import { webPageSchema } from "@/lib/schema";
+import { webPageSchema, itemListSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Compare International Shipping Routes - Cost & Transit Time Comparison",
@@ -27,6 +27,7 @@ export default function ComparePage() {
         "Side-by-side comparison of international shipping costs and transit times",
         "/compare"
       )) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema('Popular International Shipping Routes', '/compare', routes.slice(0, 50).map(r => ({ name: `${r.origin_name} to ${r.dest_name}`, url: `/route/${r.slug}` })))) }} />
 
       <h1 className="text-3xl font-bold mb-3 text-amber-900">
         Compare International Shipping Routes

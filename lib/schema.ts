@@ -56,3 +56,19 @@ export function webPageSchema(title: string, description: string, url: string) {
     dateModified: new Date().toISOString(),
   };
 }
+
+export function itemListSchema(name: string, url: string, items: { name: string; url: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name,
+    url: `${SITE_URL}${url}`,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      url: `${SITE_URL}${item.url}`,
+    })),
+  };
+}
