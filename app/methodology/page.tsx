@@ -49,9 +49,19 @@ export default function MethodologyPage() {
         with primary sources for important decisions.
       </p>
 
+      <h2>Official Data Sources</h2>
+      <ul>
+        <li><a href="https://www.wcoomd.org/" target="_blank" rel="noopener noreferrer">World Customs Organization (WCO)</a> &mdash; Harmonized System classification and customs standards</li>
+        <li><a href="https://www.trade.gov/" target="_blank" rel="noopener noreferrer">International Trade Administration (ITA)</a> &mdash; U.S. trade data and export regulations</li>
+        <li><a href="https://www.cbp.gov/" target="_blank" rel="noopener noreferrer">U.S. Customs and Border Protection (CBP)</a> &mdash; Import duties and trade compliance</li>
+        <li><a href="https://unctad.org/" target="_blank" rel="noopener noreferrer">UNCTAD</a> &mdash; International trade and development statistics</li>
+        <li><a href="https://www.ups.com/us/en/support/shipping-support/shipping-costs-and-rates.page" target="_blank" rel="noopener noreferrer">UPS Rate Information</a> &mdash; Carrier shipping rate references</li>
+        <li><a href="https://www.fedex.com/en-us/shipping/rate-information.html" target="_blank" rel="noopener noreferrer">FedEx Rate Information</a> &mdash; Express and freight rate references</li>
+      </ul>
+
       <h2>Contact</h2>
       <p>
-        If you find inaccuracies or have suggestions for improvement, please 
+        If you find inaccuracies or have suggestions for improvement, please
         <a href="/contact">contact us</a>. We value community input in maintaining data quality.
       </p>
     </article>

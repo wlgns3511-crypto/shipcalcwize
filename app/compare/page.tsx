@@ -7,6 +7,8 @@ import { webPageSchema, itemListSchema } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "Compare International Shipping Routes - Cost & Transit Time Comparison",
   description: "Compare shipping costs and transit times between different international routes. Side-by-side comparison of air freight, sea freight, and express courier rates.",
+  alternates: { canonical: "https://shipcalcwize.com/compare/" },
+  openGraph: { title: "Compare International Shipping Routes", description: "Compare shipping costs and transit times between different international routes.", url: "https://shipcalcwize.com/compare/" },
 };
 
 export default function ComparePage() {
