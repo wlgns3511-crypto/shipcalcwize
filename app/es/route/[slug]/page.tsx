@@ -24,9 +24,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `Envío de ${route.origin_name} a ${route.dest_name} - Costos y Tiempos de Tránsito`,
     description: `Envío de ${route.origin_name} a ${route.dest_name}: Flete aéreo ${formatCost(route.avg_cost_kg_air)}/kg (${formatDays(route.avg_days_air)}), flete marítimo ${formatCost(route.avg_cost_kg_sea)}/kg (${formatDays(route.avg_days_sea)}).`,
     alternates: {
-      canonical: `${SITE_URL}/es/route/${slug}/`,
-      languages: { en: `${SITE_URL}/route/${slug}/`, es: `${SITE_URL}/es/route/${slug}/` },
+      canonical: `/es/route/${slug}/`,
+      languages: { en: `/route/${slug}/`, es: `/es/route/${slug}/` },
     },
+    openGraph: { url: `/es/route/${slug}/` },
   };
 }
 

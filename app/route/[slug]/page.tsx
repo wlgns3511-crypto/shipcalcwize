@@ -32,6 +32,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Shipping from ${route.origin_name} to ${route.dest_name} - Costs, Transit Times & Carriers`,
     description: `Ship from ${route.origin_name} to ${route.dest_name}: Air freight ${formatCost(route.avg_cost_kg_air)}/kg (${formatDays(route.avg_days_air)}), sea freight ${formatCost(route.avg_cost_kg_sea)}/kg (${formatDays(route.avg_days_sea)}). Compare carriers and get quotes.`,
+    alternates: { canonical: `/route/${slug}/` },
+    openGraph: { url: `/route/${slug}/` },
   };
 }
 

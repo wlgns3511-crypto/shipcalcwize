@@ -18,11 +18,9 @@ export const metadata: Metadata = {
     "Compare international shipping costs, transit times, and carriers. Free calculator for air freight, ocean freight, and express shipping rates worldwide.",
   metadataBase: new URL(SITE_URL),
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    url: SITE_URL,
     locale: "en_US",
   },
   twitter: { card: "summary_large_image" },

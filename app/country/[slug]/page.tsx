@@ -26,6 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Shipping to ${country.name} - International Shipping Costs & Transit Times`,
     description: `Compare shipping costs to ${country.name}. Air freight from ${formatCost(country.avg_shipping_cost_kg_air)}/kg, sea freight from ${formatCost(country.avg_shipping_cost_kg_sea)}/kg. Transit times, carriers, customs info.`,
+    alternates: { canonical: `/country/${slug}/` },
+    openGraph: { url: `/country/${slug}/` },
   };
 }
 
