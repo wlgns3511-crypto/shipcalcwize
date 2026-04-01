@@ -4,6 +4,7 @@ export const metadata: Metadata = {
   title: "Our Methodology",
   description: "Learn how ShipCalcWize collects, processes, and verifies international shipping cost estimates and customs information.",
   alternates: { canonical: "/methodology/" },
+  openGraph: { url: "/methodology/" },
 };
 
 export default function MethodologyPage() {

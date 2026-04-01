@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description:
     "Expert guides on international shipping, carrier comparisons, customs clearance, Incoterms, and freight cost optimization.",
   alternates: { canonical: "/blog/" },
+  openGraph: { url: "/blog/" },
 };
 
 function formatDate(dateStr: string) {

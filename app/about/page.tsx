@@ -4,6 +4,7 @@ export const metadata: Metadata = {
   title: "About ShipCalcWize",
   description: "Learn about ShipCalcWize, our mission, and data sources for international shipping cost data.",
   alternates: { canonical: "/about/" },
+  openGraph: { url: "/about/" },
 };
 
 export default function AboutPage() {

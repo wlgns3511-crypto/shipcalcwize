@@ -5,6 +5,7 @@ import { ShippingCalculator } from "@/components/ShippingCalculator";
 export const metadata: Metadata = {
   title: "Shipping Calculator Embed",
   robots: { index: false, follow: false },
+  openGraph: { url: "/embed/shipping-calc/" },
 };
 
 export default function EmbedShippingCalcPage() {

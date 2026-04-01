@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "International Shipping Calculator - Estimate Costs & Transit Times",
   description: "Free international shipping cost calculator. Estimate air freight, sea freight, and express courier costs with transit times for shipments worldwide.",
   alternates: { canonical: "/calculator/" },
+  openGraph: { url: "/calculator/" },
 };
 
 export default function CalculatorPage() {

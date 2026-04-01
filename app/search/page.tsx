@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Search Shipping Routes - ShipCalcWize",
   description: "Search international shipping routes by country. Compare air freight, sea freight, and express courier costs and transit times.",
   alternates: { canonical: "/search/" },
+  openGraph: { url: "/search/" },
 };
 
 interface Props {

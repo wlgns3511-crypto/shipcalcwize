@@ -7,6 +7,7 @@ import { datasetSchema, faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
+  openGraph: { url: "/" },
 };
 
 export default function Home() {
