@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import { getAllCountries, getPopularRoutes, getCarriers, getCountriesByRegion } from "@/lib/db";
 import { formatCost, formatDays } from "@/lib/format";
 import { ShippingCalculator } from "@/components/ShippingCalculator";
 import { AdSlot } from "@/components/AdSlot";
 import { datasetSchema, faqSchema } from "@/lib/schema";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   const countries = getAllCountries();
