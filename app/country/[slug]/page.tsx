@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getAllCountries, getCountryBySlug, getRoutesByOrigin, getRoutesByDest, getPortsByCountry } from "@/lib/db";
+import { getAllCountries, getCountryBySlug, getRoutesByOrigin, getRoutesByDest, getPortsByCountry, getRegionAvgCost } from "@/lib/db";
 import { formatCost, formatDays, countryCodeToFlag } from "@/lib/format";
 import { ShippingCalculator } from "@/components/ShippingCalculator";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -8,6 +8,7 @@ import { AdSlot } from "@/components/AdSlot";
 import { DataFeedback } from "@/components/DataFeedback";
 import { FreshnessTag } from "@/components/FreshnessTag";
 import { InsightCards } from "@/components/InsightCards";
+import { ShippingCostBar } from "@/components/ShippingCostBar";
 import { breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/schema";
 
 interface Props {
@@ -43,6 +44,7 @@ export default async function CountryPage({ params }: Props) {
   const ports = getPortsByCountry(country.code);
   const seaPorts = ports.filter((p) => p.port_type === "sea");
   const airPorts = ports.filter((p) => p.port_type === "air");
+  const regionAvg = getRegionAvgCost(country.region);
 
   const countryOptions = allCountries.map((c) => ({ code: c.code, name: c.name }));
 
@@ -89,6 +91,16 @@ export default async function CountryPage({ params }: Props) {
       </p>
 
       <InsightCards country={country} />
+
+      <ShippingCostBar
+        countryName={country.name}
+        airCost={country.avg_shipping_cost_kg_air}
+        seaCost={country.avg_shipping_cost_kg_sea}
+        airDays={country.avg_transit_days_air}
+        seaDays={country.avg_transit_days_sea}
+        regionName={country.region}
+        regionAvg={regionAvg}
+      />
 
       {/* Overview cards */}
       <div className="grid gap-4 md:grid-cols-4 mb-8">
