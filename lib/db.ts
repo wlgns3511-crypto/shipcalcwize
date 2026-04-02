@@ -162,6 +162,44 @@ export function getAllRouteSlugs(limit = 49000): { slug: string }[] {
   return getDb().prepare('SELECT slug FROM routes ORDER BY slug LIMIT ?').all(limit) as { slug: string }[];
 }
 
+// --- Ranking helpers ---
+
+export function getAirCostRank(slug: string): { rank: number; total: number } {
+  const total = (getDb().prepare("SELECT COUNT(*) as c FROM countries WHERE avg_shipping_cost_kg_air IS NOT NULL").get() as { c: number }).c;
+  const country = getCountryBySlug(slug);
+  if (!country || country.avg_shipping_cost_kg_air == null) return { rank: 0, total };
+  const cheaper = (getDb().prepare(
+    "SELECT COUNT(*) as c FROM countries WHERE avg_shipping_cost_kg_air IS NOT NULL AND avg_shipping_cost_kg_air < ?"
+  ).get(country.avg_shipping_cost_kg_air) as { c: number }).c;
+  return { rank: cheaper + 1, total };
+}
+
+export function getRegionAvgCost(region: string): { avgAir: number; avgSea: number; avgDaysAir: number; avgDaysSea: number } {
+  const row = getDb().prepare(
+    "SELECT AVG(avg_shipping_cost_kg_air) as avgAir, AVG(avg_shipping_cost_kg_sea) as avgSea, AVG(avg_transit_days_air) as avgDaysAir, AVG(avg_transit_days_sea) as avgDaysSea FROM countries WHERE region = ? AND avg_shipping_cost_kg_air IS NOT NULL"
+  ).get(region) as { avgAir: number; avgSea: number; avgDaysAir: number; avgDaysSea: number };
+  return {
+    avgAir: Math.round(row.avgAir * 100) / 100,
+    avgSea: Math.round(row.avgSea * 100) / 100,
+    avgDaysAir: Math.round(row.avgDaysAir),
+    avgDaysSea: Math.round(row.avgDaysSea),
+  };
+}
+
+export function getDeliverySpeedRank(slug: string): { rank: number; total: number } {
+  const total = (getDb().prepare("SELECT COUNT(*) as c FROM countries WHERE avg_transit_days_air IS NOT NULL").get() as { c: number }).c;
+  const country = getCountryBySlug(slug);
+  if (!country || country.avg_transit_days_air == null) return { rank: 0, total };
+  const faster = (getDb().prepare(
+    "SELECT COUNT(*) as c FROM countries WHERE avg_transit_days_air IS NOT NULL AND avg_transit_days_air < ?"
+  ).get(country.avg_transit_days_air) as { c: number }).c;
+  return { rank: faster + 1, total };
+}
+
+export function countRoutesByCountry(code: string): number {
+  return (getDb().prepare("SELECT COUNT(*) as c FROM routes WHERE origin_code = ? OR dest_code = ?").get(code, code) as { c: number }).c;
+}
+
 export function getCountriesByRegion(): Record<string, Country[]> {
   const countries = getAllCountries();
   const grouped: Record<string, Country[]> = {};

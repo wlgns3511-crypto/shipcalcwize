@@ -7,6 +7,7 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import { AdSlot } from "@/components/AdSlot";
 import { DataFeedback } from "@/components/DataFeedback";
 import { FreshnessTag } from "@/components/FreshnessTag";
+import { InsightCards } from "@/components/InsightCards";
 import { breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/schema";
 
 interface Props {
@@ -86,6 +87,8 @@ export default async function CountryPage({ params }: Props) {
       <p className="text-lg text-slate-600 mb-6">
         International shipping costs, transit times, and carrier options for {country.name} ({country.region}).
       </p>
+
+      <InsightCards country={country} />
 
       {/* Overview cards */}
       <div className="grid gap-4 md:grid-cols-4 mb-8">
