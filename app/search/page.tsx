@@ -5,6 +5,7 @@ import { formatCost, formatDays, countryCodeToFlag } from "@/lib/format";
 export const metadata: Metadata = {
   title: "Search Shipping Routes - ShipCalcWize",
   description: "Search international shipping routes by country. Compare air freight, sea freight, and express courier costs and transit times.",
+  robots: { index: false, follow: true },
   alternates: { canonical: "/search/" },
   openGraph: { url: "/search/" },
 };

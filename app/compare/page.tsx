@@ -29,7 +29,7 @@ export default function ComparePage() {
         "Side-by-side comparison of international shipping costs and transit times",
         "/compare"
       )) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema('Popular International Shipping Routes', '/compare', routes.slice(0, 50).map(r => ({ name: `${r.origin_name} to ${r.dest_name}`, url: `/route/${r.slug}` })))) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema('Popular International Shipping Routes', '/compare', routes.slice(0, 50).map(r => ({ name: `${r.origin_name} to ${r.dest_name}`, url: `/route/${r.slug}/` })))) }} />
 
       <h1 className="text-3xl font-bold mb-3 text-amber-900">
         Compare International Shipping Routes

@@ -1,11 +1,27 @@
 import type { Metadata } from "next";
+import { headers } from 'next/headers';
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { UpgradeAnalytics } from "@/components/upgrades/UpgradeAnalytics";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 const SITE_NAME = "ShipCalcWize";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://shipcalcwize.com";
+
+const ROOT_LOCALES = ['es'] as const;
+type RootLocale = (typeof ROOT_LOCALES)[number];
+const ROOT_ALTERNATE_LANGUAGES = {
+  en: `${SITE_URL}/`,
+  es: `${SITE_URL}/es/`,
+  'x-default': `${SITE_URL}/`,
+} as const;
+
+function getHtmlLang(pathname: string | null): string {
+  const locale = pathname?.split('/').filter(Boolean)[0] as RootLocale | undefined;
+  return locale && ROOT_LOCALES.includes(locale) ? locale : 'en';
+}
+
 const GA_ID = "G-WD86MC4KYY";
 const ADSENSE_ID = "ca-pub-5724806562146685";
 
@@ -17,6 +33,7 @@ export const metadata: Metadata = {
   description:
     "Compare international shipping costs, transit times, and carriers. Free calculator for air freight, ocean freight, and express shipping rates worldwide.",
   metadataBase: new URL(SITE_URL),
+  alternates: { languages: ROOT_ALTERNATE_LANGUAGES },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
   openGraph: {
     type: "website",
@@ -27,13 +44,16 @@ export const metadata: Metadata = {
   other: { "google-adsense-account": "ca-pub-5724806562146685" },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headerStore = await headers();
+  const pathname = headerStore.get('x-pathname');
+  const htmlLang = getHtmlLang(pathname);
   return (
-    <html lang="en">
+    <html lang={htmlLang}>
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
@@ -64,12 +84,17 @@ export default function RootLayout({
               "name": "ShipCalcWize",
               "url": "https://shipcalcwize.com",
               "description": "Compare international shipping costs, transit times, and carriers. Free calculator for air freight, ocean freight, and express shipping rates worldwide.",
-              "sameAs": ["https://vocabwize.com", "https://vocablibre.com", "https://wortwize.com", "https://kalimawize.com", "https://dicionariowize.com", "https://kotobapeek.com", "https://salarybycity.com", "https://netpaypeek.com", "https://wagepeek.com", "https://costbycity.com", "https://fairrentwize.com", "https://propertytaxpeek.com", "https://degreewize.com", "https://nameblooms.com", "https://myschoolpeek.com", "https://medcheckwize.com", "https://medcostpeek.com", "https://eldercarepeek.com", "https://ingredipeek.com", "https://caloriewize.com", "https://powerbillpeek.com", "https://sunpowerpeek.com", "https://tariffpeek.com", "https://visapeek.com", "https://zippeek.com", "https://calcpeek.com", "https://datapeekfacts.com", "https://guidebycity.com", "https://homepricepeek.com", "https://safecitypeek.com"]
+              "parentOrganization": {
+                "@type": "Organization",
+                "name": "DataPeek Research Network",
+                "url": "https://datapeekfacts.com"
+              }
             }
           ]
         }) }} />
       </head>
       <body className={`${inter.className} antialiased bg-white text-slate-900 min-h-screen flex flex-col`}>
+        <UpgradeAnalytics />
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-blue-600 focus:border focus:rounded">Skip to content</a>
         <header className="border-b border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50">
           <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -80,7 +105,10 @@ export default function RootLayout({
               <a href="/calculator/" className="text-slate-600 hover:text-amber-600">Calculator</a>
               <a href="/compare/" className="text-slate-600 hover:text-amber-600">Compare</a>
               <a href="/about/" className="text-slate-600 hover:text-amber-600">About</a>
-              <a href="/blog/" className="text-slate-600 hover:text-amber-600">Guides</a>
+              <a href="/state/" className="text-slate-600 hover:text-amber-600">By State</a>
+              <a href="/insights/" className="text-slate-600 hover:text-amber-600">Insights</a>
+              <a href="/guide/" className="text-slate-600 hover:text-amber-600">Guides</a>
+              <a href="/blog/" className="text-slate-600 hover:text-amber-600">Articles</a>
               <a href="/es/" className="text-slate-600 hover:text-amber-600 font-semibold">ES</a>
             </nav>
           </div>
@@ -104,15 +132,16 @@ export default function RootLayout({
               <a href="/contact/" className="hover:text-amber-600">Contact</a>
             </p>
             <div className="mt-4 pt-4 border-t border-slate-100">
-              <p className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Related Resources</p>
+              <p className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">More Free Data</p>
               <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs">
-                <a href="https://tariffpeek.com" className="hover:text-amber-600">HS Codes &amp; Tariffs</a>
-                <a href="https://calcpeek.com" className="hover:text-amber-600">Calculators</a>
-                <a href="https://costbycity.com" className="hover:text-amber-600">Cost of Living</a>
+                <a href="https://tariffpeek.com" className="hover:text-amber-600" rel="nofollow noopener">HS Codes &amp; Tariffs</a>
+                <a href="https://calcpeek.com" className="hover:text-amber-600" rel="nofollow noopener">Calculators</a>
+                <a href="https://costbycity.com" className="hover:text-amber-600" rel="nofollow noopener">Cost of Living</a>
               </div>
             </div>
+            <p className="mt-3 text-xs italic text-slate-400">Making shipping costs easy to estimate for everyone.</p>
             <p className="mt-1">
-              &copy; {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
+              &copy; {new Date().getFullYear()} {SITE_NAME} &mdash; Free public data tool.
             </p>
           </div>
         </footer>

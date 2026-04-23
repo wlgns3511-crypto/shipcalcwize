@@ -4,6 +4,7 @@ import { formatCost, formatDays } from "@/lib/format";
 import { ShippingCalculator } from "@/components/ShippingCalculator";
 import { AdSlot } from "@/components/AdSlot";
 import { datasetSchema, faqSchema } from "@/lib/schema";
+import { PopularEntities } from "@/components/upgrades/PopularEntities";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -15,6 +16,16 @@ export default function Home() {
   const popularRoutes = getPopularRoutes(16);
   const carriers = getCarriers();
   const regions = getCountriesByRegion();
+
+  const popularDestinations = countries
+    .filter(c => c.avg_shipping_cost_kg_air != null)
+    .sort((a, b) => (a.avg_shipping_cost_kg_air ?? 999) - (b.avg_shipping_cost_kg_air ?? 999))
+    .slice(0, 12)
+    .map(c => ({
+      name: c.name,
+      href: `/country/${c.slug}/`,
+      stat: `$${(c.avg_shipping_cost_kg_air ?? 0).toFixed(2)}/kg air`,
+    }));
 
   const countryOptions = countries.map((c) => ({ code: c.code, name: c.name }));
 
@@ -31,7 +42,7 @@ export default function Home() {
         "International Shipping Cost Data",
         "Comprehensive shipping cost and transit time data for international routes, covering air freight, sea freight, and express courier services."
       )) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }} />
+      {faqs.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }} />}
 
       <section className="mb-10">
         <h1 className="text-3xl font-bold mb-3 text-amber-900">
@@ -46,6 +57,15 @@ export default function Home() {
       <section className="mb-12">
         <ShippingCalculator countries={countryOptions} />
       </section>
+
+      <PopularEntities
+        heading="Popular Shipping Destinations"
+        subheading="Cheapest countries to ship to by air freight cost per kg"
+        items={popularDestinations}
+        columns={3}
+        viewAllHref="/rankings"
+        viewAllLabel="View all countries →"
+      />
 
       <AdSlot id="1234567890" />
 

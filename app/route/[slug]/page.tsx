@@ -14,26 +14,38 @@ import { EditorNote } from "@/components/EditorNote";
 import { DidYouKnow } from "@/components/DidYouKnow";
 import { DataSourceBadge } from "@/components/DataSourceBadge";
 import { CrossSiteLinks } from "@/components/CrossSiteLinks";
+import { FeedbackButton } from "@/components/FeedbackButton";
+import { DownloadReport } from "@/components/DownloadReport";
+import { InsightBlock } from '@/components/upgrades/InsightBlock';
+import { getRouteInsights } from '@/lib/insights';
+import { TrustBlock } from '@/components/upgrades/TrustBlock';
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  const routes = getAllRouteSlugs(500);
+  const routes = getAllRouteSlugs(5000);
   return routes.map((r) => ({ slug: r.slug }));
 }
+
+export const dynamicParams = true;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const route = getRouteBySlug(slug);
   if (!route) return {};
-
+  // RANGE: cheapest sea freight (low) vs fastest air freight (high) per kg
+  const low = route.avg_cost_kg_sea ?? 0;
+  const high = route.avg_cost_kg_air ?? 0;
+  const title = `Shipping ${route.origin_name} to ${route.dest_name}: ${formatCost(low)}–${formatCost(high)}/kg`;
+  const description = `Ship from ${route.origin_name} to ${route.dest_name}: ${formatCost(low)}/kg (sea, ${formatDays(route.avg_days_sea)}) to ${formatCost(high)}/kg (air, ${formatDays(route.avg_days_air)}). Compare carriers, transit times, documentation, and current rate benchmarks.`;
   return {
-    title: `Shipping from ${route.origin_name} to ${route.dest_name} - Costs, Transit Times & Carriers`,
-    description: `Ship from ${route.origin_name} to ${route.dest_name}: Air freight ${formatCost(route.avg_cost_kg_air)}/kg (${formatDays(route.avg_days_air)}), sea freight ${formatCost(route.avg_cost_kg_sea)}/kg (${formatDays(route.avg_days_sea)}). Compare carriers and get quotes.`,
+    title,
+    description,
     alternates: { canonical: `/route/${slug}/` },
-    openGraph: { url: `/route/${slug}/` },
+    openGraph: { title, description, url: `/route/${slug}/` },
   };
 }
 
@@ -77,15 +89,14 @@ export default async function RoutePage({ params }: Props) {
           `International shipping costs and transit times from ${route.origin_name} to ${route.dest_name}`,
           `/route/${slug}`
         ),
-        dateModified: "2026-03-31",
         author: { "@type": "Organization", name: "DataPeek" },
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([
         { name: "Home", url: "/" },
-        { name: route.origin_name, url: `/country/${route.origin_slug}` },
-        { name: `${route.origin_name} to ${route.dest_name}`, url: `/route/${slug}` },
+        { name: route.origin_name, url: `/country/${route.origin_slug}/` },
+        { name: `${route.origin_name} to ${route.dest_name}`, url: `/route/${slug}/` },
       ])) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }} />
+      {faqs.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }} />}
 
       <Breadcrumb items={[
         { label: "Home", href: "/" },
@@ -101,7 +112,41 @@ export default async function RoutePage({ params }: Props) {
         for the {route.origin_name} to {route.dest_name} route.
       </p>
 
+      <div className="mb-4">
+        <DownloadReport />
+      </div>
+
       <EditorNote note={`Shipping costs between ${route.origin_name} and ${route.dest_name} can vary significantly by carrier, season, and cargo type. The rates shown below are industry averages — always request quotes from multiple carriers for the best deal.`} />
+
+      {/* Depth-layer-2 cross-link: weight-tier breakdown (only for top trade routes) */}
+      {(() => {
+        const MAJOR = ['US','CN','DE','GB','JP','KR','IN','MX','CA','FR','NL','IT','BR','AU','SG','HK','VN','TH','TW','ES','AE'];
+        if (!MAJOR.includes(route.origin_code) || !MAJOR.includes(route.dest_code)) return null;
+        return (
+          <section className="my-6">
+            <a
+              href={`/route/${slug}/by-weight/`}
+              className="block rounded-xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-5 transition hover:border-amber-400 hover:shadow-md"
+            >
+              <div className="flex items-start gap-3">
+                <div className="text-2xl" aria-hidden="true">&#x2696;&#xFE0F;</div>
+                <div className="flex-1">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-amber-700 mb-1">
+                    New &middot; Weight-tier breakdown
+                  </div>
+                  <div className="font-bold text-slate-900 text-base mb-1">
+                    {route.origin_name} &rarr; {route.dest_name}: shipping cost by weight (1&ndash;1000 kg)
+                  </div>
+                  <p className="text-sm text-slate-600">
+                    At what weight does sea freight beat air? 6-tier matrix across air, sea, express, and postal — with the break-even point for this specific route.
+                  </p>
+                  <div className="mt-2 text-sm font-medium text-amber-700">View weight tiers &rarr;</div>
+                </div>
+              </div>
+            </a>
+          </section>
+        );
+      })()}
 
       {/* Cost comparison cards */}
       <div className="grid gap-4 md:grid-cols-3 mb-8">
@@ -215,6 +260,14 @@ export default async function RoutePage({ params }: Props) {
 
       <DidYouKnow fact="Over 80% of global trade by volume is carried by sea. A single large container ship can carry over 20,000 TEUs (twenty-foot equivalent units) — enough to hold 745 million bananas." />
 
+      <TrustBlock sources={[{name:"Carrier Tariff Sheets",url:"https://www.dhl.com/global-en/home/our-divisions/freight.html"},{name:"Freightos Baltic Index",url:"https://fbx.freightos.com/"},{name:"World Bank LPI",url:"https://lpi.worldbank.org/"}]} updated="Current industry benchmarks" />
+
+      <InsightBlock
+        entityName={`${route.origin_name} to ${route.dest_name}`}
+        insights={getRouteInsights(route)}
+        heading="Key Takeaways"
+      />
+
       <AdSlot id="3456789013" />
 
       {/* FAQs */}
@@ -287,6 +340,8 @@ export default async function RoutePage({ params }: Props) {
         <span className="text-slate-300">|</span>
         <a href="https://tariffpeek.com" className="text-amber-600 hover:underline">HS Codes &amp; Tariffs</a>
       </div>
+
+      <FeedbackButton pageId={slug} />
 
       <DataSourceBadge sources={[
         { name: "USPS", url: "https://www.usps.com" },

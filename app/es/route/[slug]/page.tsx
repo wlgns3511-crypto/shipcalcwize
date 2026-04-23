@@ -9,8 +9,8 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://shipcalcwize.com";
 
 interface Props { params: Promise<{ slug: string }> }
 
-export const dynamicParams = false;
-export const revalidate = false;
+export const dynamicParams = true;
+export const revalidate = 86400;
 
 export async function generateStaticParams() {
   return getAllRouteSlugs(300).map((r) => ({ slug: r.slug }));
