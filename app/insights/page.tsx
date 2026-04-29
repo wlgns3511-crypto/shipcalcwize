@@ -69,10 +69,7 @@ export default function InsightsIndex() {
             <Link href="/calculator/" className="text-amber-700 hover:underline font-medium">Shipping calculator</Link>
             <span className="text-slate-500"> — compare rates by carrier, weight, and zone</span>
           </li>
-          <li>
-            <Link href="/compare/" className="text-amber-700 hover:underline font-medium">Compare carriers</Link>
-            <span className="text-slate-500"> — side-by-side rate comparison</span>
-          </li>
+          {/* HCU 2026-04-25 — /compare/ 410'd. */}
         </ul>
       </section>
     </div>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { headers } from 'next/headers';
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { UpgradeAnalytics } from "@/components/upgrades/UpgradeAnalytics";
@@ -9,18 +8,12 @@ const inter = Inter({ subsets: ["latin"], display: "swap" });
 const SITE_NAME = "ShipCalcWize";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://shipcalcwize.com";
 
-const ROOT_LOCALES = ['es'] as const;
-type RootLocale = (typeof ROOT_LOCALES)[number];
+// HCU 2026-04-25 — /es/ subtree 410'd (Spanish rollout failed, 9.5K GSC 404,
+// 1 click in 3 months). Single-language site now: en + x-default only.
 const ROOT_ALTERNATE_LANGUAGES = {
   en: `${SITE_URL}/`,
-  es: `${SITE_URL}/es/`,
   'x-default': `${SITE_URL}/`,
 } as const;
-
-function getHtmlLang(pathname: string | null): string {
-  const locale = pathname?.split('/').filter(Boolean)[0] as RootLocale | undefined;
-  return locale && ROOT_LOCALES.includes(locale) ? locale : 'en';
-}
 
 const GA_ID = "G-WD86MC4KYY";
 const ADSENSE_ID = "ca-pub-5724806562146685";
@@ -34,7 +27,6 @@ export const metadata: Metadata = {
     "Compare international shipping costs, transit times, and carriers. Free calculator for air freight, ocean freight, and express shipping rates worldwide.",
   metadataBase: new URL(SITE_URL),
   alternates: { languages: ROOT_ALTERNATE_LANGUAGES },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
@@ -44,16 +36,13 @@ export const metadata: Metadata = {
   other: { "google-adsense-account": "ca-pub-5724806562146685" },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headerStore = await headers();
-  const pathname = headerStore.get('x-pathname');
-  const htmlLang = getHtmlLang(pathname);
   return (
-    <html lang={htmlLang}>
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
@@ -103,13 +92,12 @@ export default async function RootLayout({
             </a>
             <nav className="flex gap-6 text-sm">
               <a href="/calculator/" className="text-slate-600 hover:text-amber-600">Calculator</a>
-              <a href="/compare/" className="text-slate-600 hover:text-amber-600">Compare</a>
+              {/* HCU 2026-04-25 — /compare/ and /es/ 410'd, removed from nav. */}
               <a href="/about/" className="text-slate-600 hover:text-amber-600">About</a>
               <a href="/state/" className="text-slate-600 hover:text-amber-600">By State</a>
               <a href="/insights/" className="text-slate-600 hover:text-amber-600">Insights</a>
               <a href="/guide/" className="text-slate-600 hover:text-amber-600">Guides</a>
               <a href="/blog/" className="text-slate-600 hover:text-amber-600">Articles</a>
-              <a href="/es/" className="text-slate-600 hover:text-amber-600 font-semibold">ES</a>
             </nav>
           </div>
         </header>

@@ -7,7 +7,7 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 export const revalidate = 86400;
 
 export function generateStaticParams() {
@@ -114,7 +114,7 @@ export default async function InsightPage({ params }: Props) {
         <h2 className="text-lg font-bold text-slate-900 mb-2">Calculate your shipping costs</h2>
         <div className="flex flex-wrap gap-3">
           <Link href="/calculator/" className="text-sm px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 font-medium">Shipping Calculator</Link>
-          <Link href="/compare/" className="text-sm px-4 py-2 bg-white border border-amber-300 text-amber-700 rounded-lg hover:bg-amber-50 font-medium">Compare Carriers</Link>
+          {/* HCU 2026-04-25 — /compare/ 410'd. */}
         </div>
       </div>
 

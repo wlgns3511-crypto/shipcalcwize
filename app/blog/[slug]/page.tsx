@@ -153,12 +153,7 @@ export default async function BlogPostPage({
           >
             Shipping Calculator
           </a>
-          <a
-            href="/compare/"
-            className="text-sm px-4 py-2 bg-white border border-amber-300 text-amber-700 rounded-lg hover:bg-amber-50 font-medium"
-          >
-            Compare Carriers
-          </a>
+          {/* HCU 2026-04-25 — /compare/ 410'd. */}
           <a
             href="/"
             className="text-sm px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 font-medium"

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { getAllCountries, getPopularRoutes, getCarriers, getCountriesByRegion } from "@/lib/db";
-import { formatCost, formatDays } from "@/lib/format";
+import { getAllCountries, getCarriers, getCountriesByRegion } from "@/lib/db";
+import { formatCost } from "@/lib/format";
 import { ShippingCalculator } from "@/components/ShippingCalculator";
 import { AdSlot } from "@/components/AdSlot";
 import { datasetSchema, faqSchema } from "@/lib/schema";
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   const countries = getAllCountries();
-  const popularRoutes = getPopularRoutes(16);
+  // HCU 2026-04-25 — getPopularRoutes() removed; /route/ subtree 410'd.
   const carriers = getCarriers();
   const regions = getCountriesByRegion();
 
@@ -69,26 +69,9 @@ export default function Home() {
 
       <AdSlot id="1234567890" />
 
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-4">Popular Shipping Routes</h2>
-        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
-          {popularRoutes.map((route) => (
-            <a
-              key={route.slug}
-              href={`/route/${route.slug}`}
-              className="block border border-slate-200 rounded-lg p-3 hover:border-amber-300 hover:bg-amber-50 transition-colors"
-            >
-              <p className="font-semibold text-sm text-amber-800">
-                {route.origin_name} &rarr; {route.dest_name}
-              </p>
-              <div className="mt-1 text-xs text-slate-500 space-y-0.5">
-                <p>Air: {formatCost(route.avg_cost_kg_air)}/kg &middot; {formatDays(route.avg_days_air)}</p>
-                <p>Sea: {formatCost(route.avg_cost_kg_sea)}/kg &middot; {formatDays(route.avg_days_sea)}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
+      {/* HCU 2026-04-25 — Popular Shipping Routes section removed.
+          /route/ subtree 410'd (15,601 URLs / 2 GSC clicks in 3 months).
+          Country pages (above) carry the real shipping intent. */}
 
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-4">Carrier Comparison</h2>

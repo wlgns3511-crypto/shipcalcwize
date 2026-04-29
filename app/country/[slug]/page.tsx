@@ -267,7 +267,9 @@ export default async function CountryPage({ params }: Props) {
                 {routesFrom.map((r) => (
                   <tr key={r.slug} className="border-b border-slate-100 hover:bg-amber-50">
                     <td className="px-3 py-2">
-                      <a href={`/route/${r.slug}`} className="text-amber-700 hover:underline font-medium">{r.dest_name}</a>
+                      {/* HCU 2026-04-25 — was /route/{slug}; /route/ subtree 410'd.
+                          Link to destination /country/ page (real entity). */}
+                      <a href={`/country/${r.dest_slug}/`} className="text-amber-700 hover:underline font-medium">{r.dest_name}</a>
                     </td>
                     <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_air)}</td>
                     <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_sea)}</td>
@@ -300,7 +302,9 @@ export default async function CountryPage({ params }: Props) {
                 {routesTo.map((r) => (
                   <tr key={r.slug} className="border-b border-slate-100 hover:bg-amber-50">
                     <td className="px-3 py-2">
-                      <a href={`/route/${r.slug}`} className="text-amber-700 hover:underline font-medium">{r.origin_name}</a>
+                      {/* HCU 2026-04-25 — was /route/{slug}; /route/ subtree 410'd.
+                          Link to origin /country/ page (real entity). */}
+                      <a href={`/country/${r.origin_slug}/`} className="text-amber-700 hover:underline font-medium">{r.origin_name}</a>
                     </td>
                     <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_air)}</td>
                     <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_sea)}</td>

@@ -64,10 +64,7 @@ export default function GuidesIndex() {
             <Link href="/calculator/" className="text-amber-700 hover:underline font-medium">Shipping calculator →</Link>
             <span className="text-slate-500"> estimate by carrier and route</span>
           </li>
-          <li>
-            <Link href="/compare/" className="text-amber-700 hover:underline font-medium">Compare rates →</Link>
-            <span className="text-slate-500"> side-by-side carrier comparison</span>
-          </li>
+          {/* HCU 2026-04-25 — /compare/ 410'd (hub-only, 0 clicks). */}
         </ul>
       </section>
     </div>

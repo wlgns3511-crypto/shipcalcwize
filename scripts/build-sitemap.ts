@@ -2,10 +2,21 @@
 /**
  * build-sitemap.ts — Static sitemap XML generator for shipcalcwize.
  *
- * Pre-render limits (from page.tsx files):
- *   /route/[slug]    → top 5000 prerender + full sitemap
- *   /country/[slug]  → all countries (no limit)
- *   /state/[slug]    → all states (no limit)
+ * PRUNING HISTORY (post-HCU):
+ *   2026-04-22: /route/[slug]/by-weight/ × 235 dropped (derivative subpage).
+ *   2026-04-25: /route/, /compare/, /es/ all 410'd via middleware.
+ *               GSC 3-month evidence: /route/ 15,601 URLs / 2 clicks total.
+ *               Real driver is /country/ (177 entities). /es/ rollout failed
+ *               (9.5K 404, 1 click). /compare/ hub-only, 0 clicks.
+ *               Route directories deleted; sitemap excludes all three.
+ *
+ * WHAT STAYS IN THE SITEMAP (~270):
+ *   Static                                          5
+ *   /country/ × 177      (real entities, real driver)
+ *   /state/  × 52 + hub  (USA states)
+ *   /guide/  × 6 + hub
+ *   /blog/   × 24 + hub
+ *   /insights/ × 4 + hub
  *
  * USAGE:
  *   npx tsx scripts/build-sitemap.ts
@@ -13,7 +24,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { getAllCountries, getAllRouteSlugs } from '../lib/db';
+import { getAllCountries } from '../lib/db';
 import { getAllPosts } from '../lib/blog';
 import { getAllStates } from '../lib/states-data';
 import { insightArticles } from '../lib/insight-articles';
@@ -37,9 +48,9 @@ const seen = new Set<string>();
 const entries: Entry[] = [];
 function add(e: Entry) { if (!seen.has(e.url)) { seen.add(e.url); entries.push(e); } }
 
-// Static pages
+// Static pages — /compare/ removed (HCU 2026-04-25, route 410'd)
 for (const [p, pr] of [
-  ['/', '1.0'], ['/calculator/', '0.9'], ['/compare/', '0.9'],
+  ['/', '1.0'], ['/calculator/', '0.9'],
   ['/about/', '0.5'], ['/privacy/', '0.3'], ['/terms/', '0.3'], ['/contact/', '0.4'],
 ] as [string, string][]) {
   add({ url: `${SITE_URL}${p}`, priority: pr, changefreq: 'weekly' });
@@ -79,25 +90,17 @@ for (const s of usStates) {
   add({ url: `${SITE_URL}/state/${s.slug}/`, priority: '0.7', changefreq: 'weekly' });
 }
 
-// Route pages — full valid set, with route page serving long-tail via ISR fallback
-// KEPT INTACT per user directive 2026-04-22: route (origin × destination) IS the
-// product for a shipping calculator. HCU-defense focuses on derivative /by-weight/
-// subpages below, which duplicate the same entity with weight tier slice.
-const routes = getAllRouteSlugs(50000);
-for (const r of routes) {
-  add({ url: `${SITE_URL}/route/${r.slug}/`, priority: '0.7', changefreq: 'weekly' });
-}
-
-// ─── /route/[slug]/by-weight/ × 235 DROPPED 2026-04-22 (HCU defense) ────
-// Derivative subpage over same route entity; weight tiers don't add enough
-// unique content to justify separate indexing. Route stays live via
-// dynamicParams — existing URLs remain 200.
+// ─── /route/, /compare/, /es/ all REMOVED 2026-04-25 (HCU Phase C) ────────
+// /route/  15,601 URLs, 2 GSC clicks in 3 months. App dir deleted; 410.
+// /compare/  hub-only, 0 clicks. App dir deleted; 410.
+// /es/     Spanish rollout failed — 9.5K GSC 404, 1 click. App dir deleted; 410.
+// Real driver is /country/ (177 entities) above.
 
 // ─── Cardinality guard ────────────────────────────────────────────────────
-if (entries.length > 17000 && !process.env.SITEMAP_LARGE_OK) {
+if (entries.length > 400 && !process.env.SITEMAP_LARGE_OK) {
   throw new Error(
-    `shipcalcwize sitemap has ${entries.length.toLocaleString()} URLs — Option B+ budget is ~15.9K.\n` +
-      `Did /route/[slug]/by-weight/ (235) get re-added?\n` +
+    `shipcalcwize sitemap has ${entries.length.toLocaleString()} URLs — Phase C budget is ~270.\n` +
+      `Did /route/, /compare/, /es/, or /by-weight/ get re-added?\n` +
       `That's exactly the loop that caused the original cardinality collapse.\n` +
       `Run with SITEMAP_LARGE_OK=1 if you genuinely meant to expand the tier.`,
   );

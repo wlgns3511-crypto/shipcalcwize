@@ -1,3 +1,6 @@
+// HCU 2026-04-25 — search results now link to destination /country/ pages
+// (was /route/{slug}; /route/ subtree 410'd). The /search/ page itself is
+// noindex,follow so won't be indexed; just keep it functional for users.
 import type { Metadata } from "next";
 import { searchRoutes, getPopularRoutes } from "@/lib/db";
 import { formatCost, formatDays, countryCodeToFlag } from "@/lib/format";
@@ -71,7 +74,7 @@ export default async function SearchPage({ searchParams }: Props) {
           {results.map((r) => (
             <a
               key={r.slug}
-              href={`/route/${r.slug}`}
+              href={`/country/${r.dest_slug}/`}
               className="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-amber-300 hover:bg-amber-50 transition-all"
             >
               <div>
@@ -96,7 +99,7 @@ export default async function SearchPage({ searchParams }: Props) {
             {popular.map((r) => (
               <a
                 key={r.slug}
-                href={`/route/${r.slug}`}
+                href={`/country/${r.dest_slug}/`}
                 className="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-amber-300 hover:bg-amber-50 transition-all"
               >
                 <div>

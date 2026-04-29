@@ -115,10 +115,7 @@ export default function StatesIndex() {
             <a href="/calculator/" className="text-amber-700 hover:underline font-medium">Shipping calculator →</a>
             <span className="text-slate-500"> estimate by weight, carrier, and destination</span>
           </li>
-          <li>
-            <a href="/compare/" className="text-amber-700 hover:underline font-medium">Compare rates →</a>
-            <span className="text-slate-500"> side-by-side carrier comparison</span>
-          </li>
+          {/* HCU 2026-04-25 — /compare/ 410'd. */}
         </ul>
       </section>
     </div>
