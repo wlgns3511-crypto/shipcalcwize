@@ -1,6 +1,16 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllGuides } from '@/lib/guides';
+import { TrustBlock } from '@/components/upgrades/TrustBlock';
+import { DATA_LAST_UPDATED } from '@/lib/data-updated';
+
+const TRUST_SOURCES = [
+  { name: 'Freightos Baltic Index', url: 'https://fbx.freightos.com/' },
+  { name: 'World Bank LPI', url: 'https://lpi.worldbank.org/' },
+  { name: 'UNCTAD Maritime Transport', url: 'https://unctad.org/topic/transport-and-trade-logistics/review-of-maritime-transport' },
+  { name: 'WCO HS Codes', url: 'https://www.wcoomd.org/en/topics/nomenclature/overview.aspx' },
+  { name: 'US CBP', url: 'https://www.cbp.gov/trade' },
+];
 
 export const metadata: Metadata = {
   title: 'Shipping Guides — Carrier Comparison, DIM Weight, DDP vs DDU, Insurance',
@@ -32,6 +42,8 @@ export default function GuidesIndex() {
           }),
         }}
       />
+
+      <TrustBlock sources={TRUST_SOURCES} updated={DATA_LAST_UPDATED} />
 
       <header className="mb-8">
         <h1 className="text-3xl font-bold text-slate-900 mb-2">Shipping Guides</h1>

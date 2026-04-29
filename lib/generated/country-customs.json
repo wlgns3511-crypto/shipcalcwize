@@ -1,0 +1,1686 @@
+{
+  "albania": {
+    "code": "AL",
+    "name": "Albania",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Albania.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "algeria": {
+    "code": "DZ",
+    "name": "Algeria",
+    "primaryNote": "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Afghanistan to Algeria.",
+    "fragmentCount": 2,
+    "altNotes": [
+      "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Albania to Algeria."
+    ]
+  },
+  "andorra": {
+    "code": "AD",
+    "name": "Andorra",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Andorra.",
+    "fragmentCount": 3,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Andorra.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Andorra."
+    ]
+  },
+  "angola": {
+    "code": "AO",
+    "name": "Angola",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Angola.",
+    "fragmentCount": 4,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Angola.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Angola."
+    ]
+  },
+  "argentina": {
+    "code": "AR",
+    "name": "Argentina",
+    "primaryNote": "Argentine customs: VAT 21%. Import duties 0-35%. CUIT required. Puerta a Puerta for personal.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "armenia": {
+    "code": "AM",
+    "name": "Armenia",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Armenia.",
+    "fragmentCount": 6,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Armenia.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Armenia."
+    ]
+  },
+  "australia": {
+    "code": "AU",
+    "name": "Australia",
+    "primaryNote": "Australian customs: GST 10%. Duty-free under AUD $1,000. ABF biosecurity screening mandatory.",
+    "fragmentCount": 8,
+    "altNotes": [
+      "Australian GST 10% on imports over AUD1000. No general customs duty for most US goods under AUSFTA.",
+      "ChAFTA reduces duties on many Chinese goods. GST 10% on imports over AUD1000."
+    ]
+  },
+  "austria": {
+    "code": "AT",
+    "name": "Austria",
+    "primaryNote": "Austrian customs: VAT 20% (10% reduced). Duty-free under €150. German-language documentation preferred.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "azerbaijan": {
+    "code": "AZ",
+    "name": "Azerbaijan",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Azerbaijan.",
+    "fragmentCount": 9,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Azerbaijan.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Azerbaijan."
+    ]
+  },
+  "bahamas": {
+    "code": "BS",
+    "name": "Bahamas",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Bahamas.",
+    "fragmentCount": 10,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Bahamas.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Bahamas."
+    ]
+  },
+  "bahrain": {
+    "code": "BH",
+    "name": "Bahrain",
+    "primaryNote": "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Afghanistan to Bahrain.",
+    "fragmentCount": 11,
+    "altNotes": [
+      "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Albania to Bahrain.",
+      "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Algeria to Bahrain."
+    ]
+  },
+  "bangladesh": {
+    "code": "BD",
+    "name": "Bangladesh",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Bangladesh.",
+    "fragmentCount": 12,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Bangladesh.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Bangladesh."
+    ]
+  },
+  "barbados": {
+    "code": "BB",
+    "name": "Barbados",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Barbados.",
+    "fragmentCount": 13,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Barbados.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Barbados."
+    ]
+  },
+  "belarus": {
+    "code": "BY",
+    "name": "Belarus",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Belarus.",
+    "fragmentCount": 14,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Belarus.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Belarus."
+    ]
+  },
+  "belgium": {
+    "code": "BE",
+    "name": "Belgium",
+    "primaryNote": "Belgian customs: VAT 21% (6% reduced). Duty-free under €150. Commercial invoice required.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "belize": {
+    "code": "BZ",
+    "name": "Belize",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Belize.",
+    "fragmentCount": 16,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Belize.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Belize."
+    ]
+  },
+  "benin": {
+    "code": "BJ",
+    "name": "Benin",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Benin.",
+    "fragmentCount": 17,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Benin.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Benin."
+    ]
+  },
+  "bhutan": {
+    "code": "BT",
+    "name": "Bhutan",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Bhutan.",
+    "fragmentCount": 18,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Bhutan.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Bhutan."
+    ]
+  },
+  "bolivia": {
+    "code": "BO",
+    "name": "Bolivia",
+    "primaryNote": "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Afghanistan to Bolivia.",
+    "fragmentCount": 19,
+    "altNotes": [
+      "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Albania to Bolivia.",
+      "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Algeria to Bolivia."
+    ]
+  },
+  "bosnia-and-herzegovina": {
+    "code": "BA",
+    "name": "Bosnia and Herzegovina",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Bosnia and Herzegovina.",
+    "fragmentCount": 20,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Bosnia and Herzegovina.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Bosnia and Herzegovina."
+    ]
+  },
+  "botswana": {
+    "code": "BW",
+    "name": "Botswana",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Botswana.",
+    "fragmentCount": 21,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Botswana.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Botswana."
+    ]
+  },
+  "brazil": {
+    "code": "BR",
+    "name": "Brazil",
+    "primaryNote": "Brazilian customs: ICMS 17-25% + IPI varies. Siscomex system. CPF required. High duties on electronics.",
+    "fragmentCount": 3,
+    "altNotes": [
+      "Brazilian import taxes total 60%+ on many goods. ICMS, IPI, PIS, COFINS apply.",
+      "Brazilian import taxes very high on Chinese goods. 60%+ total tax burden."
+    ]
+  },
+  "brunei": {
+    "code": "BN",
+    "name": "Brunei",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Brunei.",
+    "fragmentCount": 23,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Brunei.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Brunei."
+    ]
+  },
+  "bulgaria": {
+    "code": "BG",
+    "name": "Bulgaria",
+    "primaryNote": "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Afghanistan to Bulgaria.",
+    "fragmentCount": 24,
+    "altNotes": [
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Albania to Bulgaria.",
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Algeria to Bulgaria."
+    ]
+  },
+  "burkina-faso": {
+    "code": "BF",
+    "name": "Burkina Faso",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Burkina Faso.",
+    "fragmentCount": 25,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Burkina Faso.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Burkina Faso."
+    ]
+  },
+  "burundi": {
+    "code": "BI",
+    "name": "Burundi",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Burundi.",
+    "fragmentCount": 26,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Burundi.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Burundi."
+    ]
+  },
+  "cambodia": {
+    "code": "KH",
+    "name": "Cambodia",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Cambodia.",
+    "fragmentCount": 27,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Cambodia.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Cambodia."
+    ]
+  },
+  "cameroon": {
+    "code": "CM",
+    "name": "Cameroon",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Cameroon.",
+    "fragmentCount": 28,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Cameroon.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Cameroon."
+    ]
+  },
+  "canada": {
+    "code": "CA",
+    "name": "Canada",
+    "primaryNote": "Canadian customs: GST 5% + provincial tax. Duty-free under CAD $20. CBSA clearance required.",
+    "fragmentCount": 4,
+    "altNotes": [
+      "USMCA/CUSMA duty-free for qualifying goods. GST/HST applies. De minimis CAD150.",
+      "Canadian customs duties vary. GST/HST applies. De minimis CAD20 for postal."
+    ]
+  },
+  "cape-verde": {
+    "code": "CV",
+    "name": "Cape Verde",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Cape Verde.",
+    "fragmentCount": 30,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Cape Verde.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Cape Verde."
+    ]
+  },
+  "central-african-republic": {
+    "code": "CF",
+    "name": "Central African Republic",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Central African Republic.",
+    "fragmentCount": 31,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Central African Republic.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Central African Republic."
+    ]
+  },
+  "chad": {
+    "code": "TD",
+    "name": "Chad",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Chad.",
+    "fragmentCount": 32,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Chad.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Chad."
+    ]
+  },
+  "chile": {
+    "code": "CL",
+    "name": "Chile",
+    "primaryNote": "Chilean customs: VAT 19%. Duty 6% (most goods). RUT number for clearance. TLC agreements apply.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "china": {
+    "code": "CN",
+    "name": "China",
+    "primaryNote": "Chinese customs: VAT 13% (9% reduced). Cross-border e-commerce tax 9.1%. GACC registration required.",
+    "fragmentCount": 5,
+    "altNotes": [
+      "Chinese customs duties vary widely. Cross-border e-commerce has special rates.",
+      "Korea-China FTA benefits. Short sea transit."
+    ]
+  },
+  "colombia": {
+    "code": "CO",
+    "name": "Colombia",
+    "primaryNote": "Colombian customs: VAT 19%. Duty 5-20%. NIT required for commercial imports. DIAN clearance.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "costa-rica": {
+    "code": "CR",
+    "name": "Costa Rica",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Costa Rica.",
+    "fragmentCount": 36,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Costa Rica.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Costa Rica."
+    ]
+  },
+  "croatia": {
+    "code": "HR",
+    "name": "Croatia",
+    "primaryNote": "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Afghanistan to Croatia.",
+    "fragmentCount": 37,
+    "altNotes": [
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Albania to Croatia.",
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Algeria to Croatia."
+    ]
+  },
+  "cuba": {
+    "code": "CU",
+    "name": "Cuba",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Cuba.",
+    "fragmentCount": 38,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Cuba.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Cuba."
+    ]
+  },
+  "cyprus": {
+    "code": "CY",
+    "name": "Cyprus",
+    "primaryNote": "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Afghanistan to Cyprus.",
+    "fragmentCount": 39,
+    "altNotes": [
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Albania to Cyprus.",
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Algeria to Cyprus."
+    ]
+  },
+  "czech-republic": {
+    "code": "CZ",
+    "name": "Czech Republic",
+    "primaryNote": "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Afghanistan to Czech Republic.",
+    "fragmentCount": 40,
+    "altNotes": [
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Albania to Czech Republic.",
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Algeria to Czech Republic."
+    ]
+  },
+  "denmark": {
+    "code": "DK",
+    "name": "Denmark",
+    "primaryNote": "Danish customs: VAT 25%. Duty-free under €150. CPR number may be required for personal imports.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "djibouti": {
+    "code": "DJ",
+    "name": "Djibouti",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Djibouti.",
+    "fragmentCount": 43,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Djibouti.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Djibouti."
+    ]
+  },
+  "dominican-republic": {
+    "code": "DO",
+    "name": "Dominican Republic",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Dominican Republic.",
+    "fragmentCount": 44,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Dominican Republic.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Dominican Republic."
+    ]
+  },
+  "dr-congo": {
+    "code": "CD",
+    "name": "DR Congo",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to DR Congo.",
+    "fragmentCount": 41,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to DR Congo.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to DR Congo."
+    ]
+  },
+  "ecuador": {
+    "code": "EC",
+    "name": "Ecuador",
+    "primaryNote": "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Afghanistan to Ecuador.",
+    "fragmentCount": 45,
+    "altNotes": [
+      "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Albania to Ecuador.",
+      "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Algeria to Ecuador."
+    ]
+  },
+  "egypt": {
+    "code": "EG",
+    "name": "Egypt",
+    "primaryNote": "Egyptian customs: VAT 14%. Duty 5-40%. GOEIC inspection. ACID system for advance cargo info.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "el-salvador": {
+    "code": "SV",
+    "name": "El Salvador",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to El Salvador.",
+    "fragmentCount": 47,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to El Salvador.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to El Salvador."
+    ]
+  },
+  "eritrea": {
+    "code": "ER",
+    "name": "Eritrea",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Eritrea.",
+    "fragmentCount": 48,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Eritrea.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Eritrea."
+    ]
+  },
+  "estonia": {
+    "code": "EE",
+    "name": "Estonia",
+    "primaryNote": "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Afghanistan to Estonia.",
+    "fragmentCount": 49,
+    "altNotes": [
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Albania to Estonia.",
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Algeria to Estonia."
+    ]
+  },
+  "eswatini": {
+    "code": "SZ",
+    "name": "Eswatini",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Eswatini.",
+    "fragmentCount": 50,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Eswatini.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Eswatini."
+    ]
+  },
+  "ethiopia": {
+    "code": "ET",
+    "name": "Ethiopia",
+    "primaryNote": "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Afghanistan to Ethiopia.",
+    "fragmentCount": 51,
+    "altNotes": [
+      "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Albania to Ethiopia.",
+      "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Algeria to Ethiopia."
+    ]
+  },
+  "fiji": {
+    "code": "FJ",
+    "name": "Fiji",
+    "primaryNote": "GST/VAT applies on import. Biosecurity screening mandatory for Australia/New Zealand. Customs declaration required. Route: Afghanistan to Fiji.",
+    "fragmentCount": 52,
+    "altNotes": [
+      "GST/VAT applies on import. Biosecurity screening mandatory for Australia/New Zealand. Customs declaration required. Route: Albania to Fiji.",
+      "GST/VAT applies on import. Biosecurity screening mandatory for Australia/New Zealand. Customs declaration required. Route: Algeria to Fiji."
+    ]
+  },
+  "finland": {
+    "code": "FI",
+    "name": "Finland",
+    "primaryNote": "Finnish customs: VAT 25.5% (14% reduced). Duty-free under €150. Tulli clearance process.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "france": {
+    "code": "FR",
+    "name": "France",
+    "primaryNote": "French customs: VAT 20% (5.5% reduced). Duty-free under €150. CN23 form required for non-EU origins.",
+    "fragmentCount": 2,
+    "altNotes": [
+      "French customs apply EU common external tariff. TVA at 20%."
+    ]
+  },
+  "gabon": {
+    "code": "GA",
+    "name": "Gabon",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Gabon.",
+    "fragmentCount": 55,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Gabon.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Gabon."
+    ]
+  },
+  "gambia": {
+    "code": "GM",
+    "name": "Gambia",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Gambia.",
+    "fragmentCount": 56,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Gambia.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Gambia."
+    ]
+  },
+  "georgia": {
+    "code": "GE",
+    "name": "Georgia",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Georgia.",
+    "fragmentCount": 57,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Georgia.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Georgia."
+    ]
+  },
+  "germany": {
+    "code": "DE",
+    "name": "Germany",
+    "primaryNote": "German customs: VAT 19% (7% reduced). Duty-free under €150. Commercial invoices required for shipments over €45.",
+    "fragmentCount": 5,
+    "altNotes": [
+      "German customs duty for non-EU goods. VAT at 19%. EORI number needed for commercial shipments.",
+      "EU anti-dumping duties may apply. Standard customs + 19% MwSt."
+    ]
+  },
+  "ghana": {
+    "code": "GH",
+    "name": "Ghana",
+    "primaryNote": "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Afghanistan to Ghana.",
+    "fragmentCount": 59,
+    "altNotes": [
+      "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Albania to Ghana.",
+      "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Algeria to Ghana."
+    ]
+  },
+  "greece": {
+    "code": "GR",
+    "name": "Greece",
+    "primaryNote": "Greek customs: VAT 24% (13% reduced). Duty-free under €150. AFM number for commercial imports.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "guatemala": {
+    "code": "GT",
+    "name": "Guatemala",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Guatemala.",
+    "fragmentCount": 61,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Guatemala.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Guatemala."
+    ]
+  },
+  "guinea": {
+    "code": "GN",
+    "name": "Guinea",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Guinea.",
+    "fragmentCount": 62,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Guinea.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Guinea."
+    ]
+  },
+  "guyana": {
+    "code": "GY",
+    "name": "Guyana",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Guyana.",
+    "fragmentCount": 63,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Guyana.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Guyana."
+    ]
+  },
+  "haiti": {
+    "code": "HT",
+    "name": "Haiti",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Haiti.",
+    "fragmentCount": 64,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Haiti.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Haiti."
+    ]
+  },
+  "honduras": {
+    "code": "HN",
+    "name": "Honduras",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Honduras.",
+    "fragmentCount": 65,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Honduras.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Honduras."
+    ]
+  },
+  "hong-kong": {
+    "code": "HK",
+    "name": "Hong Kong",
+    "primaryNote": "Hong Kong: No customs duty, no VAT. Free port. Trade Declaration required for goods over HKD $1,000.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "hungary": {
+    "code": "HU",
+    "name": "Hungary",
+    "primaryNote": "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Afghanistan to Hungary.",
+    "fragmentCount": 67,
+    "altNotes": [
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Albania to Hungary.",
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Algeria to Hungary."
+    ]
+  },
+  "iceland": {
+    "code": "IS",
+    "name": "Iceland",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Iceland.",
+    "fragmentCount": 68,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Iceland.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Iceland."
+    ]
+  },
+  "india": {
+    "code": "IN",
+    "name": "India",
+    "primaryNote": "Indian customs: GST 18% (12% reduced). IGST on imports. IEC code required for commercial.",
+    "fragmentCount": 5,
+    "altNotes": [
+      "Indian customs duties vary from 0-150%. GST applies. Complex import regulations.",
+      "Indian customs duties on Chinese goods can be very high. BIS standards apply."
+    ]
+  },
+  "indonesia": {
+    "code": "ID",
+    "name": "Indonesia",
+    "primaryNote": "Indonesian customs: VAT 11%. Duty-free under $3. NPWP required for commercial. SNI certification.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "iran": {
+    "code": "IR",
+    "name": "Iran",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Iran.",
+    "fragmentCount": 71,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Iran.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Iran."
+    ]
+  },
+  "iraq": {
+    "code": "IQ",
+    "name": "Iraq",
+    "primaryNote": "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Afghanistan to Iraq.",
+    "fragmentCount": 72,
+    "altNotes": [
+      "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Albania to Iraq.",
+      "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Algeria to Iraq."
+    ]
+  },
+  "ireland": {
+    "code": "IE",
+    "name": "Ireland",
+    "primaryNote": "Irish customs: VAT 23% (13.5% reduced). Duty-free under €150. PPS number for personal imports.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "israel": {
+    "code": "IL",
+    "name": "Israel",
+    "primaryNote": "Israeli customs: VAT 17%. Purchase tax varies. Duty-free under ILS $75. Shaar Olami system.",
+    "fragmentCount": 2,
+    "altNotes": [
+      "Israel customs + VAT 17%. US-Israel FTA provides duty-free on many goods."
+    ]
+  },
+  "italy": {
+    "code": "IT",
+    "name": "Italy",
+    "primaryNote": "Italian customs: VAT 22% (10% reduced). Duty-free under €150. Codice Fiscale may be required.",
+    "fragmentCount": 2,
+    "altNotes": [
+      "Italian customs follow EU tariff. IVA at 22%."
+    ]
+  },
+  "ivory-coast": {
+    "code": "CI",
+    "name": "Ivory Coast",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Ivory Coast.",
+    "fragmentCount": 76,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Ivory Coast.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Ivory Coast."
+    ]
+  },
+  "jamaica": {
+    "code": "JM",
+    "name": "Jamaica",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Jamaica.",
+    "fragmentCount": 77,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Jamaica.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Jamaica."
+    ]
+  },
+  "japan": {
+    "code": "JP",
+    "name": "Japan",
+    "primaryNote": "Japanese customs: Consumption tax 10%. Duty-free under ¥10,000. JCT applied at import. NACCS system.",
+    "fragmentCount": 7,
+    "altNotes": [
+      "Japan consumption tax 10%. Customs duty varies by product category.",
+      "Japan customs duty varies. Consumption tax 10%. Many items have preferential rates."
+    ]
+  },
+  "jordan": {
+    "code": "JO",
+    "name": "Jordan",
+    "primaryNote": "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Afghanistan to Jordan.",
+    "fragmentCount": 79,
+    "altNotes": [
+      "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Albania to Jordan.",
+      "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Algeria to Jordan."
+    ]
+  },
+  "kazakhstan": {
+    "code": "KZ",
+    "name": "Kazakhstan",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Kazakhstan.",
+    "fragmentCount": 80,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Kazakhstan.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Kazakhstan."
+    ]
+  },
+  "kenya": {
+    "code": "KE",
+    "name": "Kenya",
+    "primaryNote": "Kenyan customs: VAT 16%. Duty 0-25%. KRA iTax system. KEBS standards mark required.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "kosovo": {
+    "code": "XK",
+    "name": "Kosovo",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Kosovo.",
+    "fragmentCount": 82,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Kosovo.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Kosovo."
+    ]
+  },
+  "kuwait": {
+    "code": "KW",
+    "name": "Kuwait",
+    "primaryNote": "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Afghanistan to Kuwait.",
+    "fragmentCount": 83,
+    "altNotes": [
+      "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Albania to Kuwait.",
+      "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Algeria to Kuwait."
+    ]
+  },
+  "kyrgyzstan": {
+    "code": "KG",
+    "name": "Kyrgyzstan",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Kyrgyzstan.",
+    "fragmentCount": 84,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Kyrgyzstan.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Kyrgyzstan."
+    ]
+  },
+  "laos": {
+    "code": "LA",
+    "name": "Laos",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Laos.",
+    "fragmentCount": 85,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Laos.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Laos."
+    ]
+  },
+  "latvia": {
+    "code": "LV",
+    "name": "Latvia",
+    "primaryNote": "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Afghanistan to Latvia.",
+    "fragmentCount": 86,
+    "altNotes": [
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Albania to Latvia.",
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Algeria to Latvia."
+    ]
+  },
+  "lebanon": {
+    "code": "LB",
+    "name": "Lebanon",
+    "primaryNote": "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Afghanistan to Lebanon.",
+    "fragmentCount": 87,
+    "altNotes": [
+      "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Albania to Lebanon.",
+      "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Algeria to Lebanon."
+    ]
+  },
+  "lesotho": {
+    "code": "LS",
+    "name": "Lesotho",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Lesotho.",
+    "fragmentCount": 88,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Lesotho.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Lesotho."
+    ]
+  },
+  "liberia": {
+    "code": "LR",
+    "name": "Liberia",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Liberia.",
+    "fragmentCount": 89,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Liberia.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Liberia."
+    ]
+  },
+  "libya": {
+    "code": "LY",
+    "name": "Libya",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Libya.",
+    "fragmentCount": 90,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Libya.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Libya."
+    ]
+  },
+  "liechtenstein": {
+    "code": "LI",
+    "name": "Liechtenstein",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Liechtenstein.",
+    "fragmentCount": 91,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Liechtenstein.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Liechtenstein."
+    ]
+  },
+  "lithuania": {
+    "code": "LT",
+    "name": "Lithuania",
+    "primaryNote": "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Afghanistan to Lithuania.",
+    "fragmentCount": 92,
+    "altNotes": [
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Albania to Lithuania.",
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Algeria to Lithuania."
+    ]
+  },
+  "luxembourg": {
+    "code": "LU",
+    "name": "Luxembourg",
+    "primaryNote": "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Afghanistan to Luxembourg.",
+    "fragmentCount": 93,
+    "altNotes": [
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Albania to Luxembourg.",
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Algeria to Luxembourg."
+    ]
+  },
+  "macau": {
+    "code": "MO",
+    "name": "Macau",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Macau.",
+    "fragmentCount": 94,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Macau.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Macau."
+    ]
+  },
+  "madagascar": {
+    "code": "MG",
+    "name": "Madagascar",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Madagascar.",
+    "fragmentCount": 95,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Madagascar.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Madagascar."
+    ]
+  },
+  "malawi": {
+    "code": "MW",
+    "name": "Malawi",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Malawi.",
+    "fragmentCount": 96,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Malawi.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Malawi."
+    ]
+  },
+  "malaysia": {
+    "code": "MY",
+    "name": "Malaysia",
+    "primaryNote": "Malaysian customs: SST 10%. Duty-free under MYR $500. MyGST system. Halal certification for food.",
+    "fragmentCount": 2,
+    "altNotes": [
+      "Malaysian customs duties vary. SST applies. ACFTA preferential rates."
+    ]
+  },
+  "maldives": {
+    "code": "MV",
+    "name": "Maldives",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Maldives.",
+    "fragmentCount": 98,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Maldives.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Maldives."
+    ]
+  },
+  "mali": {
+    "code": "ML",
+    "name": "Mali",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Mali.",
+    "fragmentCount": 99,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Mali.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Mali."
+    ]
+  },
+  "malta": {
+    "code": "MT",
+    "name": "Malta",
+    "primaryNote": "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Afghanistan to Malta.",
+    "fragmentCount": 100,
+    "altNotes": [
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Albania to Malta.",
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Algeria to Malta."
+    ]
+  },
+  "mauritius": {
+    "code": "MU",
+    "name": "Mauritius",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Mauritius.",
+    "fragmentCount": 101,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Mauritius.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Mauritius."
+    ]
+  },
+  "mexico": {
+    "code": "MX",
+    "name": "Mexico",
+    "primaryNote": "Mexican customs: VAT 16%. Duty varies. RFC required for commercial. Simplified customs under $50.",
+    "fragmentCount": 2,
+    "altNotes": [
+      "USMCA benefits. Mexican VAT 16%. Customs duties vary by tariff classification."
+    ]
+  },
+  "moldova": {
+    "code": "MD",
+    "name": "Moldova",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Moldova.",
+    "fragmentCount": 103,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Moldova.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Moldova."
+    ]
+  },
+  "monaco": {
+    "code": "MC",
+    "name": "Monaco",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Monaco.",
+    "fragmentCount": 104,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Monaco.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Monaco."
+    ]
+  },
+  "mongolia": {
+    "code": "MN",
+    "name": "Mongolia",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Mongolia.",
+    "fragmentCount": 105,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Mongolia.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Mongolia."
+    ]
+  },
+  "montenegro": {
+    "code": "ME",
+    "name": "Montenegro",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Montenegro.",
+    "fragmentCount": 106,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Montenegro.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Montenegro."
+    ]
+  },
+  "morocco": {
+    "code": "MA",
+    "name": "Morocco",
+    "primaryNote": "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Afghanistan to Morocco.",
+    "fragmentCount": 107,
+    "altNotes": [
+      "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Albania to Morocco.",
+      "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Algeria to Morocco."
+    ]
+  },
+  "mozambique": {
+    "code": "MZ",
+    "name": "Mozambique",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Mozambique.",
+    "fragmentCount": 108,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Mozambique.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Mozambique."
+    ]
+  },
+  "myanmar": {
+    "code": "MM",
+    "name": "Myanmar",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Myanmar.",
+    "fragmentCount": 109,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Myanmar.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Myanmar."
+    ]
+  },
+  "namibia": {
+    "code": "NA",
+    "name": "Namibia",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Namibia.",
+    "fragmentCount": 110,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Namibia.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Namibia."
+    ]
+  },
+  "nepal": {
+    "code": "NP",
+    "name": "Nepal",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Nepal.",
+    "fragmentCount": 111,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Nepal.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Nepal."
+    ]
+  },
+  "netherlands": {
+    "code": "NL",
+    "name": "Netherlands",
+    "primaryNote": "Dutch customs: VAT 21% (9% reduced). Duty-free under €150. EORI number required for commercial shipments.",
+    "fragmentCount": 2,
+    "altNotes": [
+      "Netherlands follows EU customs. VAT 21%. Rotterdam is major port of entry."
+    ]
+  },
+  "new-zealand": {
+    "code": "NZ",
+    "name": "New Zealand",
+    "primaryNote": "New Zealand customs: GST 15%. Duty-free under NZD $1,000. MPI biosecurity check required.",
+    "fragmentCount": 2,
+    "altNotes": [
+      "CER agreement. Very short transit."
+    ]
+  },
+  "nicaragua": {
+    "code": "NI",
+    "name": "Nicaragua",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Nicaragua.",
+    "fragmentCount": 114,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Nicaragua.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Nicaragua."
+    ]
+  },
+  "niger": {
+    "code": "NE",
+    "name": "Niger",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Niger.",
+    "fragmentCount": 115,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Niger.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Niger."
+    ]
+  },
+  "nigeria": {
+    "code": "NG",
+    "name": "Nigeria",
+    "primaryNote": "Nigerian customs: VAT 7.5%. Duty varies. Form M required. SON conformity assessment. NCS clearance.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "north-macedonia": {
+    "code": "MK",
+    "name": "North Macedonia",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to North Macedonia.",
+    "fragmentCount": 117,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to North Macedonia.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to North Macedonia."
+    ]
+  },
+  "norway": {
+    "code": "NO",
+    "name": "Norway",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Norway.",
+    "fragmentCount": 118,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Norway.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Norway."
+    ]
+  },
+  "oman": {
+    "code": "OM",
+    "name": "Oman",
+    "primaryNote": "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Afghanistan to Oman.",
+    "fragmentCount": 119,
+    "altNotes": [
+      "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Albania to Oman.",
+      "Import duties typically 5%. VAT varies by country. Certificate of origin may be required. Prohibited items vary by country (alcohol, pork in some). Route: Algeria to Oman."
+    ]
+  },
+  "pakistan": {
+    "code": "PK",
+    "name": "Pakistan",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Pakistan.",
+    "fragmentCount": 120,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Pakistan.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Pakistan."
+    ]
+  },
+  "palestine": {
+    "code": "PS",
+    "name": "Palestine",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Palestine.",
+    "fragmentCount": 121,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Palestine.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Palestine."
+    ]
+  },
+  "panama": {
+    "code": "PA",
+    "name": "Panama",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Panama.",
+    "fragmentCount": 122,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Panama.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Panama."
+    ]
+  },
+  "papua-new-guinea": {
+    "code": "PG",
+    "name": "Papua New Guinea",
+    "primaryNote": "GST/VAT applies on import. Biosecurity screening mandatory for Australia/New Zealand. Customs declaration required. Route: Afghanistan to Papua New Guinea.",
+    "fragmentCount": 123,
+    "altNotes": [
+      "GST/VAT applies on import. Biosecurity screening mandatory for Australia/New Zealand. Customs declaration required. Route: Albania to Papua New Guinea.",
+      "GST/VAT applies on import. Biosecurity screening mandatory for Australia/New Zealand. Customs declaration required. Route: Algeria to Papua New Guinea."
+    ]
+  },
+  "paraguay": {
+    "code": "PY",
+    "name": "Paraguay",
+    "primaryNote": "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Afghanistan to Paraguay.",
+    "fragmentCount": 124,
+    "altNotes": [
+      "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Albania to Paraguay.",
+      "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Algeria to Paraguay."
+    ]
+  },
+  "peru": {
+    "code": "PE",
+    "name": "Peru",
+    "primaryNote": "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Afghanistan to Peru.",
+    "fragmentCount": 125,
+    "altNotes": [
+      "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Albania to Peru.",
+      "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Algeria to Peru."
+    ]
+  },
+  "philippines": {
+    "code": "PH",
+    "name": "Philippines",
+    "primaryNote": "Philippine customs: VAT 12%. Duty-free under PHP $10,000. BOC clearance. Balikbayan box exemption.",
+    "fragmentCount": 2,
+    "altNotes": [
+      "Philippines customs duties from 0-65%. VAT 12%."
+    ]
+  },
+  "poland": {
+    "code": "PL",
+    "name": "Poland",
+    "primaryNote": "Polish customs: VAT 23% (8% reduced). Duty-free under €150. PESEL number for personal imports.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "portugal": {
+    "code": "PT",
+    "name": "Portugal",
+    "primaryNote": "Portuguese customs: VAT 23% (6% reduced). Duty-free under €150. NIF number recommended.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "puerto-rico": {
+    "code": "PR",
+    "name": "Puerto Rico",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Puerto Rico.",
+    "fragmentCount": 129,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Puerto Rico.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Puerto Rico."
+    ]
+  },
+  "qatar": {
+    "code": "QA",
+    "name": "Qatar",
+    "primaryNote": "Qatar customs: No VAT. Duty 5%. Alcohol and pork products prohibited. Qatar Single Window.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "republic-of-congo": {
+    "code": "CG",
+    "name": "Republic of Congo",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Republic of Congo.",
+    "fragmentCount": 131,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Republic of Congo.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Republic of Congo."
+    ]
+  },
+  "romania": {
+    "code": "RO",
+    "name": "Romania",
+    "primaryNote": "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Afghanistan to Romania.",
+    "fragmentCount": 132,
+    "altNotes": [
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Albania to Romania.",
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Algeria to Romania."
+    ]
+  },
+  "russia": {
+    "code": "RU",
+    "name": "Russia",
+    "primaryNote": "Russian customs duties vary. VAT 20%. Growing cross-border e-commerce.",
+    "fragmentCount": 133,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Russia.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Russia."
+    ]
+  },
+  "rwanda": {
+    "code": "RW",
+    "name": "Rwanda",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Rwanda.",
+    "fragmentCount": 134,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Rwanda.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Rwanda."
+    ]
+  },
+  "samoa": {
+    "code": "WS",
+    "name": "Samoa",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Samoa.",
+    "fragmentCount": 135,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Samoa.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Samoa."
+    ]
+  },
+  "saudi-arabia": {
+    "code": "SA",
+    "name": "Saudi Arabia",
+    "primaryNote": "Saudi customs: VAT 15%. Duty 5-12%. SABER certification for regulated products. Fasah system.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "senegal": {
+    "code": "SN",
+    "name": "Senegal",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Senegal.",
+    "fragmentCount": 137,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Senegal.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Senegal."
+    ]
+  },
+  "serbia": {
+    "code": "RS",
+    "name": "Serbia",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Serbia.",
+    "fragmentCount": 138,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Serbia.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Serbia."
+    ]
+  },
+  "seychelles": {
+    "code": "SC",
+    "name": "Seychelles",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Seychelles.",
+    "fragmentCount": 139,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Seychelles.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Seychelles."
+    ]
+  },
+  "sierra-leone": {
+    "code": "SL",
+    "name": "Sierra Leone",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Sierra Leone.",
+    "fragmentCount": 140,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Sierra Leone.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Sierra Leone."
+    ]
+  },
+  "singapore": {
+    "code": "SG",
+    "name": "Singapore",
+    "primaryNote": "Singapore customs: GST 9%. Duty-free under SGD $400. TradeNet system for commercial clearance.",
+    "fragmentCount": 6,
+    "altNotes": [
+      "Singapore has no customs duty on most goods. GST 9%.",
+      "Most goods duty-free into Singapore. GST 9%."
+    ]
+  },
+  "slovakia": {
+    "code": "SK",
+    "name": "Slovakia",
+    "primaryNote": "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Afghanistan to Slovakia.",
+    "fragmentCount": 142,
+    "altNotes": [
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Albania to Slovakia.",
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Algeria to Slovakia."
+    ]
+  },
+  "slovenia": {
+    "code": "SI",
+    "name": "Slovenia",
+    "primaryNote": "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Afghanistan to Slovenia.",
+    "fragmentCount": 143,
+    "altNotes": [
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Albania to Slovenia.",
+      "EU customs: Import VAT applies. Duty-free under €150. EORI number recommended. Shipping from Algeria to Slovenia."
+    ]
+  },
+  "somalia": {
+    "code": "SO",
+    "name": "Somalia",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Somalia.",
+    "fragmentCount": 144,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Somalia.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Somalia."
+    ]
+  },
+  "south-africa": {
+    "code": "ZA",
+    "name": "South Africa",
+    "primaryNote": "South African customs: VAT 15%. Duty varies by tariff code. SARS clearance. Import permit for restricted goods.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "south-korea": {
+    "code": "KR",
+    "name": "South Korea",
+    "primaryNote": "Korean customs: VAT 10%. Duty-free under $150 (personal use). KCS e-clearance system. KC mark for electronics.",
+    "fragmentCount": 5,
+    "altNotes": [
+      "Korea customs duty + VAT 10%. FTA benefits for qualifying US goods.",
+      "Korea-China FTA benefits. Customs duty + VAT 10%."
+    ]
+  },
+  "south-sudan": {
+    "code": "SS",
+    "name": "South Sudan",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to South Sudan.",
+    "fragmentCount": 147,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to South Sudan.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to South Sudan."
+    ]
+  },
+  "spain": {
+    "code": "ES",
+    "name": "Spain",
+    "primaryNote": "Spanish customs: VAT 21% (10% reduced). Duty-free under €150. NIE number recommended for recurring imports.",
+    "fragmentCount": 2,
+    "altNotes": [
+      "Spanish customs follow EU tariff. IVA at 21%."
+    ]
+  },
+  "sri-lanka": {
+    "code": "LK",
+    "name": "Sri Lanka",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Sri Lanka.",
+    "fragmentCount": 149,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Sri Lanka.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Sri Lanka."
+    ]
+  },
+  "sudan": {
+    "code": "SD",
+    "name": "Sudan",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Sudan.",
+    "fragmentCount": 150,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Sudan.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Sudan."
+    ]
+  },
+  "sweden": {
+    "code": "SE",
+    "name": "Sweden",
+    "primaryNote": "Swedish customs: VAT 25% (12% reduced). Duty-free under €150 (SEK 1,600). Tullverket clearance.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "switzerland": {
+    "code": "CH",
+    "name": "Switzerland",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Switzerland.",
+    "fragmentCount": 152,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Switzerland.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Switzerland."
+    ]
+  },
+  "syria": {
+    "code": "SY",
+    "name": "Syria",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Syria.",
+    "fragmentCount": 153,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Syria.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Syria."
+    ]
+  },
+  "taiwan": {
+    "code": "TW",
+    "name": "Taiwan",
+    "primaryNote": "Taiwan customs: VAT 5%. Duty-free under TWD $3,000. EZWay app for personal imports.",
+    "fragmentCount": 1,
+    "altNotes": []
+  },
+  "tajikistan": {
+    "code": "TJ",
+    "name": "Tajikistan",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Tajikistan.",
+    "fragmentCount": 155,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Tajikistan.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Tajikistan."
+    ]
+  },
+  "tanzania": {
+    "code": "TZ",
+    "name": "Tanzania",
+    "primaryNote": "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Afghanistan to Tanzania.",
+    "fragmentCount": 156,
+    "altNotes": [
+      "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Albania to Tanzania.",
+      "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Algeria to Tanzania."
+    ]
+  },
+  "thailand": {
+    "code": "TH",
+    "name": "Thailand",
+    "primaryNote": "Thai customs: VAT 7%. Duty-free under THB $1,500. BOI privileges for certain goods.",
+    "fragmentCount": 3,
+    "altNotes": [
+      "Thai customs duties vary. VAT 7%. Some goods require import permits.",
+      "ACFTA duty-free for many goods. VAT 7%."
+    ]
+  },
+  "togo": {
+    "code": "TG",
+    "name": "Togo",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Togo.",
+    "fragmentCount": 158,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Togo.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Togo."
+    ]
+  },
+  "tonga": {
+    "code": "TO",
+    "name": "Tonga",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Tonga.",
+    "fragmentCount": 159,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Tonga.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Tonga."
+    ]
+  },
+  "trinidad-and-tobago": {
+    "code": "TT",
+    "name": "Trinidad and Tobago",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Trinidad and Tobago.",
+    "fragmentCount": 160,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Trinidad and Tobago.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Trinidad and Tobago."
+    ]
+  },
+  "tunisia": {
+    "code": "TN",
+    "name": "Tunisia",
+    "primaryNote": "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Afghanistan to Tunisia.",
+    "fragmentCount": 161,
+    "altNotes": [
+      "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Albania to Tunisia.",
+      "Import duties and VAT vary by country. Pre-shipment inspection may be required. Commercial invoice and packing list mandatory. Route: Algeria to Tunisia."
+    ]
+  },
+  "turkey": {
+    "code": "TR",
+    "name": "Turkey",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Turkey.",
+    "fragmentCount": 162,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Turkey.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Turkey."
+    ]
+  },
+  "turkmenistan": {
+    "code": "TM",
+    "name": "Turkmenistan",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Turkmenistan.",
+    "fragmentCount": 163,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Turkmenistan.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Turkmenistan."
+    ]
+  },
+  "uganda": {
+    "code": "UG",
+    "name": "Uganda",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Uganda.",
+    "fragmentCount": 164,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Uganda.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Uganda."
+    ]
+  },
+  "ukraine": {
+    "code": "UA",
+    "name": "Ukraine",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Ukraine.",
+    "fragmentCount": 165,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Ukraine.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Ukraine."
+    ]
+  },
+  "united-arab-emirates": {
+    "code": "AE",
+    "name": "United Arab Emirates",
+    "primaryNote": "UAE customs: VAT 5%. Duty 5% on most goods. Free zones exempt. Dubai Trade portal for clearance.",
+    "fragmentCount": 4,
+    "altNotes": [
+      "UAE VAT 5%. No customs duty in free zones. Standard rate 5% on most goods.",
+      "UAE customs 5% standard rate. Free zone benefits available."
+    ]
+  },
+  "united-kingdom": {
+    "code": "GB",
+    "name": "United Kingdom",
+    "primaryNote": "UK customs: VAT 20%. Duty-free under £135. EORI number required post-Brexit. HMRC clearance.",
+    "fragmentCount": 7,
+    "altNotes": [
+      "UK customs duty applies on goods over GBP135. VAT at 20% on most items.",
+      "UK customs duty + VAT 20%. Low value consignment relief for items under GBP135."
+    ]
+  },
+  "united-states": {
+    "code": "US",
+    "name": "United States",
+    "primaryNote": "US customs: Duty-free under $800 (de minimis). FDA clearance for food/drugs. CBP Form 3461 for commercial.",
+    "fragmentCount": 15,
+    "altNotes": [
+      "US customs duties apply. De minimis $800. Section 301 tariffs on Chinese goods.",
+      "KORUS FTA eliminates most duties. US customs still apply on some goods."
+    ]
+  },
+  "uruguay": {
+    "code": "UY",
+    "name": "Uruguay",
+    "primaryNote": "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Afghanistan to Uruguay.",
+    "fragmentCount": 169,
+    "altNotes": [
+      "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Albania to Uruguay.",
+      "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Algeria to Uruguay."
+    ]
+  },
+  "uzbekistan": {
+    "code": "UZ",
+    "name": "Uzbekistan",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Uzbekistan.",
+    "fragmentCount": 170,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Uzbekistan.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Uzbekistan."
+    ]
+  },
+  "vanuatu": {
+    "code": "VU",
+    "name": "Vanuatu",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Vanuatu.",
+    "fragmentCount": 171,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Vanuatu.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Vanuatu."
+    ]
+  },
+  "venezuela": {
+    "code": "VE",
+    "name": "Venezuela",
+    "primaryNote": "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Afghanistan to Venezuela.",
+    "fragmentCount": 172,
+    "altNotes": [
+      "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Albania to Venezuela.",
+      "Import VAT and customs duties apply. Tax ID number typically required. Commercial invoice mandatory. Customs clearance may take 3-7 business days. Route: Algeria to Venezuela."
+    ]
+  },
+  "vietnam": {
+    "code": "VN",
+    "name": "Vietnam",
+    "primaryNote": "Vietnamese customs: VAT 10%. Duty-free under VND $1,000,000. VNACCS system for e-clearance.",
+    "fragmentCount": 3,
+    "altNotes": [
+      "Vietnam import duties vary widely. VAT 10%. Special consumption tax on luxury goods.",
+      "KVFTA preferential rates. Growing trade corridor."
+    ]
+  },
+  "yemen": {
+    "code": "YE",
+    "name": "Yemen",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Yemen.",
+    "fragmentCount": 174,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Yemen.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Yemen."
+    ]
+  },
+  "zambia": {
+    "code": "ZM",
+    "name": "Zambia",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Zambia.",
+    "fragmentCount": 175,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Zambia.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Zambia."
+    ]
+  },
+  "zimbabwe": {
+    "code": "ZW",
+    "name": "Zimbabwe",
+    "primaryNote": "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Afghanistan to Zimbabwe.",
+    "fragmentCount": 176,
+    "altNotes": [
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Albania to Zimbabwe.",
+      "Import duties and VAT/GST apply. Commercial invoice required. Customs declaration mandatory. Check specific country regulations for restricted items. Route: Algeria to Zimbabwe."
+    ]
+  }
+}

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllInsightArticles } from '@/lib/insight-articles';
+import { TrustBlock } from '@/components/upgrades/TrustBlock';
+import { DATA_LAST_UPDATED } from '@/lib/data-updated';
 
 const SITE_URL = 'https://shipcalcwize.com';
 
@@ -33,6 +35,17 @@ export default function InsightsIndex() {
             })),
           }),
         }}
+      />
+
+      <TrustBlock
+        sources={[
+          { name: 'Freightos Baltic Index', url: 'https://fbx.freightos.com/' },
+          { name: 'World Bank LPI', url: 'https://lpi.worldbank.org/' },
+          { name: 'UNCTAD Maritime Transport', url: 'https://unctad.org/topic/transport-and-trade-logistics/review-of-maritime-transport' },
+          { name: 'WCO HS Codes', url: 'https://www.wcoomd.org/en/topics/nomenclature/overview.aspx' },
+          { name: 'US CBP', url: 'https://www.cbp.gov/trade' },
+        ]}
+        updated={DATA_LAST_UPDATED}
       />
 
       <header className="mb-8">

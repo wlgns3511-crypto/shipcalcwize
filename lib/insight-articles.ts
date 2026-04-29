@@ -61,7 +61,7 @@ export const insightArticles: InsightArticle[] = [
 
 <p><strong>20-70 lbs (heavy):</strong> FedEx Ground and UPS Ground trade blows depending on exact weight and zone. Both charge $35-$65 for a 40 lb package shipped cross-country. USPS is not competitive above 20 lbs — their rates jump sharply and surcharges for oversize packages are aggressive. For truly heavy or bulky items, freight consolidators like ShipBob or Sendle can beat all three carriers by 15-25%.</p>
 
-<p>Use our <a href="/compare/">carrier comparison tool</a> to find the cheapest option for your specific package.</p>
+<p>Use our <a href="/calculator/">shipping calculator</a> to find the cheapest option for your specific package.</p>
 `,
     keyTakeaway: 'USPS Priority Mail Cubic is the most underused money-saving option in shipping — it can cut costs by 48% versus standard Priority Mail for packages under 0.5 cubic feet. Above 5 lbs, FedEx Ground is consistently the cheapest or tied for cheapest option.',
     faqs: [

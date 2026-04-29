@@ -1,0 +1,358 @@
+{
+  "_meta": {
+    "source": "Public customs authority pages — verify before shipping commercial volume.",
+    "currency": "Local currency unless USD noted; USD threshold is approximate based on 2026-Q1 FX.",
+    "_updated": "2026-04-29",
+    "_disclaimer": "De minimis thresholds change. This is informational, not legal advice."
+  },
+  "united-states": {
+    "code": "US", "currency": "USD", "deMinimis": 800,
+    "vatOrGstPct": null, "vatLabel": null,
+    "generalDutyPctRange": "0-37.5",
+    "notes": "Section 321 covers shipments under $800 daily per recipient. CBP. Subject to change under reform.",
+    "officialUrl": "https://www.cbp.gov/trade/programs-administration/entry-summary/section-321"
+  },
+  "canada": {
+    "code": "CA", "currency": "CAD", "deMinimis": 20,
+    "vatOrGstPct": 5, "vatLabel": "GST + provincial PST/HST",
+    "generalDutyPctRange": "0-18",
+    "notes": "Courier shipments raised to CAD $40 duty / $150 tax under CUSMA. CBSA.",
+    "officialUrl": "https://www.cbsa-asfc.gc.ca/import/courier/menu-eng.html"
+  },
+  "mexico": {
+    "code": "MX", "currency": "USD", "deMinimis": 50,
+    "vatOrGstPct": 16, "vatLabel": "IVA",
+    "generalDutyPctRange": "0-35",
+    "notes": "$50 duty-free; $50–$117 simplified 17% rate (USMCA). SAT.",
+    "officialUrl": "https://www.gob.mx/sat"
+  },
+  "united-kingdom": {
+    "code": "GB", "currency": "GBP", "deMinimis": 135,
+    "vatOrGstPct": 20, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-25",
+    "notes": "Duty applies above £135. VAT collected at point-of-sale below; at import above. HMRC.",
+    "officialUrl": "https://www.gov.uk/goods-sent-from-abroad"
+  },
+  "germany": {
+    "code": "DE", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 19, "vatLabel": "MwSt (7% reduced)",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU-wide €150 duty-free; VAT applies on all imports since 2021 IOSS reform. Zoll.",
+    "officialUrl": "https://www.zoll.de/EN/Private-individuals/private-individuals_node.html"
+  },
+  "france": {
+    "code": "FR", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 20, "vatLabel": "TVA",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime. Douane.",
+    "officialUrl": "https://www.douane.gouv.fr/"
+  },
+  "italy": {
+    "code": "IT", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 22, "vatLabel": "IVA",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime. Agenzia delle Dogane.",
+    "officialUrl": "https://www.adm.gov.it/"
+  },
+  "spain": {
+    "code": "ES", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 21, "vatLabel": "IVA",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime.",
+    "officialUrl": "https://sede.agenciatributaria.gob.es/"
+  },
+  "netherlands": {
+    "code": "NL", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 21, "vatLabel": "BTW",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime. Major EU import hub via Rotterdam.",
+    "officialUrl": "https://www.belastingdienst.nl/"
+  },
+  "belgium": {
+    "code": "BE", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 21, "vatLabel": "BTW/TVA",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime.",
+    "officialUrl": "https://finance.belgium.be/en/customs_excises"
+  },
+  "poland": {
+    "code": "PL", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 23, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime.",
+    "officialUrl": "https://www.podatki.gov.pl/clo/"
+  },
+  "sweden": {
+    "code": "SE", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 25, "vatLabel": "Moms",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime. SEK billing local.",
+    "officialUrl": "https://www.tullverket.se/en/"
+  },
+  "denmark": {
+    "code": "DK", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 25, "vatLabel": "Moms",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime.",
+    "officialUrl": "https://skat.dk/"
+  },
+  "norway": {
+    "code": "NO", "currency": "NOK", "deMinimis": 350,
+    "vatOrGstPct": 25, "vatLabel": "MVA",
+    "generalDutyPctRange": "0-15",
+    "notes": "VOEC scheme: foreign sellers collect 25% MVA at sale on goods under NOK 3,000.",
+    "officialUrl": "https://www.toll.no/en/"
+  },
+  "switzerland": {
+    "code": "CH", "currency": "CHF", "deMinimis": 65,
+    "vatOrGstPct": 8.1, "vatLabel": "VAT (2.6% reduced)",
+    "generalDutyPctRange": "0-12",
+    "notes": "VAT-free if assessed VAT <CHF 5 (~CHF 65 standard, ~CHF 200 reduced).",
+    "officialUrl": "https://www.bazg.admin.ch/"
+  },
+  "austria": {
+    "code": "AT", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 20, "vatLabel": "USt",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime.",
+    "officialUrl": "https://www.bmf.gv.at/"
+  },
+  "ireland": {
+    "code": "IE", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 23, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime.",
+    "officialUrl": "https://www.revenue.ie/"
+  },
+  "portugal": {
+    "code": "PT", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 23, "vatLabel": "IVA",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime.",
+    "officialUrl": "https://www.at.gov.pt/"
+  },
+  "finland": {
+    "code": "FI", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 25.5, "vatLabel": "ALV",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime.",
+    "officialUrl": "https://tulli.fi/en/"
+  },
+  "czech-republic": {
+    "code": "CZ", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 21, "vatLabel": "DPH",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime.",
+    "officialUrl": "https://www.celnisprava.cz/"
+  },
+  "greece": {
+    "code": "GR", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 24, "vatLabel": "ΦΠΑ",
+    "generalDutyPctRange": "0-17",
+    "notes": "EU IOSS regime.",
+    "officialUrl": "https://www.aade.gr/"
+  },
+  "australia": {
+    "code": "AU", "currency": "AUD", "deMinimis": 1000,
+    "vatOrGstPct": 10, "vatLabel": "GST",
+    "generalDutyPctRange": "0-10",
+    "notes": "GST applies to imports under AUD $1,000 via marketplace collection. ABF biosecurity strict.",
+    "officialUrl": "https://www.abf.gov.au/"
+  },
+  "new-zealand": {
+    "code": "NZ", "currency": "NZD", "deMinimis": 1000,
+    "vatOrGstPct": 15, "vatLabel": "GST",
+    "generalDutyPctRange": "0-10",
+    "notes": "GST collected at sale by foreign suppliers on goods under NZD $1,000.",
+    "officialUrl": "https://www.customs.govt.nz/"
+  },
+  "japan": {
+    "code": "JP", "currency": "JPY", "deMinimis": 10000,
+    "vatOrGstPct": 10, "vatLabel": "JCT",
+    "generalDutyPctRange": "0-10",
+    "notes": "Goods under ¥10,000 generally duty-free; some categories excluded. NACCS clearance.",
+    "officialUrl": "https://www.customs.go.jp/english/"
+  },
+  "south-korea": {
+    "code": "KR", "currency": "USD", "deMinimis": 150,
+    "vatOrGstPct": 10, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-13",
+    "notes": "$150 personal use ($200 from US under KORUS). Personal customs code (PCCC) required.",
+    "officialUrl": "https://www.customs.go.kr/english/"
+  },
+  "china": {
+    "code": "CN", "currency": "CNY", "deMinimis": 50,
+    "vatOrGstPct": 13, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-50",
+    "notes": "Personal articles tax (PAT) 13-50%. Cross-border e-commerce annual ¥26,000 cap.",
+    "officialUrl": "http://english.customs.gov.cn/"
+  },
+  "hong-kong": {
+    "code": "HK", "currency": "HKD", "deMinimis": null,
+    "vatOrGstPct": 0, "vatLabel": "No VAT/GST",
+    "generalDutyPctRange": "0",
+    "notes": "Free port. Duty only on liquor, tobacco, fuel, methyl alcohol.",
+    "officialUrl": "https://www.customs.gov.hk/"
+  },
+  "singapore": {
+    "code": "SG", "currency": "SGD", "deMinimis": 400,
+    "vatOrGstPct": 9, "vatLabel": "GST",
+    "generalDutyPctRange": "0",
+    "notes": "GST on imports above SGD $400; foreign sellers register OVR if >SGD $100K to SG buyers.",
+    "officialUrl": "https://www.customs.gov.sg/"
+  },
+  "taiwan": {
+    "code": "TW", "currency": "TWD", "deMinimis": 2000,
+    "vatOrGstPct": 5, "vatLabel": "BT",
+    "generalDutyPctRange": "0-30",
+    "notes": "Duty-free under TWD $2,000 (max 6 packages/half-year per recipient).",
+    "officialUrl": "https://web.customs.gov.tw/eng"
+  },
+  "india": {
+    "code": "IN", "currency": "INR", "deMinimis": 0,
+    "vatOrGstPct": 18, "vatLabel": "GST",
+    "generalDutyPctRange": "0-100",
+    "notes": "No de minimis on commercial; gifts under INR ₹5,000 only. KYC mandatory; AD code/IEC required.",
+    "officialUrl": "https://www.cbic.gov.in/"
+  },
+  "indonesia": {
+    "code": "ID", "currency": "USD", "deMinimis": 3,
+    "vatOrGstPct": 11, "vatLabel": "PPN",
+    "generalDutyPctRange": "0-40",
+    "notes": "$3 duty-free per consignment; over: 7.5% flat duty + VAT. NPWP for commercial.",
+    "officialUrl": "https://www.beacukai.go.id/"
+  },
+  "thailand": {
+    "code": "TH", "currency": "THB", "deMinimis": 1500,
+    "vatOrGstPct": 7, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-30",
+    "notes": "Duty-free under THB ฿1,500 (commercial); e-commerce reform under review.",
+    "officialUrl": "https://www.customs.go.th/"
+  },
+  "vietnam": {
+    "code": "VN", "currency": "VND", "deMinimis": 1000000,
+    "vatOrGstPct": 10, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-50",
+    "notes": "Duty-free under VND ₫1,000,000. EVFTA reduces EU goods duties.",
+    "officialUrl": "https://customs.gov.vn/"
+  },
+  "philippines": {
+    "code": "PH", "currency": "PHP", "deMinimis": 10000,
+    "vatOrGstPct": 12, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-65",
+    "notes": "Duty-free under PHP ₱10,000 per shipment.",
+    "officialUrl": "https://customs.gov.ph/"
+  },
+  "malaysia": {
+    "code": "MY", "currency": "MYR", "deMinimis": 500,
+    "vatOrGstPct": 10, "vatLabel": "Sales Tax",
+    "generalDutyPctRange": "0-30",
+    "notes": "Air courier duty-free under MYR 500. Low-Value Goods (LVG) sales tax 10% on imports under MYR 500 since 2024.",
+    "officialUrl": "https://www.customs.gov.my/"
+  },
+  "brazil": {
+    "code": "BR", "currency": "USD", "deMinimis": 50,
+    "vatOrGstPct": 17, "vatLabel": "ICMS (avg)",
+    "generalDutyPctRange": "0-35",
+    "notes": "$50 person-to-person only. Remessa Conforme: 17% ICMS + 20% duty for compliant sellers.",
+    "officialUrl": "https://www.gov.br/receitafederal/"
+  },
+  "argentina": {
+    "code": "AR", "currency": "USD", "deMinimis": 50,
+    "vatOrGstPct": 21, "vatLabel": "IVA",
+    "generalDutyPctRange": "0-35",
+    "notes": "Puerta a Puerta: 5 packages/year personal. CUIT required for commercial.",
+    "officialUrl": "https://www.afip.gob.ar/"
+  },
+  "chile": {
+    "code": "CL", "currency": "USD", "deMinimis": 41,
+    "vatOrGstPct": 19, "vatLabel": "IVA",
+    "generalDutyPctRange": "0-6",
+    "notes": "$41 (FOB) duty-free. RUT required for commercial.",
+    "officialUrl": "https://www.aduana.cl/"
+  },
+  "colombia": {
+    "code": "CO", "currency": "USD", "deMinimis": 200,
+    "vatOrGstPct": 19, "vatLabel": "IVA",
+    "generalDutyPctRange": "0-20",
+    "notes": "$200 from FTA partners (US/EU/MX/AND); $0 from non-FTA. Postal/courier rules differ.",
+    "officialUrl": "https://www.dian.gov.co/"
+  },
+  "peru": {
+    "code": "PE", "currency": "USD", "deMinimis": 200,
+    "vatOrGstPct": 18, "vatLabel": "IGV",
+    "generalDutyPctRange": "0-11",
+    "notes": "$200 simplified clearance. RUC required for commercial.",
+    "officialUrl": "https://www.sunat.gob.pe/"
+  },
+  "south-africa": {
+    "code": "ZA", "currency": "ZAR", "deMinimis": null,
+    "vatOrGstPct": 15, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-45",
+    "notes": "No formal de minimis; <ZAR 500 informal clearance. SARS.",
+    "officialUrl": "https://www.sars.gov.za/"
+  },
+  "united-arab-emirates": {
+    "code": "AE", "currency": "AED", "deMinimis": 1000,
+    "vatOrGstPct": 5, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-5",
+    "notes": "Duty-free under AED 1,000. GCC common external tariff 5%.",
+    "officialUrl": "https://www.dubaicustoms.gov.ae/"
+  },
+  "saudi-arabia": {
+    "code": "SA", "currency": "SAR", "deMinimis": 1000,
+    "vatOrGstPct": 15, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-25",
+    "notes": "Duty-free under SAR 1,000 (personal). GCC tariff applies above. SABER for regulated.",
+    "officialUrl": "https://www.zatca.gov.sa/"
+  },
+  "israel": {
+    "code": "IL", "currency": "USD", "deMinimis": 75,
+    "vatOrGstPct": 18, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-12",
+    "notes": "$75 personal duty-free; $500 VAT exempt being phased out under 2025 reform.",
+    "officialUrl": "https://www.gov.il/he/departments/israel_tax_authority"
+  },
+  "turkey": {
+    "code": "TR", "currency": "EUR", "deMinimis": 30,
+    "vatOrGstPct": 20, "vatLabel": "KDV",
+    "generalDutyPctRange": "0-50",
+    "notes": "€30 personal duty-free; €1,500 commercial cap with simplified 30%/20% flat rates by origin.",
+    "officialUrl": "https://www.ticaret.gov.tr/"
+  },
+  "egypt": {
+    "code": "EG", "currency": "USD", "deMinimis": 30,
+    "vatOrGstPct": 14, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-40",
+    "notes": "$30 personal duty-free; $1,500 personal package limit. ACI registration mandatory commercial.",
+    "officialUrl": "https://www.customs.gov.eg/"
+  },
+  "russia": {
+    "code": "RU", "currency": "EUR", "deMinimis": 200,
+    "vatOrGstPct": 20, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-20",
+    "notes": "€200 duty-free per consignment (EAEU rule). Sanctions impact most Western shipments.",
+    "officialUrl": "https://customs.gov.ru/"
+  },
+  "ukraine": {
+    "code": "UA", "currency": "EUR", "deMinimis": 150,
+    "vatOrGstPct": 20, "vatLabel": "VAT",
+    "generalDutyPctRange": "0-20",
+    "notes": "€150 duty-free personal. Wartime restrictions — verify current status.",
+    "officialUrl": "https://customs.gov.ua/"
+  },
+  "norway-spitsbergen": {
+    "code": "NO", "currency": "NOK", "deMinimis": 350,
+    "vatOrGstPct": 25, "vatLabel": "MVA",
+    "generalDutyPctRange": "0-15",
+    "notes": "Same as Norway proper.",
+    "officialUrl": "https://www.toll.no/en/"
+  },
+  "qatar": {
+    "code": "QA", "currency": "QAR", "deMinimis": 1000,
+    "vatOrGstPct": 0, "vatLabel": "No VAT yet",
+    "generalDutyPctRange": "0-5",
+    "notes": "GCC common tariff. VAT introduction pending.",
+    "officialUrl": "https://www.customs.gov.qa/"
+  }
+}

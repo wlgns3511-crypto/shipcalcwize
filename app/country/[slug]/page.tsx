@@ -17,6 +17,10 @@ import { TrustBlock } from "@/components/upgrades/TrustBlock";
 import { DecisionNext } from "@/components/upgrades/DecisionNext";
 import { RelatedEntities } from '@/components/upgrades/RelatedEntities';
 import { TableOfContents } from '@/components/upgrades/TableOfContents';
+import { getTopRoutesTo, getCustomsContext } from "@/lib/country-facts";
+import { bandCost, bandTransit, bandDeMinimis, getCommentary } from "@/lib/country-commentary";
+import { priceRange, formatCurrency } from "@/lib/content-helpers";
+import { DATA_LAST_UPDATED } from "@/lib/data-updated";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -56,6 +60,29 @@ export default async function CountryPage({ params }: Props) {
   const regionAvg = getRegionAvgCost(country.region);
 
   const countryOptions = allCountries.map((c) => ({ code: c.code, name: c.name }));
+
+  // Layer 0 / Layer 1 / Layer 2 — top routes + customs context + commentary.
+  const topRoutes = getTopRoutesTo(slug);
+  const customsCtx = getCustomsContext(slug);
+  const commentary = getCommentary(slug, {
+    cost: bandCost(country.avg_shipping_cost_kg_air ?? 9),
+    transit: bandTransit(country.avg_transit_days_air ?? 7),
+    deMinimis: bandDeMinimis(customsCtx?.deMinimis ?? null),
+  });
+
+  // Top 5 + 5 narrative slices for replaced FROM/TO tables.
+  const topAirTo = topRoutes?.cheapestAir.slice(0, 5) ?? [];
+  const topSeaTo = topRoutes?.cheapestSea.slice(0, 5) ?? [];
+  const fromAirCheapest = [...routesFrom]
+    .filter((r) => (r.avg_cost_kg_air ?? 0) > 0)
+    .sort((a, b) => (a.avg_cost_kg_air ?? 0) - (b.avg_cost_kg_air ?? 0))
+    .slice(0, 5);
+  const fromSeaCheapest = [...routesFrom]
+    .filter((r) => (r.avg_cost_kg_sea ?? 0) > 0)
+    .sort((a, b) => (a.avg_cost_kg_sea ?? 0) - (b.avg_cost_kg_sea ?? 0))
+    .slice(0, 5);
+  const fromAirRange = priceRange(fromAirCheapest.map((r) => r.avg_cost_kg_air ?? 0));
+  const toAirRange = priceRange(topAirTo.map((r) => r.costKg));
 
   const autoFaqs = generateAutoFAQs(country, regionAvg, seaPorts.length, airPorts.length);
   const faqs = [
@@ -149,7 +176,7 @@ export default async function CountryPage({ params }: Props) {
             url: "https://iccwbo.org/business-solutions/incoterms-rules/",
           },
         ]}
-        updated="Latest industry baselines"
+        updated={DATA_LAST_UPDATED}
       />
 
       <TableOfContents />
@@ -165,6 +192,14 @@ export default async function CountryPage({ params }: Props) {
         regionName={country.region}
         regionAvg={regionAvg}
       />
+
+      {/* Country commentary — slug-deterministic factual strip (HCU 2026-04-29 Layer 2) */}
+      <section className="mb-6 rounded-lg border border-slate-200 bg-white px-5 py-4 text-sm text-slate-700 leading-relaxed">
+        <p className="mb-2"><strong>Cost.</strong> {commentary.costSummary}</p>
+        <p className="mb-2"><strong>Transit.</strong> {commentary.transitSummary}</p>
+        <p className="mb-2"><strong>Customs.</strong> {commentary.customsSummary}</p>
+        <p className="text-slate-500"><strong>Tip.</strong> {commentary.practicalTip}</p>
+      </section>
 
       {/* Overview cards */}
       <div className="grid gap-4 md:grid-cols-4 mb-8">
@@ -248,72 +283,117 @@ export default async function CountryPage({ params }: Props) {
 
       <AdSlot id="2345678901" />
 
-      {/* Routes FROM this country */}
-      {routesFrom.length > 0 && (
+      {/* Top lanes FROM this country — top 5 cheapest air + top 5 cheapest sea (HCU 2026-04-29). */}
+      {fromAirCheapest.length > 0 && (
         <section className="mb-10">
-          <h2 className="text-xl font-bold mb-3">Shipping Routes from {country.name}</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm border-collapse">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-200">
-                  <th className="text-left px-3 py-2 font-semibold">Destination</th>
-                  <th className="text-right px-3 py-2 font-semibold">Air $/kg</th>
-                  <th className="text-right px-3 py-2 font-semibold">Sea $/kg</th>
-                  <th className="text-right px-3 py-2 font-semibold">Air Days</th>
-                  <th className="text-right px-3 py-2 font-semibold">Sea Days</th>
-                </tr>
-              </thead>
-              <tbody>
-                {routesFrom.map((r) => (
-                  <tr key={r.slug} className="border-b border-slate-100 hover:bg-amber-50">
-                    <td className="px-3 py-2">
-                      {/* HCU 2026-04-25 — was /route/{slug}; /route/ subtree 410'd.
-                          Link to destination /country/ page (real entity). */}
-                      <a href={`/country/${r.dest_slug}/`} className="text-amber-700 hover:underline font-medium">{r.dest_name}</a>
-                    </td>
-                    <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_air)}</td>
-                    <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_sea)}</td>
-                    <td className="px-3 py-2 text-right">{r.avg_days_air}</td>
-                    <td className="px-3 py-2 text-right">{r.avg_days_sea}</td>
+          <h2 className="text-xl font-bold mb-3">Cheapest lanes from {country.name}</h2>
+          <p className="text-sm text-slate-600 mb-3">
+            Air freight from {country.name} clusters around {fromAirRange}/kg. Below are the lowest-cost destinations on record — outliers above are typically last-mile premium markets or restricted lanes.
+          </p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <h3 className="font-semibold text-amber-700 mb-2 text-sm">Top 5 cheapest by air</h3>
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-200">
+                    <th className="text-left px-3 py-2 font-semibold">Destination</th>
+                    <th className="text-right px-3 py-2 font-semibold">$/kg</th>
+                    <th className="text-right px-3 py-2 font-semibold">Days</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {fromAirCheapest.map((r) => (
+                    <tr key={`from-air-${r.slug}`} className="border-b border-slate-100 hover:bg-amber-50">
+                      <td className="px-3 py-2"><a href={`/country/${r.dest_slug}/`} className="text-amber-700 hover:underline font-medium">{r.dest_name}</a></td>
+                      <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_air)}</td>
+                      <td className="px-3 py-2 text-right">{r.avg_days_air}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {fromSeaCheapest.length > 0 && (
+              <div>
+                <h3 className="font-semibold text-blue-700 mb-2 text-sm">Top 5 cheapest by sea</h3>
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      <th className="text-left px-3 py-2 font-semibold">Destination</th>
+                      <th className="text-right px-3 py-2 font-semibold">$/kg</th>
+                      <th className="text-right px-3 py-2 font-semibold">Days</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {fromSeaCheapest.map((r) => (
+                      <tr key={`from-sea-${r.slug}`} className="border-b border-slate-100 hover:bg-blue-50">
+                        <td className="px-3 py-2"><a href={`/country/${r.dest_slug}/`} className="text-blue-700 hover:underline font-medium">{r.dest_name}</a></td>
+                        <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_sea)}</td>
+                        <td className="px-3 py-2 text-right">{r.avg_days_sea}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
+          <p className="text-xs text-slate-500 mt-3">
+            Lanes are ranked by chargeable-weight cost from {country.name}; full lane catalog (176 corridors) is consolidated in the calculator above.
+          </p>
         </section>
       )}
 
-      {/* Routes TO this country */}
-      {routesTo.length > 0 && (
+      {/* Top lanes TO this country — top 5 cheapest air + top 5 cheapest sea (HCU 2026-04-29). */}
+      {topAirTo.length > 0 && (
         <section className="mb-10">
-          <h2 className="text-xl font-bold mb-3">Shipping Routes to {country.name}</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm border-collapse">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-200">
-                  <th className="text-left px-3 py-2 font-semibold">Origin</th>
-                  <th className="text-right px-3 py-2 font-semibold">Air $/kg</th>
-                  <th className="text-right px-3 py-2 font-semibold">Sea $/kg</th>
-                  <th className="text-right px-3 py-2 font-semibold">Air Days</th>
-                  <th className="text-right px-3 py-2 font-semibold">Sea Days</th>
-                </tr>
-              </thead>
-              <tbody>
-                {routesTo.map((r) => (
-                  <tr key={r.slug} className="border-b border-slate-100 hover:bg-amber-50">
-                    <td className="px-3 py-2">
-                      {/* HCU 2026-04-25 — was /route/{slug}; /route/ subtree 410'd.
-                          Link to origin /country/ page (real entity). */}
-                      <a href={`/country/${r.origin_slug}/`} className="text-amber-700 hover:underline font-medium">{r.origin_name}</a>
-                    </td>
-                    <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_air)}</td>
-                    <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_sea)}</td>
-                    <td className="px-3 py-2 text-right">{r.avg_days_air}</td>
-                    <td className="px-3 py-2 text-right">{r.avg_days_sea}</td>
+          <h2 className="text-xl font-bold mb-3">Cheapest lanes to {country.name}</h2>
+          <p className="text-sm text-slate-600 mb-3">
+            Inbound air freight clusters around {toAirRange}/kg from the lowest-cost origins. {commentary.costSummary}
+          </p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <h3 className="font-semibold text-amber-700 mb-2 text-sm">Top 5 cheapest by air</h3>
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-200">
+                    <th className="text-left px-3 py-2 font-semibold">Origin</th>
+                    <th className="text-right px-3 py-2 font-semibold">$/kg</th>
+                    <th className="text-right px-3 py-2 font-semibold">Days</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {topAirTo.map((r) => (
+                    <tr key={`to-air-${r.originCode}`} className="border-b border-slate-100 hover:bg-amber-50">
+                      <td className="px-3 py-2"><a href={`/country/${r.originSlug}/`} className="text-amber-700 hover:underline font-medium">{r.originName}</a></td>
+                      <td className="px-3 py-2 text-right">${r.costKg.toFixed(2)}</td>
+                      <td className="px-3 py-2 text-right">{r.days}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {topSeaTo.length > 0 && (
+              <div>
+                <h3 className="font-semibold text-blue-700 mb-2 text-sm">Top 5 cheapest by sea</h3>
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      <th className="text-left px-3 py-2 font-semibold">Origin</th>
+                      <th className="text-right px-3 py-2 font-semibold">$/kg</th>
+                      <th className="text-right px-3 py-2 font-semibold">Days</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {topSeaTo.map((r) => (
+                      <tr key={`to-sea-${r.originCode}`} className="border-b border-slate-100 hover:bg-blue-50">
+                        <td className="px-3 py-2"><a href={`/country/${r.originSlug}/`} className="text-blue-700 hover:underline font-medium">{r.originName}</a></td>
+                        <td className="px-3 py-2 text-right">${r.costKg.toFixed(2)}</td>
+                        <td className="px-3 py-2 text-right">{r.days}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -349,18 +429,60 @@ export default async function CountryPage({ params }: Props) {
 
       <AdSlot id="2345678902" />
 
-      {/* Customs info with tariffpeek cross-link */}
+      {/* Customs & duties — country-specific (HCU 2026-04-29 Layer 1). */}
       <section className="mb-10 p-6 bg-slate-50 rounded-lg border border-slate-200">
-        <h2 className="text-lg font-semibold mb-2">Customs &amp; Import Duties for {country.name}</h2>
-        <p className="text-sm text-slate-600 mb-3">
-          Import duties and taxes for {country.name} vary by product category, value, and origin country.
-          Most goods are classified using HS (Harmonized System) codes which determine the applicable duty rate.
-        </p>
+        <h2 className="text-lg font-semibold mb-3">Customs &amp; import duties for {country.name}</h2>
+
+        {customsCtx && (customsCtx.deMinimis !== null || customsCtx.vatPct !== null) && (
+          <div className="grid gap-3 md:grid-cols-3 mb-4">
+            {customsCtx.deMinimis !== null && customsCtx.currency && (
+              <div className="bg-white border border-slate-200 rounded p-3">
+                <p className="text-xs text-slate-500 uppercase tracking-wider">De minimis</p>
+                <p className="text-lg font-bold text-slate-800">{formatCurrency(customsCtx.deMinimis, customsCtx.currency)}</p>
+                <p className="text-xs text-slate-500">Duty-free threshold</p>
+              </div>
+            )}
+            {customsCtx.vatPct !== null && (
+              <div className="bg-white border border-slate-200 rounded p-3">
+                <p className="text-xs text-slate-500 uppercase tracking-wider">{customsCtx.vatLabel ?? "VAT/GST"}</p>
+                <p className="text-lg font-bold text-slate-800">{customsCtx.vatPct}%</p>
+                <p className="text-xs text-slate-500">On import value above threshold</p>
+              </div>
+            )}
+            {customsCtx.generalDutyPctRange && (
+              <div className="bg-white border border-slate-200 rounded p-3">
+                <p className="text-xs text-slate-500 uppercase tracking-wider">General duty</p>
+                <p className="text-lg font-bold text-slate-800">{customsCtx.generalDutyPctRange}%</p>
+                <p className="text-xs text-slate-500">Range across HS chapters</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {customsCtx?.primaryNote && (
+          <p className="text-sm text-slate-700 mb-3">
+            <strong className="text-slate-800">{country.name} customs context.</strong> {customsCtx.primaryNote}
+          </p>
+        )}
+
+        {customsCtx?.manualNotes && (
+          <p className="text-sm text-slate-700 mb-3">{customsCtx.manualNotes}</p>
+        )}
+
         <p className="text-sm text-slate-600">
-          Look up tariff codes and duty rates for your specific products at{" "}
-          <a href="https://tariffpeek.com" className="text-amber-600 hover:underline font-medium">TariffPeek.com</a>.
-          Understanding the correct HS code classification can help you estimate total landed costs including
-          customs duties, VAT/GST, and any special taxes.
+          {customsCtx?.officialUrl ? (
+            <>
+              Verify the latest rules with the official customs authority:{" "}
+              <a href={customsCtx.officialUrl} rel="nofollow noopener" className="text-amber-700 hover:underline font-medium">{country.name} customs</a>.
+              For HS code classification and duty rates by product, see{" "}
+              <a href={`https://tariffpeek.com/country/${slug}/`} className="text-amber-700 hover:underline font-medium">tariff lookup</a>.
+            </>
+          ) : (
+            <>
+              For HS code classification and duty rates, see the country-level lookup at{" "}
+              <a href={`https://tariffpeek.com/country/${slug}/`} className="text-amber-700 hover:underline font-medium">TariffPeek</a>.
+            </>
+          )}
         </p>
       </section>
 

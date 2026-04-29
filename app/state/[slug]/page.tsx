@@ -7,6 +7,9 @@ import { AdSlot } from '@/components/AdSlot';
 import { DataFeedback } from '@/components/DataFeedback';
 import { FreshnessTag } from '@/components/FreshnessTag';
 import { StateRich } from '@/components/state/StateRich';
+import { getRoutesByOrigin } from '@/lib/db';
+import { formatCost } from '@/lib/format';
+import { pickVariant } from '@/lib/content-helpers';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -52,6 +55,40 @@ export default async function StatePage({ params }: Props) {
     .filter((s) => s.slug !== state.slug)
     .sort((a, b) => a.avgGroundCostLbs - b.avgGroundCostLbs)
     .slice(0, 5);
+
+  // Layer 1+ international destinations (HCU 2026-04-29) — top cheap export lanes from US.
+  const usExportRoutes = getRoutesByOrigin('US');
+  const topExportAir = [...usExportRoutes]
+    .filter((r) => (r.avg_cost_kg_air ?? 0) > 0)
+    .sort((a, b) => (a.avg_cost_kg_air ?? 0) - (b.avg_cost_kg_air ?? 0))
+    .slice(0, 3);
+  const topExportSea = [...usExportRoutes]
+    .filter((r) => (r.avg_cost_kg_sea ?? 0) > 0)
+    .sort((a, b) => (a.avg_cost_kg_sea ?? 0) - (b.avg_cost_kg_sea ?? 0))
+    .slice(0, 3);
+
+  const hasSeaPort = state.portsOfEntry.some((p) => /port|harbor|seattle|long beach|los angeles|new york|new jersey|miami|houston|charleston|savannah|oakland/i.test(p));
+  const hasAirHub = state.portsOfEntry.some((p) => /jfk|lax|atl|ord|airport|atlanta|chicago/i.test(p)) || state.shippingHubs.some((h) => /atlanta|memphis|louisville|cincinnati|los angeles/i.test(h));
+
+  const stateNarrativeBank = hasSeaPort
+    ? [
+        `${state.name}'s ${state.portsOfEntry[0]} gateway anchors cheap sea export lanes — $${topExportSea[0]?.avg_cost_kg_sea?.toFixed(2) ?? '—'}/kg to ${topExportSea[0]?.dest_name ?? '—'} is among the lowest US-origin sea rates.`,
+        `Sea freight via ${state.portsOfEntry[0]} pairs well with the ${topExportSea.slice(0, 3).map((r) => r.dest_name).join(', ')} lanes — pooled FCL/LCL economics dominate small-parcel air.`,
+        `${state.name} shippers benefit from ${state.portsOfEntry[0]}'s direct sailings — air becomes worth the premium only on shipments under ~50 kg.`,
+      ]
+    : hasAirHub
+    ? [
+        `${state.name}'s air hub network (${state.shippingHubs.slice(0, 2).join(', ')}) keeps export air rates near $${topExportAir[0]?.avg_cost_kg_air?.toFixed(2) ?? '—'}/kg on the cheapest lanes — limited sea access offsets that with longer routing.`,
+        `Air-hub access in ${state.shippingHubs[0]} means international parcels typically clear faster than from non-hub states; sea routing adds 5–7 transit days through gateway ports.`,
+        `Major express carriers consolidate ${state.name} export volume through ${state.shippingHubs[0]}, keeping air rates competitive even for non-hub origins inside the state.`,
+      ]
+    : [
+        `${state.name} routes most international shipments through gateway states — expect 1–2 extra transit days versus shipping directly from a port state.`,
+        `Without a direct port of entry, ${state.name} exporters rely on consolidator pickup from ${state.shippingHubs[0]}; carrier-managed handoff to a gateway is usually cheaper than direct truck.`,
+        `International freight from ${state.name} typically routes through a neighbor's port — comparing landed cost via the calculator catches the cross-state markup.`,
+      ];
+
+  const stateNarrative = pickVariant(stateNarrativeBank, slug);
 
   const faqs = [
     {
@@ -183,6 +220,65 @@ export default async function StatePage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Top international export lanes (HCU 2026-04-29 Layer 1+). */}
+      {(topExportAir.length > 0 || topExportSea.length > 0) && (
+        <section className="mb-10">
+          <h2 className="text-xl font-bold mb-3">Cheapest international export lanes from {state.name}</h2>
+          <p className="text-sm text-slate-600 mb-3">{stateNarrative}</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            {topExportAir.length > 0 && (
+              <div>
+                <h3 className="font-semibold text-amber-700 mb-2 text-sm">Top 3 cheapest by air (US-origin)</h3>
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      <th className="text-left px-3 py-2 font-semibold">Destination</th>
+                      <th className="text-right px-3 py-2 font-semibold">$/kg</th>
+                      <th className="text-right px-3 py-2 font-semibold">Days</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {topExportAir.map((r) => (
+                      <tr key={`exp-air-${r.dest_slug}`} className="border-b border-slate-100 hover:bg-amber-50">
+                        <td className="px-3 py-2"><a href={`/country/${r.dest_slug}/`} className="text-amber-700 hover:underline font-medium">{r.dest_name}</a></td>
+                        <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_air)}</td>
+                        <td className="px-3 py-2 text-right">{r.avg_days_air}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {topExportSea.length > 0 && (
+              <div>
+                <h3 className="font-semibold text-blue-700 mb-2 text-sm">Top 3 cheapest by sea (US-origin)</h3>
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      <th className="text-left px-3 py-2 font-semibold">Destination</th>
+                      <th className="text-right px-3 py-2 font-semibold">$/kg</th>
+                      <th className="text-right px-3 py-2 font-semibold">Days</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {topExportSea.map((r) => (
+                      <tr key={`exp-sea-${r.dest_slug}`} className="border-b border-slate-100 hover:bg-blue-50">
+                        <td className="px-3 py-2"><a href={`/country/${r.dest_slug}/`} className="text-blue-700 hover:underline font-medium">{r.dest_name}</a></td>
+                        <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_sea)}</td>
+                        <td className="px-3 py-2 text-right">{r.avg_days_sea}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+          <p className="text-xs text-slate-500 mt-3">
+            Lane economics use US-origin baselines; per-state surcharges (drayage, last-mile to gateway) typically add $0.30–$0.70/kg to the rate above.
+          </p>
+        </section>
+      )}
 
       {/* Ports of Entry */}
       {state.portsOfEntry.length > 0 && (

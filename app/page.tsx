@@ -5,6 +5,8 @@ import { ShippingCalculator } from "@/components/ShippingCalculator";
 import { AdSlot } from "@/components/AdSlot";
 import { datasetSchema, faqSchema } from "@/lib/schema";
 import { PopularEntities } from "@/components/upgrades/PopularEntities";
+import { TrustBlock } from "@/components/upgrades/TrustBlock";
+import { DATA_LAST_UPDATED } from "@/lib/data-updated";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -53,6 +55,17 @@ export default function Home() {
           Calculate air freight, ocean freight, and express delivery rates for {countries.length}+ countries.
         </p>
       </section>
+
+      <TrustBlock
+        sources={[
+          { name: "Freightos Baltic Index", url: "https://fbx.freightos.com/" },
+          { name: "World Bank LPI", url: "https://lpi.worldbank.org/" },
+          { name: "UNCTAD Maritime Transport", url: "https://unctad.org/topic/transport-and-trade-logistics/review-of-maritime-transport" },
+          { name: "WCO HS Codes", url: "https://www.wcoomd.org/en/topics/nomenclature/overview.aspx" },
+          { name: "US CBP", url: "https://www.cbp.gov/trade" },
+        ]}
+        updated={DATA_LAST_UPDATED}
+      />
 
       <section className="mb-12">
         <ShippingCalculator countries={countryOptions} />

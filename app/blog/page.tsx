@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { getAllPosts, getAllCategories } from "@/lib/blog";
+import { TrustBlock } from "@/components/upgrades/TrustBlock";
+import { DATA_LAST_UPDATED } from "@/lib/data-updated";
 
 export const metadata: Metadata = {
   title: "Shipping Guides & Resources",
@@ -23,6 +25,17 @@ export default function BlogIndex() {
 
   return (
     <>
+      <TrustBlock
+        sources={[
+          { name: 'Freightos Baltic Index', url: 'https://fbx.freightos.com/' },
+          { name: 'World Bank LPI', url: 'https://lpi.worldbank.org/' },
+          { name: 'UNCTAD Maritime Transport', url: 'https://unctad.org/topic/transport-and-trade-logistics/review-of-maritime-transport' },
+          { name: 'WCO HS Codes', url: 'https://www.wcoomd.org/en/topics/nomenclature/overview.aspx' },
+          { name: 'US CBP', url: 'https://www.cbp.gov/trade' },
+        ]}
+        updated={DATA_LAST_UPDATED}
+      />
+
       <h1 className="text-3xl font-bold text-slate-900 mb-2">
         Shipping Guides &amp; Resources
       </h1>

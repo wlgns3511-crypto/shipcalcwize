@@ -183,7 +183,7 @@ const posts: BlogPost[] = [
 
 <h2>Choosing the Right Incoterm</h2>
 <p>The right Incoterm depends on your relationship with the counterparty, your logistics capabilities, and your risk tolerance. As a general rule: if you're an experienced importer with your own freight forwarder, FOB gives you cost control. If you want simplicity and are selling to consumers, DDP provides the best buyer experience.</p>
-<p>Use our <a href="/calculator/">shipping cost calculator</a> to estimate freight costs under different Incoterm scenarios and <a href="/compare/">compare carriers</a> for your route.</p>
+<p>Use our <a href="/calculator/">shipping cost calculator</a> to estimate freight costs under different Incoterm scenarios for your route.</p>
 `,
   },
   {
@@ -265,7 +265,7 @@ const posts: BlogPost[] = [
   <li>German VAT: 19%</li>
   <li>Total: $500 × 1.0 × 1.19 = $595 — recipient pays €95 VAT on delivery</li>
 </ul>
-<p>Use our <a href="/compare/">carrier comparison</a> and <a href="/calculator/">shipping calculator</a> to estimate total cross-border costs before shipping.</p>
+<p>Use our <a href="/calculator/">shipping calculator</a> to estimate total cross-border costs before shipping.</p>
 `,
   },
   {
