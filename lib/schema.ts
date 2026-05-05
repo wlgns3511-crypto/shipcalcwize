@@ -1,17 +1,56 @@
-import { PUBLISHER, EDITORIAL_TEAM } from './authorship';
+import {
+  ENTITY_VINTAGE,
+  EDITORIAL_TEAM,
+  PUBLISHER,
+  SOURCE_AUTHORITIES,
+} from './authorship';
 
 const SITE_NAME = 'ShipCalcWize';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://shipcalcwize.com';
 
-export function datasetSchema(name: string, description: string, reviewedAt?: string) {
+const PUBLISHER_NODE = {
+  '@type': 'Organization',
+  name: PUBLISHER.name,
+  url: PUBLISHER.url,
+};
+
+const EDITORIAL_NODE = {
+  '@type': 'Organization',
+  name: EDITORIAL_TEAM.name,
+  url: EDITORIAL_TEAM.url,
+  parentOrganization: PUBLISHER_NODE,
+};
+
+type DatasetSchemaOpts = {
+  spatialCoverage?: string;
+  variableMeasured?: string[];
+  vintage?: string;
+};
+
+export function datasetSchema(
+  name: string,
+  description: string,
+  opts: DatasetSchemaOpts = {},
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Dataset',
     name,
     description,
-    creator: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+    creator: PUBLISHER_NODE,
+    publisher: PUBLISHER_NODE,
+    sourceOrganization: SOURCE_AUTHORITIES.map((s) => ({
+      '@type': 'Organization',
+      name: s.name,
+      url: s.url,
+    })),
+    isBasedOn: SOURCE_AUTHORITIES.map((s) => s.url),
+    reviewedBy: EDITORIAL_NODE,
     license: 'https://creativecommons.org/licenses/by/4.0/',
-    ...(reviewedAt && { dateModified: reviewedAt }),
+    dateModified: opts.vintage ?? ENTITY_VINTAGE,
+    temporalCoverage: '2024/2025',
+    ...(opts.spatialCoverage && { spatialCoverage: opts.spatialCoverage }),
+    ...(opts.variableMeasured && { variableMeasured: opts.variableMeasured }),
     distribution: { '@type': 'DataDownload', encodingFormat: 'text/html', contentUrl: SITE_URL },
   };
 }
@@ -87,7 +126,7 @@ export function articleSchema(post: { title: string; description: string; slug: 
     datePublished: post.publishedAt,
     dateModified: post.updatedAt ?? post.publishedAt,
     author: { '@type': 'Organization', name: EDITORIAL_TEAM.name, url: EDITORIAL_TEAM.url },
-    publisher: { '@type': 'Organization', name: PUBLISHER.name, url: PUBLISHER.url },
+    publisher: PUBLISHER_NODE,
     mainEntityOfPage: url,
     ...(post.category && { articleSection: post.category }),
   };

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LEGAL_VINTAGES } from "@/lib/authorship";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -11,7 +12,10 @@ export default function PrivacyPage() {
   return (
     <article className="prose prose-slate max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold text-amber-700 mb-6">Privacy Policy</h1>
-      <p className="text-sm text-slate-500 mb-8">Last updated: March 27, 2026</p>
+      <p className="text-sm text-slate-500 mb-8">
+        Last updated:{" "}
+        <time dateTime={LEGAL_VINTAGES.privacy}>{LEGAL_VINTAGES.privacy}</time>
+      </p>
 
       <p>
         ShipCalcWize (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) operates the website shipcalcwize.com. This

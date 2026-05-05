@@ -29,6 +29,14 @@ import { getAllPosts } from '../lib/blog';
 import { getAllStates } from '../lib/states-data';
 import { insightArticles } from '../lib/insight-articles';
 import { getAllGuides } from '../lib/guides';
+import {
+  ABOUT_VINTAGE,
+  ENTITY_VINTAGE,
+  LEGAL_VINTAGES,
+  METHODOLOGY_VINTAGE,
+  SITE_VINTAGE,
+  STATE_VINTAGE,
+} from '../lib/authorship';
 
 const SITE_URL = 'https://shipcalcwize.com';
 const NOW = new Date().toISOString().split('T')[0];
@@ -48,12 +56,19 @@ const seen = new Set<string>();
 const entries: Entry[] = [];
 function add(e: Entry) { if (!seen.has(e.url)) { seen.add(e.url); entries.push(e); } }
 
-// Static pages — /compare/ removed (HCU 2026-04-25, route 410'd)
-for (const [p, pr] of [
-  ['/', '1.0'], ['/calculator/', '0.9'],
-  ['/about/', '0.5'], ['/privacy/', '0.3'], ['/terms/', '0.3'], ['/contact/', '0.4'],
-] as [string, string][]) {
-  add({ url: `${SITE_URL}${p}`, priority: pr, changefreq: 'weekly' });
+// Static pages — /compare/ removed (HCU 2026-04-25, route 410'd).
+// Phase 6 v6.2 — entity-keyed lastmod (vintage anchors per page family)
+for (const row of [
+  { p: '/', pr: '1.0', lm: SITE_VINTAGE },
+  { p: '/calculator/', pr: '0.9', lm: METHODOLOGY_VINTAGE },
+  { p: '/methodology/', pr: '0.6', lm: METHODOLOGY_VINTAGE },
+  { p: '/about/', pr: '0.5', lm: ABOUT_VINTAGE },
+  { p: '/privacy/', pr: '0.3', lm: LEGAL_VINTAGES.privacy },
+  { p: '/terms/', pr: '0.3', lm: LEGAL_VINTAGES.terms },
+  { p: '/disclaimer/', pr: '0.3', lm: LEGAL_VINTAGES.disclaimer },
+  { p: '/contact/', pr: '0.4', lm: SITE_VINTAGE },
+]) {
+  add({ url: `${SITE_URL}${row.p}`, priority: row.pr, changefreq: 'weekly', lastmod: row.lm });
 }
 
 // Guide pages
@@ -77,17 +92,17 @@ for (const a of insightArticles) {
   add({ url: `${SITE_URL}/insights/${a.slug}/`, lastmod: a.date, priority: '0.8' });
 }
 
-// Country pages
+// Country pages — anchored to ENTITY_VINTAGE (per Phase 6 v6.2)
 const countries = getAllCountries();
 for (const c of countries) {
-  add({ url: `${SITE_URL}/country/${c.slug}/`, priority: '0.8', changefreq: 'weekly' });
+  add({ url: `${SITE_URL}/country/${c.slug}/`, priority: '0.8', changefreq: 'weekly', lastmod: ENTITY_VINTAGE });
 }
 
-// State pages (USA)
+// State pages (USA) — anchored to STATE_VINTAGE
 const usStates = getAllStates();
-add({ url: `${SITE_URL}/state/`, priority: '0.8', changefreq: 'weekly' });
+add({ url: `${SITE_URL}/state/`, priority: '0.8', changefreq: 'weekly', lastmod: STATE_VINTAGE });
 for (const s of usStates) {
-  add({ url: `${SITE_URL}/state/${s.slug}/`, priority: '0.7', changefreq: 'weekly' });
+  add({ url: `${SITE_URL}/state/${s.slug}/`, priority: '0.7', changefreq: 'weekly', lastmod: STATE_VINTAGE });
 }
 
 // ─── /route/, /compare/, /es/ all REMOVED 2026-04-25 (HCU Phase C) ────────

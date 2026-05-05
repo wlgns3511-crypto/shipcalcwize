@@ -9,7 +9,7 @@ import { DataFeedback } from "@/components/DataFeedback";
 import { FreshnessTag } from "@/components/FreshnessTag";
 import { InsightCards } from "@/components/InsightCards";
 import { ShippingCostBar } from "@/components/ShippingCostBar";
-import { breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/schema";
+import { breadcrumbSchema, datasetSchema, faqSchema, webPageSchema } from "@/lib/schema";
 import { generateAutoFAQs } from "@/lib/auto-faqs";
 import { ShippingEstimator } from "@/components/tools/ShippingEstimator";
 import { AnswerHero } from "@/components/upgrades/AnswerHero";
@@ -17,10 +17,12 @@ import { TrustBlock } from "@/components/upgrades/TrustBlock";
 import { DecisionNext } from "@/components/upgrades/DecisionNext";
 import { RelatedEntities } from '@/components/upgrades/RelatedEntities';
 import { TableOfContents } from '@/components/upgrades/TableOfContents';
+import { AuthorBox } from "@/components/AuthorBox";
 import { getTopRoutesTo, getCustomsContext } from "@/lib/country-facts";
 import { bandCost, bandTransit, bandDeMinimis, getCommentary } from "@/lib/country-commentary";
 import { priceRange, formatCurrency } from "@/lib/content-helpers";
 import { DATA_LAST_UPDATED } from "@/lib/data-updated";
+import { ENTITY_VINTAGE } from "@/lib/authorship";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -107,6 +109,23 @@ export default async function CountryPage({ params }: Props) {
         `Shipping to ${country.name}`,
         `International shipping costs and transit times for ${country.name}`,
         `/country/${slug}`
+      )) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema(
+        `Shipping baselines: United States to ${country.name}`,
+        `Air-freight $/kg, sea-freight $/kg, and transit-day baselines for shipments to ${country.name}, derived from Freightos Baltic Index, World Bank LPI, UNCTAD maritime statistics, WCO HS classification, and US CBP customs guidance.`,
+        {
+          spatialCoverage: country.name,
+          variableMeasured: [
+            'Air freight $/kg (industry baseline)',
+            'Sea freight $/kg (industry baseline)',
+            'Air transit days',
+            'Sea transit days',
+            'De minimis threshold',
+            'VAT/GST rate',
+            'General duty rate range',
+          ],
+          vintage: ENTITY_VINTAGE,
+        }
       )) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([
         { name: "Home", url: "/" },
@@ -542,6 +561,12 @@ export default async function CountryPage({ params }: Props) {
 
       <DataFeedback />
       <FreshnessTag source="UNCTAD + World Bank LPI benchmarks + published carrier tariffs" />
+
+      <AuthorBox
+        vintage={ENTITY_VINTAGE}
+        source={`Shipping baseline for ${country.name}`}
+        showDisclaimer
+      />
     </div>
   );
 }

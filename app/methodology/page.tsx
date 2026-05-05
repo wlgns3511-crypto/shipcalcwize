@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { AuthorBox } from "@/components/AuthorBox";
+import { METHODOLOGY_VINTAGE } from "@/lib/authorship";
 
 export const metadata: Metadata = {
   title: "Our Methodology — How ShipCalcWize Builds Its Shipping Data",
@@ -222,6 +224,11 @@ export default function MethodologyPage() {
         changes to how we source or compute the data will be reflected here
         before they reach production pages.
       </p>
+
+      <AuthorBox
+        vintage={METHODOLOGY_VINTAGE}
+        source="ShipCalcWize Methodology"
+      />
     </article>
   );
 }

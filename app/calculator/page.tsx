@@ -3,7 +3,9 @@ import { getAllCountries } from "@/lib/db";
 import { ShippingCalculator } from "@/components/ShippingCalculator";
 import { EmbedButton } from "@/components/EmbedButton";
 import { AdSlot } from "@/components/AdSlot";
+import { AuthorBox } from "@/components/AuthorBox";
 import { faqSchema, webPageSchema } from "@/lib/schema";
+import { METHODOLOGY_VINTAGE } from "@/lib/authorship";
 
 export const metadata: Metadata = {
   title: "International Shipping Calculator - Estimate Costs & Transit Times",
@@ -113,6 +115,12 @@ export default function CalculatorPage() {
         title="International Shipping Calculator"
         site="ShipCalcWize"
         siteUrl="https://shipcalcwize.com"
+      />
+
+      <AuthorBox
+        vintage={METHODOLOGY_VINTAGE}
+        source="ShipCalcWize calculation methodology"
+        showDisclaimer
       />
     </div>
   );

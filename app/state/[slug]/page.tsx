@@ -1,15 +1,17 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getAllStates, getStateBySlug, getAvgGroundCostNational } from '@/lib/states-data';
-import { breadcrumbSchema, faqSchema, webPageSchema } from '@/lib/schema';
+import { breadcrumbSchema, datasetSchema, faqSchema, webPageSchema } from '@/lib/schema';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { AdSlot } from '@/components/AdSlot';
 import { DataFeedback } from '@/components/DataFeedback';
 import { FreshnessTag } from '@/components/FreshnessTag';
 import { StateRich } from '@/components/state/StateRich';
+import { AuthorBox } from '@/components/AuthorBox';
 import { getRoutesByOrigin } from '@/lib/db';
 import { formatCost } from '@/lib/format';
 import { pickVariant } from '@/lib/content-helpers';
+import { STATE_VINTAGE } from '@/lib/authorship';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -129,6 +131,21 @@ export default async function StatePage({ params }: Props) {
         `Shipping Costs in ${state.name}`,
         `Average ground shipping in ${state.name}: $${state.avgGroundCostLbs.toFixed(2)}/lb. Major hubs, carriers, and ports.`,
         `/state/${slug}/`,
+      )) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema(
+        `Shipping baselines: ${state.name} (US)`,
+        `Domestic ground shipping $/lb, USPS/UPS/FedEx carrier presence, ports of entry, and shipping volume rank for ${state.name}.`,
+        {
+          spatialCoverage: `${state.name}, USA`,
+          variableMeasured: [
+            'Avg ground $/lb',
+            'Carrier presence (USPS, UPS, FedEx)',
+            'Shipping hubs',
+            'Ports of entry',
+            'Shipping volume rank',
+          ],
+          vintage: STATE_VINTAGE,
+        }
       )) }} />
 
       <Breadcrumb items={[
@@ -405,6 +422,11 @@ export default async function StatePage({ params }: Props) {
       <FreshnessTag source="Published carrier rate cards + USPS, UPS, FedEx zone pricing" />
 
       <StateRich slug={slug} state={state} />
+
+      <AuthorBox
+        vintage={STATE_VINTAGE}
+        source={`${state.name} ground-shipping baseline`}
+      />
 
     </div>
   );
