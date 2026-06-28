@@ -1,227 +1,47 @@
-/**
- * Long-form evergreen guides — US shipping rates, dimensional weight, international shipping.
- * Hub pages that link deep into the route × carrier matrix.
- * Each guide targets a high-intent ecommerce / small business shipper question.
- */
-
+// lib/guides.ts — stub after /guide/* HCU kill (2026-05-27).
+// Real guide content + routes removed; this stub keeps external imports
+// (sitemap loops, orphan components, etc.) type-safe by returning an empty
+// array. All Guide fields are optional so any orphaned consumer that reads
+// guide.readingTime / .lastModified / .content compiles. At runtime the
+// array is empty so those accesses never execute.
 export interface Guide {
   slug: string;
   title: string;
   description: string;
-  intro: string; // HTML
-  sections: Array<{ heading: string; html: string }>;
-  faqs: Array<{ question: string; answer: string }>;
-  category: string;
-  updatedAt: string;
+  intro?: string;
+  sections?: Array<{ heading: string; html: string }>;
+  faqs?: Array<{ question: string; answer: string }>;
+  category?: string;
+  updatedAt?: string;
+  // Optional fields observed in portfolio orphan-component consumers:
+  date?: string;
+  publishedAt?: string;
+  lastModified?: string;
+  content?: string;
+  readingTime?: number;
+  tags?: string[];
+  level?: string;
+  excerpt?: string;
+  image?: string;
+  author?: string;
+  metaDesc?: string;
+  oneLine?: string;
+  screener?: string;
+  name?: string;
+  categoryLabel?: string;
+  titleLabel?: string;
 }
 
-const u = '2026-04-10';
-
-export const guides: Guide[] = [
-  {
-    slug: 'usps-vs-ups-vs-fedex-vs-dhl',
-    title: 'USPS vs UPS vs FedEx vs DHL: Real Cost Comparison by Package Size',
-    description: 'A data-backed comparison of the four major US carriers for small to large packages, domestic and international, with pricing patterns by weight, size, and distance.',
-    category: 'Carrier Comparison',
-    updatedAt: u,
-    intro: `<p>"Which shipping carrier is cheapest?" is the wrong question. The right question is "which carrier is cheapest for MY specific package, route, and service level?" The answer varies dramatically — USPS wins for small lightweight packages, UPS ground dominates medium packages under 5 pounds to commercial addresses, FedEx wins for certain regional express lanes, and DHL dominates international express. This guide breaks down the real pricing patterns for each carrier and helps you pick the right one for each shipment.</p>`,
-    sections: [
-      {
-        heading: 'USPS: the small package king',
-        html: `<p>The US Postal Service has structural advantages for small lightweight packages that private carriers can't match. USPS delivers to every US address six days per week via existing infrastructure, making incremental deliveries cheap.</p><p>Best for:</p><ul><li><strong>Small flat-rate packages</strong> under 1 lb via First-Class Package Service ($4-$6 typical)</li><li><strong>Priority Mail Flat Rate boxes</strong> when shipping anything up to 70 lbs cross-country in a small/medium/large flat-rate box ($9-$30)</li><li><strong>Media Mail</strong> for books, CDs, DVDs (up to 70 lbs, $3-$6 typical)</li><li><strong>International shipping to many countries</strong> via Priority Mail International and First-Class Package International</li><li><strong>Residential delivery:</strong> no residential surcharges (unlike UPS/FedEx)</li></ul><p>Weak points:</p><ul><li>Slow tracking updates compared to UPS/FedEx</li><li>Less reliable delivery times (estimated, not guaranteed, for most services)</li><li>Limited insurance options</li><li>Cannot schedule pickups at no cost like UPS/FedEx commercial accounts</li></ul><p>Typical cost advantage: USPS is usually 20-50% cheaper than UPS/FedEx for packages under 2 lbs, especially for residential delivery.</p>`,
-      },
-      {
-        heading: 'UPS Ground: commercial workhorse',
-        html: `<p>UPS Ground dominates medium-weight ground shipping to commercial addresses. For packages 3-70 lbs shipping to businesses, UPS typically beats USPS and FedEx on reliability and often on price.</p><p>Best for:</p><ul><li><strong>Medium packages (3-30 lbs)</strong> to commercial addresses</li><li><strong>Time-sensitive ground shipments</strong> with guaranteed delivery dates</li><li><strong>High-volume shippers</strong> who qualify for significant discounts (often 40-60% off list rates)</li><li><strong>Freight (over 150 lbs)</strong> via UPS Freight</li></ul><p>Weak points:</p><ul><li>Residential surcharge: ~$5-$7 per package added for residential delivery</li><li>Rural area surcharges for "extended delivery area" ZIP codes</li><li>Fuel surcharge that fluctuates weekly</li><li>Dimensional weight billing (DIM) can dramatically increase cost for bulky lightweight items</li><li>Expensive retail (non-account) pricing — list rates are 50-100% above account rates</li></ul><p>Typical cost advantage: UPS Ground with account pricing typically beats retail USPS for 5-30 lb packages to commercial addresses. UPS retail pricing is usually not competitive.</p>`,
-      },
-      {
-        heading: 'FedEx: regional strength and overnight',
-        html: `<p>FedEx Ground is the closest competitor to UPS Ground and has similar pricing. FedEx's real differentiator is express services — FedEx Priority Overnight and Standard Overnight are the gold standard for time-critical shipments.</p><p>Best for:</p><ul><li><strong>Overnight express</strong>: FedEx Priority Overnight (next business day before 10:30 AM) and Standard Overnight</li><li><strong>2-day air:</strong> FedEx 2Day and 2Day AM</li><li><strong>Regional advantage</strong> in certain US markets where FedEx has better hubs than UPS</li><li><strong>Smart Post (FedEx SmartPost / FedEx Ground Economy):</strong> FedEx handles the long-haul, USPS handles final delivery. Good for residential packages where timing isn't critical.</li></ul><p>Weak points:</p><ul><li>Similar residential surcharges to UPS</li><li>Similar DIM weight billing</li><li>Slightly higher rates than UPS for account holders in most markets</li></ul><p>Typical cost advantage: FedEx is usually the cheapest option for guaranteed next-day delivery by 10:30 AM. For ground, it's roughly tied with UPS depending on specific lanes and volumes.</p>`,
-      },
-      {
-        heading: 'DHL Express: international express leader',
-        html: `<p>DHL has largely exited the US domestic market but dominates international express shipping to most destinations. For business-critical international shipments, DHL Express Worldwide is typically the fastest option.</p><p>Best for:</p><ul><li><strong>International express (1-3 day delivery)</strong> to most countries</li><li><strong>Business-critical international shipments</strong> with customs expertise</li><li><strong>DHL eCommerce</strong> for slower low-cost international parcels</li></ul><p>Weak points:</p><ul><li>No US domestic service (DHL exited US ground in 2008)</li><li>Higher cost for slower international shipments compared to USPS Priority Mail International</li><li>Limited pickup coverage in smaller US cities</li></ul><p>Typical cost advantage: DHL is typically 20-30% faster than USPS international and comparable to FedEx/UPS international express at lower cost.</p>`,
-      },
-      {
-        heading: 'How to actually choose',
-        html: `<p>A practical decision framework based on your shipment:</p><ul><li><strong>Under 1 lb, not time-critical, residential:</strong> USPS First-Class Package</li><li><strong>1-4 lbs, flat fixed price needed:</strong> USPS Priority Mail Flat Rate</li><li><strong>5-30 lbs, commercial destination, ground OK:</strong> UPS Ground (if you have an account) or FedEx Ground</li><li><strong>5-30 lbs, residential destination, ground OK:</strong> USPS Priority Mail (avoids UPS/FedEx residential surcharge)</li><li><strong>30-70 lbs:</strong> UPS Ground or FedEx Ground with account pricing</li><li><strong>Overnight delivery:</strong> FedEx Priority Overnight for 10:30 AM, FedEx Standard Overnight for end of day</li><li><strong>2-day air:</strong> UPS 2nd Day Air or FedEx 2Day</li><li><strong>International express:</strong> DHL Express for most countries; FedEx International Priority as alternative</li><li><strong>International economy:</strong> USPS First-Class Package International (under 4 lbs) or USPS Priority Mail International (up to 70 lbs)</li></ul><p>For high-volume shippers, negotiating account discounts with UPS and FedEx typically reduces costs by 30-60% versus retail rates. Shipping software (ShipStation, EasyPost, Shippo) gives access to discounted rates without negotiating directly.</p>`,
-      },
-    ],
-    faqs: [
-      { question: 'Which shipping carrier is cheapest?', answer: 'Depends on weight, destination, and service level. USPS is usually cheapest for packages under 2 lbs, especially to residential addresses. UPS Ground and FedEx Ground are competitive for 5-30 lbs to commercial addresses with account pricing. DHL dominates international express. No single carrier wins all scenarios.' },
-      { question: 'Why is USPS cheaper than UPS for small packages?', answer: 'USPS has structural advantages: universal delivery infrastructure already exists (mail carriers deliver to every address 6 days/week), no residential surcharge, and direct government-subsidized operations. USPS First-Class Package is typically 20-50% cheaper than UPS/FedEx for packages under 2 lbs.' },
-      { question: 'What is the residential surcharge?', answer: 'UPS and FedEx charge extra ($5-$7) to deliver to residential addresses instead of commercial. USPS has no residential surcharge. For residential-heavy shipping (e-commerce to consumers), USPS is often cheaper despite higher base rates for medium-weight packages.' },
-      { question: 'How much do UPS and FedEx discounts save?', answer: 'Significant. Account pricing is typically 40-60% below list rates for moderate volume shippers, and 60-80% for high-volume shippers. Retail (walk-in) UPS/FedEx pricing is rarely competitive against USPS. Always use account pricing or shipping software that provides discounted rates.' },
-      { question: 'Does DHL still do US domestic shipping?', answer: 'No. DHL exited the US domestic ground market in 2008. DHL in the US now focuses on international express shipping and DHL eCommerce (a slower parcel service for e-commerce). For US domestic ground or air, use USPS, UPS, or FedEx.' },
-      { question: 'Is FedEx or UPS cheaper?', answer: 'Very similar for most account-pricing shipments. FedEx is often slightly cheaper for overnight express, UPS is often slightly cheaper for ground to commercial addresses. Differences are typically 5-15% and vary by lane. For high-volume shippers, negotiating against both is the best strategy.' },
-    ],
-  },
-  {
-    slug: 'dimensional-weight-explained',
-    title: 'Dimensional Weight: The Billing Trick That Doubles Your Shipping Cost',
-    description: 'How DIM weight pricing works, why a 1-pound box can cost $30 to ship, the DIM divisors each carrier uses, and how to package to avoid the DIM penalty.',
-    category: 'Shipping Math',
-    updatedAt: u,
-    intro: `<p>You ship a 1-pound box across the country and the carrier charges you $30. You check the weight — it's definitely 1 pound. You call customer service and they explain: "The shipment is billed on dimensional weight, which is 12 pounds." This is the dimensional weight billing trick, and it's the biggest source of unexpected shipping cost for ecommerce sellers who don't know about it. This guide explains exactly how DIM weight works, which carriers use which formulas, and how to package your products to minimize DIM billing.</p>`,
-    sections: [
-      {
-        heading: 'What dimensional weight is and why it exists',
-        html: `<p>Dimensional weight (or "DIM weight") is a pricing method that charges shippers based on the <strong>volume</strong> of the package, not just its actual weight. The carrier calculates a "billable weight" as the greater of actual weight or DIM weight. You pay the higher number.</p><p>Why carriers use DIM billing:</p><ul><li>Trucks and planes have limited volume, not just weight. A delivery truck can be full of bulky light packages before it reaches its weight limit.</li><li>Light but large packages take up space that could carry heavier, more profitable shipments.</li><li>DIM billing pushes shippers to package efficiently, reducing waste and improving load factors.</li></ul><p>The economics make sense for carriers. The problem for shippers: DIM billing can double, triple, or quadruple the cost of shipping light bulky items like pillows, toys, empty containers, or products with oversized packaging.</p>`,
-      },
-      {
-        heading: 'The DIM divisor: different carriers, different formulas',
-        html: `<p>The formula is straightforward:</p><p><code>DIM weight = (L × W × H) ÷ DIM divisor</code></p><p>Where L, W, H are in inches and the divisor depends on the carrier and service:</p><ul><li><strong>UPS:</strong> DIM divisor 139 for most services (lower divisor = higher DIM weight)</li><li><strong>FedEx:</strong> DIM divisor 139 for most services</li><li><strong>USPS:</strong> DIM divisor 166 for Priority Mail (only applies to packages larger than 1 cubic foot / 1728 cubic inches). Smaller packages use actual weight.</li><li><strong>DHL Express:</strong> DIM divisor 139 for international express</li><li><strong>International parcels (older formulas):</strong> DIM divisor 166 or 194 in some cases</li></ul><p>Example: you ship a 12x12x12 inch box that actually weighs 2 pounds.</p><ul><li>Volume: 12 × 12 × 12 = 1,728 cubic inches</li><li>UPS DIM weight: 1,728 ÷ 139 = 12.4 lbs (rounded up to 13 lbs)</li><li>USPS DIM weight: 1,728 ÷ 166 = 10.4 lbs (rounded up to 11 lbs) — but only for Priority Mail because the package is exactly 1 cubic foot (at or above the threshold)</li><li><strong>You pay based on 13 lbs with UPS/FedEx</strong>, or 2 lbs if you use USPS First-Class Package (no DIM for small packages)</li></ul><p>The 12-pound DIM weight on a 2-pound physical weight means you pay 6x the cost you'd expect based on actual weight.</p>`,
-      },
-      {
-        heading: 'When DIM weight bites hardest',
-        html: `<p>Five product categories where DIM billing regularly surprises shippers:</p><ol><li><strong>Pillows, cushions, and foam products:</strong> high volume, low weight. DIM weight is often 5-10x actual weight.</li><li><strong>Empty containers and cases:</strong> suitcases, luggage, product boxes before filling</li><li><strong>Lamps, vases, and decorative items:</strong> irregular shapes in large protective packaging</li><li><strong>Toys and kids' products:</strong> oversized packaging for display purposes</li><li><strong>Apparel in oversized boxes:</strong> shipping a T-shirt in a medium Priority Mail box is cheaper than shipping in a large box due to DIM billing on the larger box</li></ol><p>General rule: if your package is more than about 4 inches on a side with light contents, check whether DIM weight exceeds actual weight before shipping.</p>`,
-      },
-      {
-        heading: 'How to minimize DIM weight charges',
-        html: `<p>Five practical strategies:</p><ol><li><strong>Right-size your boxes.</strong> The single most effective strategy. Using a box 2 inches smaller in each dimension can cut DIM weight by 30-50%. Custom-fit boxes for your specific products pay for themselves quickly.</li><li><strong>Use USPS for light bulky items.</strong> USPS First-Class Package (under 1 lb) and Priority Mail Flat Rate boxes don't apply DIM weight. A 12x12x12 box with a 2-lb item can ship for $6-$12 via USPS Priority Mail Flat Rate vs $25-$40 with UPS/FedEx.</li><li><strong>Use flat-rate shipping.</strong> USPS Flat Rate boxes, UPS Simple Rate, and FedEx One Rate all charge a fixed price regardless of weight up to specified limits. For heavy items in appropriate boxes, flat rate often beats metered shipping.</li><li><strong>Vacuum sealing or compression packaging.</strong> For compressible products (clothing, bedding, stuffed animals), compression packaging reduces volume 30-60% and dramatically cuts DIM weight.</li><li><strong>Negotiate your DIM divisor.</strong> High-volume UPS/FedEx shippers can sometimes negotiate a more favorable DIM divisor (166 or 194) instead of 139 as part of their contract terms.</li></ol>`,
-      },
-      {
-        heading: 'DIM weight for international shipments',
-        html: `<p>International shipments often use different DIM divisors and stricter rules:</p><ul><li><strong>Most international express:</strong> DIM divisor 139 (same as US domestic)</li><li><strong>International parcel/mail services:</strong> DIM divisor 166 or 194</li><li><strong>Air freight:</strong> DIM divisor 166 for most carriers</li><li><strong>Customs value calculations:</strong> based on actual declared value, not DIM weight. DIM only affects shipping cost.</li></ul><p>Check the specific carrier's tariff for international services before shipping. DIM weight can be applied differently for destinations and weight thresholds.</p>`,
-      },
-    ],
-    faqs: [
-      { question: 'What is dimensional weight?', answer: 'A pricing method where carriers charge based on the volume (L × W × H) of the package, not just actual weight. "Billable weight" is the greater of actual weight or DIM weight. A 1-pound box can be billed as 12 pounds if it\'s bulky, multiplying the shipping cost.' },
-      { question: 'What is the DIM divisor for UPS and FedEx?', answer: 'Both use DIM divisor 139 for most US domestic services. DIM weight = (L × W × H in inches) ÷ 139, rounded up. A 12x12x12 inch box has DIM weight of 1,728 ÷ 139 = 13 lbs regardless of actual weight.' },
-      { question: 'Does USPS use dimensional weight?', answer: 'Only for packages larger than 1 cubic foot (1,728 cubic inches) shipped via Priority Mail, Priority Mail Express, or Parcel Select. Smaller packages and First-Class Package Service use actual weight regardless of size. USPS DIM divisor is 166.' },
-      { question: 'How can I avoid dimensional weight charges?', answer: 'Five strategies: (1) use smaller, custom-fit boxes, (2) use USPS for light bulky items under 1 cubic foot, (3) use flat-rate shipping options, (4) compress/vacuum-pack compressible products, (5) negotiate a favorable DIM divisor in UPS/FedEx contract terms (high-volume shippers only).' },
-      { question: 'Why do carriers use dimensional weight?', answer: 'Because trucks and planes have limited volume, not just weight capacity. A truck can be full of bulky light packages before reaching its weight limit. DIM billing pushes shippers to package efficiently, maximizing carrier revenue per cubic foot of cargo space.' },
-      { question: 'Is dimensional weight the same for all shipping services?', answer: 'No. Different carriers and services use different DIM divisors. UPS/FedEx domestic: 139. USPS Priority Mail (large packages only): 166. International express: typically 139. International economy: typically 166 or 194. Always check the specific service tariff.' },
-    ],
-  },
-  {
-    slug: 'international-shipping-ddp-vs-ddu',
-    title: 'International Shipping: DDP vs DDU and Who Pays Customs',
-    description: 'Incoterms explained in practical terms — the difference between DDP (Delivered Duty Paid) and DDU/DAP (Delivered Duty Unpaid), why it matters for ecommerce, and how to structure international shipments.',
-    category: 'International',
-    updatedAt: u,
-    intro: `<p>When you ship internationally, someone has to pay the destination country's import duties, VAT/GST, and customs clearance fees. The International Chamber of Commerce (ICC) defines these arrangements through "Incoterms" — standardized 3-letter codes that specify who pays what. For ecommerce and small business shippers, the two critical ones to understand are DDP (Delivered Duty Paid) and DDU/DAP (Delivered Duty Unpaid). Choosing wrong leads to surprised customers, abandoned shipments, and lost money. This guide explains exactly how each works and when to use each.</p>`,
-    sections: [
-      {
-        heading: 'What Incoterms are',
-        html: `<p>Incoterms (International Commercial Terms) are standardized 3-letter codes published by the International Chamber of Commerce that define responsibilities in international transactions:</p><ul><li><strong>Who arranges transportation</strong> (seller or buyer)</li><li><strong>Who pays freight charges</strong></li><li><strong>Who pays import duties and taxes</strong></li><li><strong>Who handles customs clearance</strong></li><li><strong>Where risk transfers</strong> from seller to buyer</li></ul><p>There are 11 Incoterms in the current version (2020). For most ecommerce and small-business international shipping, only three matter:</p><ul><li><strong>EXW (Ex Works):</strong> buyer takes full responsibility from the seller's location. Rarely used in ecommerce.</li><li><strong>DAP / DDU (Delivered At Place / Delivered Duty Unpaid):</strong> seller pays shipping to destination; buyer pays import duties and clearance.</li><li><strong>DDP (Delivered Duty Paid):</strong> seller pays everything — shipping, duties, clearance. Buyer gets the package with no additional charges.</li></ul><p>Note: DDU is the old term, replaced by DAP in Incoterms 2010. Many carriers and ecommerce platforms still use "DDU" interchangeably with DAP.</p>`,
-      },
-      {
-        heading: 'DDU/DAP: the customer pays duties',
-        html: `<p>Under DDU/DAP, the seller pays the shipping cost to deliver the package to the destination country. The buyer is responsible for:</p><ul><li>Import duties (based on HS code and customs value)</li><li>Destination country VAT or GST (often 10-25% of declared value)</li><li>Customs clearance fees charged by the local courier</li><li>Any storage fees if clearance is delayed</li></ul><p>How it works in practice:</p><ol><li>You ship the package with the destination country's address</li><li>The carrier delivers to the destination country's customs</li><li>Customs calculates duties and VAT based on the declared value and HS code</li><li>The local courier or customs contacts the buyer to collect payment before delivery</li><li>Once paid, the package is delivered</li></ol><p>Problems with DDU:</p><ul><li><strong>Surprise bills:</strong> the buyer didn't expect additional charges and is angry when contacted for payment</li><li><strong>Refusal to pay:</strong> many buyers simply refuse the package, which is then returned or abandoned</li><li><strong>Abandoned packages:</strong> returned to the seller at the seller's expense, or destroyed</li><li><strong>Refund requests:</strong> buyers blame the seller for "hidden fees" and demand refunds</li><li><strong>Bad reviews:</strong> DDU surprise bills generate disproportionate 1-star reviews on marketplaces</li></ul><p>For ecommerce sellers, DDU is generally the worse option because of the surprise bill problem. It saves the seller upfront money but creates customer experience disasters.</p>`,
-      },
-      {
-        heading: 'DDP: the seller pays everything',
-        html: `<p>Under DDP, the seller pre-pays all costs — shipping, duties, VAT, and customs clearance. The buyer receives the package with no additional charges.</p><p>How DDP works:</p><ol><li>At checkout, the seller calculates duties and VAT for the destination country based on the product and order value</li><li>The seller charges the buyer the inclusive DDP price upfront</li><li>The seller ships using a DDP service with the carrier</li><li>The carrier pays duties and VAT on behalf of the seller, then the seller reimburses</li><li>Package is delivered with no additional payments required from the buyer</li></ol><p>Advantages for sellers:</p><ul><li><strong>Better customer experience:</strong> buyer knows total cost at checkout, no surprise bills</li><li><strong>Lower refund and chargeback rates</strong></li><li><strong>Better reviews and marketplace metrics</strong></li><li><strong>Fewer abandoned packages</strong></li></ul><p>Disadvantages:</p><ul><li><strong>Complex duty calculation:</strong> requires knowing HS code and destination country's duty schedule</li><li><strong>Upfront capital:</strong> seller pays duties before collecting from buyer</li><li><strong>Currency and regulation risk</strong></li><li><strong>Higher apparent price at checkout</strong></li></ul><p>For ecommerce sellers with any significant international volume, DDP is almost always worth implementing despite the complexity.</p>`,
-      },
-      {
-        heading: 'How to offer DDP as a seller',
-        html: `<p>Three main approaches:</p><ol><li><strong>Carrier-provided DDP service.</strong> UPS, FedEx, and DHL all offer DDP options. You provide product HS codes, declared value, and destination. The carrier calculates duties and charges you a bundled price. Pros: simple, reliable. Cons: higher cost than DIY.</li><li><strong>Duty calculation APIs.</strong> Services like Zonos, Avalara Cross-Border, and Eurora provide real-time duty calculation at checkout. Integrate via API into your ecommerce platform. You collect the inclusive price at checkout, then pay duties yourself or through the carrier. Pros: accurate per-country calculation, good customer experience. Cons: monthly fees, integration work.</li><li><strong>Flat-rate pricing model.</strong> Charge a flat "international shipping" price that includes an estimated duty buffer. Over time, adjust the buffer based on actual costs. Pros: simple. Cons: some countries will over-charge, others under-charge.</li></ol><p>Most ecommerce sellers start with approach 1 (carrier DDP) and move to approach 2 (duty calc API) as international volume grows.</p>`,
-      },
-      {
-        heading: 'Country-specific pitfalls',
-        html: `<p>Five countries where international shipping requires special attention:</p><ol><li><strong>European Union:</strong> VAT applies on all imports from outside the EU. Since July 2021, VAT applies from €0 (no "low-value consignment relief" threshold). Low-value shipments can use the IOSS (Import One-Stop Shop) program to collect and remit VAT upfront.</li><li><strong>United Kingdom:</strong> similar to EU. VAT applies from £0 on imports, with low-value consignment threshold of £135 below which VAT is collected at point of sale by the seller or platform.</li><li><strong>Canada:</strong> GST/HST applies. Threshold for duty-free ($20 CAD for most items). Provincial sales tax varies.</li><li><strong>Australia:</strong> GST on all low-value imports since July 2018. Sellers or platforms are responsible for collecting GST.</li><li><strong>Brazil:</strong> notoriously complex customs process. Many commercial packages delayed 2-6 weeks in clearance. High duties (often 60-100% of value) plus complex bureaucracy.</li></ol><p>For any destination country, check current customs rules before shipping. Major carriers and specialized services like Zonos publish current requirements.</p>`,
-      },
-    ],
-    faqs: [
-      { question: 'What is DDP and DDU in shipping?', answer: 'DDP (Delivered Duty Paid) means the seller pays everything including duties and VAT — buyer receives the package with no additional charges. DDU/DAP (Delivered Duty Unpaid / Delivered At Place) means the buyer is responsible for import duties and VAT upon delivery, creating surprise bills that often cause refusal and bad reviews.' },
-      { question: 'Should I use DDP or DDU for international ecommerce?', answer: 'DDP for any significant international volume. Despite higher complexity, DDP provides better customer experience, fewer abandoned packages, lower refund rates, and better reviews. DDU\'s "surprise bill" problem is one of the biggest sources of international ecommerce complaints.' },
-      { question: 'How do I calculate duties for DDP?', answer: 'Three main approaches: (1) use carrier-provided DDP services from UPS/FedEx/DHL (simple but higher cost), (2) integrate a duty calculation API like Zonos, Avalara Cross-Border, or Eurora into your checkout (accurate per country), (3) use flat-rate pricing with an average duty buffer (simple but less accurate).' },
-      { question: 'What are Incoterms?', answer: 'International Commercial Terms — standardized 3-letter codes published by the International Chamber of Commerce defining responsibilities in international transactions. Cover who arranges transportation, pays freight, pays duties, handles customs, and where risk transfers. There are 11 Incoterms; DDP and DDU/DAP are most relevant for ecommerce.' },
-      { question: 'Does the EU charge VAT on all imports now?', answer: 'Yes, since July 2021. The previous "low-value consignment relief" threshold of €22 was eliminated. All commercial imports to the EU are subject to VAT from €0. Low-value shipments can use the IOSS (Import One-Stop Shop) program for simplified VAT collection.' },
-      { question: 'Why do customers refuse packages shipped DDU?', answer: 'Because they weren\'t expecting additional charges after checkout. When the local courier contacts them for duty and VAT payment, many refuse rather than pay. The package is then returned at the seller\'s expense or destroyed. DDP prevents this by making all costs clear upfront.' },
-    ],
-  },
-  {
-    slug: 'shipping-insurance-worth-it',
-    title: 'Shipping Insurance: When It\'s Worth the Cost',
-    description: 'How shipping insurance actually works, the base coverage carriers include for free, third-party insurance providers, and the claim process that determines whether insurance is worth the cost.',
-    category: 'Insurance',
-    updatedAt: u,
-    intro: `<p>Shipping insurance is marketed by every carrier and third-party provider as essential protection against loss and damage. For most shipments, it's a waste of money. For specific high-value items, fragile products, or high-risk destinations, it's essential. The difference between the two comes down to understanding what's actually covered (and what's excluded), what the default carrier liability is, and whether the claim process will actually pay out. This guide explains shipping insurance honestly — when it's worth buying and when you're better off self-insuring.</p>`,
-    sections: [
-      {
-        heading: 'What carriers include for free',
-        html: `<p>Every major US carrier includes some base liability coverage at no extra cost:</p><ul><li><strong>USPS Priority Mail:</strong> up to $100 of insurance included for free on most shipments</li><li><strong>USPS Priority Mail Express:</strong> up to $100 of insurance included, actual delivery required</li><li><strong>USPS First-Class Package:</strong> NO free insurance (common surprise for ecommerce sellers)</li><li><strong>UPS Ground, UPS Air, UPS Express:</strong> $100 of "declared value" included</li><li><strong>FedEx Ground, FedEx Express:</strong> $100 of declared value included</li><li><strong>DHL Express:</strong> liability varies by service and destination; typically covered for declared value</li></ul><p>"Declared value" is different from insurance in a legal sense — it's the carrier's maximum liability, which is usually limited by their tariff terms. But in practice, for shipments under $100 with major carriers, you have built-in protection equivalent to insurance.</p><p>For shipments under $100, buying additional insurance on top of the included coverage is typically redundant and wastes money.</p>`,
-      },
-      {
-        heading: 'When carriers actually pay claims',
-        html: `<p>The real test of shipping insurance isn't the sticker price — it's whether claims actually get paid. Carriers have strict rules about what's covered and what's excluded. Common exclusions and rejection reasons:</p><ul><li><strong>Improper packaging:</strong> if the carrier determines the item wasn't packaged adequately for the shipping method, the claim is denied. This is the most common rejection reason.</li><li><strong>Items specifically excluded:</strong> cash, precious metals, jewelry (often), artwork (often), antiques, one-of-a-kind items, perishables</li><li><strong>Lack of proof of value:</strong> claims require documentation (receipts, invoices, appraisals). No documentation = no payment.</li><li><strong>Late filing:</strong> most carriers require claims filed within 60-120 days of shipment</li><li><strong>Delivered to correct address:</strong> if the carrier can show delivery confirmation, "package disappeared after delivery" claims are usually denied</li></ul><p>Industry data suggests approximately 30-50% of shipping insurance claims are denied. Of those paid, many are settled for less than the claimed value. The claim-to-payment ratio is substantially worse than traditional insurance products.</p>`,
-      },
-      {
-        heading: 'Carrier insurance vs third-party insurance',
-        html: `<p>Three sources of shipping insurance:</p><ol><li><strong>Carrier insurance (USPS, UPS, FedEx, DHL directly):</strong> purchase at the time of shipment for additional value above the built-in declared value. Typical cost: $1-$3 per $100 of additional value. Carrier handles claims, with the rejection rates mentioned above.</li><li><strong>Third-party insurance (Shipsurance, U-PIC, InsureShield, Shipmite):</strong> specialized providers that offer shipping insurance at lower rates and with better claim processes. Typical cost: $0.50-$1.50 per $100 of value. Often sold through shipping software (ShipStation, Shippo, EasyPost) or directly via API.</li><li><strong>Platform-provided insurance:</strong> some marketplaces (Etsy, Shopify, some integrated shipping platforms) include or offer bundled insurance as part of their shipping services.</li></ol><p>Third-party insurance is typically cheaper and more willing to pay claims than carrier insurance. The main providers (Shipsurance/U-PIC) have been in business for decades and have established reputations.</p>`,
-      },
-      {
-        heading: 'When insurance is worth buying',
-        html: `<p>Four scenarios where shipping insurance is genuinely worth the cost:</p><ol><li><strong>High-value items (above the $100 default coverage).</strong> For a $500 product, the $100 default covers only 20% of the value. Third-party insurance at $0.50-$1 per $100 would cost $2-$5 — clearly worth it relative to the exposure.</li><li><strong>Fragile items with proven damage rates.</strong> Glassware, ceramics, electronics with screens. If you have historical data showing 1%+ damage rate, insurance premiums of 0.5-1% of value are likely profitable on average.</li><li><strong>High-theft destinations.</strong> Some neighborhoods, some countries, and some delivery environments (apartment buildings, student housing) have higher theft rates. Insurance is more valuable for these routes.</li><li><strong>International shipments with long transit times.</strong> Longer transit = more handling = more damage risk. International insurance rates are higher but the exposure is also higher.</li></ol>`,
-      },
-      {
-        heading: 'When to self-insure instead',
-        html: `<p>For most ecommerce sellers, self-insurance is better economically than buying insurance. Self-insurance means:</p><ol><li>Set aside 0.5-1% of your shipping revenue into a dedicated "loss reserve" account</li><li>When a package is lost or damaged, refund the customer from the reserve fund</li><li>Over time, the reserve pays itself while you save the insurance premium</li></ol><p>The math works for sellers with:</p><ul><li><strong>Good packaging practices</strong> (low damage rate under 0.5%)</li><li><strong>Moderate average order values</strong> ($50-$500) where default coverage handles most claims</li><li><strong>Sufficient volume</strong> to absorb occasional losses without cash flow problems</li><li><strong>Reliable carriers and services</strong> with low loss rates</li></ul><p>Self-insurance is better than paid insurance when your actual loss rate is below the insurance premium rate. For a seller with 0.3% damage rate, an insurance premium of 0.8% is a net loss. For a seller with 1.5% damage rate, the same premium is profitable.</p><p>Track your actual loss rates for 12 months before deciding. Most sellers who track carefully find their losses are far below what insurance would cost.</p>`,
-      },
-      {
-        heading: 'The claim process that actually works',
-        html: `<p>When you do need to file a claim, follow these steps for the best chance of payment:</p><ol><li><strong>File within 24-48 hours</strong> of learning about loss or damage. Delays weaken claims.</li><li><strong>Photograph everything.</strong> The damaged item, the packaging (inside and outside), the shipping label. Before moving or repackaging anything.</li><li><strong>Keep the original packaging.</strong> For damage claims, carriers may request inspection of the packaging to verify whether damage was in transit or in handling by you or the recipient.</li><li><strong>Document the value.</strong> Original receipts, invoices, or payment records proving what you paid for or sold the item.</li><li><strong>File through the correct channel.</strong> Each carrier and insurance provider has a specific online portal. Using the wrong channel delays processing.</li><li><strong>Follow up.</strong> Claims that go 30+ days without response should be escalated by phone.</li></ol><p>For USPS claims specifically, file through the USPS Claims portal (usps.com/ship/file-domestic-claims.htm). UPS claims through UPS.com. FedEx through fedex.com/apps/onlineclaims/. Third-party insurance through the provider's portal.</p>`,
-      },
-    ],
-    faqs: [
-      { question: 'Is shipping insurance worth it?', answer: 'For most shipments under $100, no — carriers include free declared value coverage up to $100. For high-value items, fragile products, or high-risk destinations, yes. For low-damage-rate sellers, self-insurance (setting aside 0.5-1% of revenue for losses) is usually cheaper than paid insurance.' },
-      { question: 'How much does shipping insurance cost?', answer: 'Carrier insurance (USPS/UPS/FedEx/DHL): $1-$3 per $100 of value above the free $100 built-in. Third-party insurance (Shipsurance, U-PIC, InsureShield): $0.50-$1.50 per $100 — typically 30-50% cheaper than carrier insurance.' },
-      { question: 'What is the default shipping coverage?', answer: 'USPS Priority Mail: $100 insurance included free. UPS Ground/Air: $100 declared value included. FedEx Ground/Express: $100 declared value included. USPS First-Class Package: NO free insurance (common surprise). DHL Express: varies by service.' },
-      { question: 'How often do shipping insurance claims get denied?', answer: 'Industry estimates suggest 30-50% of claims are denied. Common rejection reasons: improper packaging, excluded items (cash, jewelry, artwork), lack of proof of value, late filing, and delivery confirmation. Claims that are paid are often settled for less than the full claimed value.' },
-      { question: 'What is self-insurance for shipping?', answer: 'Setting aside a percentage of shipping revenue (typically 0.5-1%) into a dedicated loss reserve account, then refunding customers from the reserve when packages are lost or damaged. Usually cheaper than paid insurance for sellers with good packaging and low historical damage rates.' },
-      { question: 'Should I use third-party shipping insurance?', answer: 'For most shippers, yes, if you\'re going to buy insurance at all. Third-party providers like Shipsurance, U-PIC, and InsureShield are typically 30-50% cheaper than carrier insurance and have better claim payment rates. Integrated through shipping software like ShipStation, Shippo, or EasyPost.' },
-    ],
-  },
-  {
-    slug: 'free-shipping-math',
-    title: 'Free Shipping Math: What Threshold Actually Works for Your Products',
-    description: 'How to calculate the right free shipping threshold for your product margins, why "free shipping" affects conversion more than prices, and A/B testing patterns that actually work.',
-    category: 'Ecommerce Strategy',
-    updatedAt: u,
-    intro: `<p>"Free shipping" is the most effective conversion driver in ecommerce, consistently beating discounts, promotions, and even lower product prices in conversion rate tests. But offering it recklessly destroys margins. The goal is to find the right threshold — the order value above which free shipping is profitable — and then nudge customers to reach it. This guide explains how to calculate the right threshold for your specific products, the psychology of shipping pricing, and the A/B testing patterns that work.</p>`,
-    sections: [
-      {
-        heading: 'Why "free shipping" matters more than low prices',
-        html: `<p>Research consistently shows that shoppers respond more strongly to "free shipping" than to equivalent discounts. Classic experiments:</p><ul><li><strong>Amazon Prime studies:</strong> Prime membership (which includes free shipping) drove Amazon from a struggling retailer to a dominant platform. Customers responded to free shipping even though the Prime annual fee was a significant cost.</li><li><strong>Comscore 2015 study:</strong> 57% of online shoppers abandoned carts specifically because shipping costs were unexpected or too high.</li><li><strong>Baymard Institute ongoing research:</strong> shipping cost is the #1 reason for cart abandonment (48% of abandonment), far exceeding account requirements, payment issues, or product concerns.</li></ul><p>The psychological explanation: shipping fees feel like "punishment" added after the purchase decision. A $30 product with $5 shipping feels worse than a $35 product with free shipping, even though the total is identical.</p><p>This effect is so reliable that offering free shipping almost always improves conversion rate. The only question is how to structure it profitably.</p>`,
-      },
-      {
-        heading: 'Calculate your profit margin first',
-        html: `<p>Before choosing a free shipping threshold, you need to know your contribution margin on typical orders:</p><p><code>Contribution margin = Order revenue - Product cost - Shipping cost - Payment processing fees</code></p><p>Example:</p><ul><li>Order revenue: $50</li><li>Product cost (COGS): $15</li><li>Shipping cost: $8</li><li>Payment processing (2.9% + $0.30): $1.75</li><li><strong>Contribution margin: $25.25 (50.5%)</strong></li></ul><p>If you offer free shipping on this $50 order, your contribution margin is still $25.25 because you're absorbing the $8 shipping cost you would have charged anyway. The "free shipping" doesn't cost you anything new — it just repackages the cost into the product price.</p><p>If you set a free shipping threshold at $50 (offering free shipping on orders $50+), customers with $30 orders have incentive to add another $20 worth of products to qualify. The key question: do those extra products have enough margin to cover the $8 shipping cost?</p><ul><li>Extra $20 of products with 50% margin = $10 additional profit</li><li>$10 profit minus $8 shipping cost = $2 net gain</li><li>Plus the $20 in additional revenue moves your average order value up</li></ul><p>The free shipping threshold should be set where the incremental margin from upsized orders comfortably exceeds the shipping cost you're absorbing.</p>`,
-      },
-      {
-        heading: 'The right threshold formula',
-        html: `<p>A simple formula for the minimum profitable free shipping threshold:</p><p><code>Min threshold = Average shipping cost ÷ Contribution margin percentage</code></p><p>Example:</p><ul><li>Average shipping cost: $8</li><li>Contribution margin: 50%</li><li>Minimum threshold: $8 ÷ 0.50 = $16</li></ul><p>This is the threshold where, if a customer adds exactly $16 to reach free shipping, the added margin exactly covers the shipping cost. Any higher threshold is profitable. Any lower threshold loses money on incremental orders.</p><p>In practice, set the threshold <strong>higher</strong> than the minimum:</p><ul><li><strong>1.5x the minimum:</strong> strong profitability buffer ($24 in the example above)</li><li><strong>2x the minimum:</strong> very profitable but may push threshold out of reach for some customers ($32)</li></ul><p>The actual optimal threshold depends on how sensitive your customers are to the threshold, your average order value, and your operational goals. Most ecommerce sellers land on thresholds 1.5-2.5x the minimum formula.</p>`,
-      },
-      {
-        heading: 'The "free shipping buffer" psychology',
-        html: `<p>Shoppers look at the threshold and calculate how much more they need to add to qualify. This creates a predictable pattern:</p><ul><li><strong>Current cart well below threshold</strong> (more than 50% short): shoppers ignore the threshold and check out, or abandon</li><li><strong>Current cart 15-40% below threshold:</strong> strong incentive to add products. Conversion rate increases dramatically.</li><li><strong>Current cart 1-15% below threshold:</strong> almost certain to add something. This is the "free shipping hack" behavior where shoppers buy items they don't need just to qualify.</li><li><strong>Current cart at or above threshold:</strong> some portion of customers stop adding (they're content with qualifying); others continue shopping normally.</li></ul><p>The sweet spot is a threshold where a meaningful fraction of your customers land in the 15-40% "likely to add" zone. Too high = most customers don't qualify. Too low = no upsell motivation.</p><p>For a store with $35 average order value, a $50 threshold is optimal (many customers 15-40% short). For a store with $60 AOV, a $75-$100 threshold works better.</p>`,
-      },
-      {
-        heading: 'A/B testing patterns that work',
-        html: `<p>Three high-impact A/B tests for shipping strategy:</p><ol><li><strong>Test: threshold level.</strong> Compare two thresholds (e.g., $50 vs $75). Measure conversion rate, average order value, and total revenue per visitor. The higher threshold wins if it increases AOV enough to offset any conversion drop.</li><li><strong>Test: always free vs threshold.</strong> Compare "free shipping on all orders" vs "free shipping on orders $50+". Price the "always free" version to include shipping costs. Surprisingly often, always-free wins on revenue even though margins are theoretically worse.</li><li><strong>Test: threshold display.</strong> "Free shipping on orders $50+" vs "Add $15 for free shipping" (dynamic based on cart). The dynamic prompt typically wins 10-25% on conversion and AOV.</li></ol><p>Always measure:</p><ul><li>Conversion rate (visitors → orders)</li><li>Average order value (AOV)</li><li>Revenue per visitor (conversion × AOV)</li><li>Gross margin per order</li></ul><p>The winning metric is typically "gross margin per visitor" — conversion × AOV × margin percentage. This accounts for both the conversion boost and the margin impact of different strategies.</p>`,
-      },
-      {
-        heading: 'Free shipping implementation checklist',
-        html: `<ol><li><strong>Calculate your current average shipping cost</strong> (per order, weighted by volume)</li><li><strong>Calculate your current contribution margin percentage</strong> on typical orders</li><li><strong>Compute minimum viable threshold</strong> using the formula above</li><li><strong>Set initial threshold at 1.5-2x minimum,</strong> close to or slightly above your current average order value</li><li><strong>Implement dynamic shipping progress indicator</strong> showing customers how close they are to the threshold ("Add $12.50 for free shipping!")</li><li><strong>Monitor for 30 days</strong>: conversion, AOV, total revenue, gross margin</li><li><strong>A/B test threshold adjustments</strong> ±25% to find the optimal point</li><li><strong>Re-evaluate every 6 months</strong> as product costs, shipping rates, and customer base change</li></ol>`,
-      },
-    ],
-    faqs: [
-      { question: 'What is the right free shipping threshold?', answer: 'Calculate minimum threshold = average shipping cost ÷ contribution margin percentage. For $8 shipping and 50% margin, minimum is $16. Set actual threshold 1.5-2x the minimum ($24-$32 in this example) for profitability buffer. Most ecommerce sellers land on thresholds close to or slightly above their current average order value.' },
-      { question: 'Does free shipping actually increase sales?', answer: 'Yes, consistently. Baymard Institute research shows shipping cost is the #1 reason for cart abandonment (48%). Free shipping typically boosts conversion rate 10-30% and increases average order value when structured with a threshold. Amazon Prime is the largest demonstration of this effect at scale.' },
-      { question: 'Should I offer always-free shipping or a threshold?', answer: 'Depends on your margin structure. Always-free works when you can absorb shipping in product prices without becoming uncompetitive. Threshold-based free shipping is better when shipping costs are high relative to product prices. A/B test both with your actual customers — the right answer varies by product category.' },
-      { question: 'Why do shoppers respond to "free shipping" more than equivalent discounts?', answer: 'Psychology. Shipping fees feel like punishment added after the purchase decision. A $30 product with $5 shipping feels worse than a $35 product with free shipping, even though the total is identical. Research shows this effect is consistent across demographics and product categories.' },
-      { question: 'How do I calculate my shipping margin?', answer: 'Contribution margin = revenue - COGS - shipping - payment processing fees. Divide by revenue for percentage. Then calculate whether offering free shipping allows you to profitably absorb the shipping cost through higher-margin incremental sales at the threshold level.' },
-      { question: 'Should I show the free shipping threshold on every page?', answer: 'Yes, and show dynamic progress indicators ("Add $12.50 for free shipping!") on cart and product pages. A/B tests consistently show dynamic threshold prompts increase both conversion rate (10-25%) and average order value more than static messaging.' },
-    ],
-  },
-];
+export const guides: Guide[] = [];
 
 export function getAllGuides(): Guide[] {
-  return guides;
+  return [];
 }
 
-export function getGuideBySlug(slug: string): Guide | undefined {
-  return guides.find((g) => g.slug === slug);
+export function getGuideBySlug(_slug: string): Guide | undefined {
+  return undefined;
 }
+
+// Some sites use these alias function names — keep all surfaces stub-compatible.
+export const getAllStaticGuides = getAllGuides;
+export const getGuide = getGuideBySlug;

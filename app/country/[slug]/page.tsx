@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAllCountries, getCountryBySlug, getRoutesByOrigin, getRoutesByDest, getPortsByCountry, getRegionAvgCost } from "@/lib/db";
-import { formatCost, formatDays, countryCodeToFlag } from "@/lib/format";
+import { formatCost, formatDays } from "@/lib/format";
+import { CountryFlag } from "@/components/CountryFlag";
 import { ShippingCalculator } from "@/components/ShippingCalculator";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { AdSlot } from "@/components/AdSlot";
@@ -23,6 +24,17 @@ import { bandCost, bandTransit, bandDeMinimis, getCommentary } from "@/lib/count
 import { priceRange, formatCurrency } from "@/lib/content-helpers";
 import { DATA_LAST_UPDATED } from "@/lib/data-updated";
 import { ENTITY_VINTAGE } from "@/lib/authorship";
+import { classifyLandedCostTier, tierLabel, tierBlurb, tierToneColor, TIER_CUTOFF_SUMMARY } from "@/lib/landed-cost-tier";
+import { classifyVatBurdenTier } from "@/lib/vat-burden-tier";
+import { classifyTransitWindowTier } from "@/lib/transit-window-tier";
+import { interpretShipping } from "@/lib/shipping-interpretation";
+import { CountryHeroImage } from "@/components/CountryHeroImage";
+import { getCountryImage } from "@/lib/country-images";
+import { ShippingInterpretation } from "@/components/upgrades/ShippingInterpretation";
+import { ShippingModelMethodologyNote } from "@/components/upgrades/ShippingModelMethodologyNote";
+import countryRoutes from "@/lib/generated/country-routes.json";
+import { getCountryMetrics } from "@/lib/proprietary-metrics";
+import { ProprietaryMetricsBlock } from "@/components/upgrades/ProprietaryMetricsBlock";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -40,9 +52,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const country = getCountryBySlug(slug);
   if (!country) return {};
 
+  const metrics = getCountryMetrics(country, slug);
+  const prefix = metrics ? `[Cost Efficiency: ${metrics.landedCostEfficiency}/100, Grade: ${metrics.accessibilityGrade}] ` : '';
+  const description = `${prefix}Compare shipping costs to ${country.name}. Air freight from ${formatCost(country.avg_shipping_cost_kg_air)}/kg, sea freight from ${formatCost(country.avg_shipping_cost_kg_sea)}/kg. Transit times, carriers, customs info.`;
+
   return {
     title: `Shipping to ${country.name} - International Shipping Costs & Transit Times`,
-    description: `Compare shipping costs to ${country.name}. Air freight from ${formatCost(country.avg_shipping_cost_kg_air)}/kg, sea freight from ${formatCost(country.avg_shipping_cost_kg_sea)}/kg. Transit times, carriers, customs info.`,
+    description,
     alternates: { canonical: `/country/${slug}/` },
     openGraph: { url: `/country/${slug}/` },
   };
@@ -86,6 +102,87 @@ export default async function CountryPage({ params }: Props) {
   const fromAirRange = priceRange(fromAirCheapest.map((r) => r.avg_cost_kg_air ?? 0));
   const toAirRange = priceRange(topAirTo.map((r) => r.costKg));
 
+  // LandedCostTier — 5kg / $200 commodity reference, sea-freight mode.
+  // FBX-derived baseline × 5kg + WCO HS duty midpoint × $200 + CBP/equivalent processing fee.
+  const dutyMidpoint = (() => {
+    const range = customsCtx?.generalDutyPctRange;
+    if (!range) return null;
+    const nums = range.match(/[0-9]+(?:\.[0-9]+)?/g);
+    if (!nums || nums.length === 0) return null;
+    if (nums.length === 1) return parseFloat(nums[0]);
+    const lo = parseFloat(nums[0]);
+    const hi = parseFloat(nums[1]);
+    return Number.isFinite(lo) && Number.isFinite(hi) ? (lo + hi) / 2 : null;
+  })();
+  const landedSea = classifyLandedCostTier({
+    baselinePerKg: country.avg_shipping_cost_kg_sea,
+    weightKg: 5,
+    hsDutyPct: dutyMidpoint,
+    commodityValueUsd: 200,
+    processingFeeUsd: 5,
+    mode: 'sea',
+  });
+  const landedAir = classifyLandedCostTier({
+    baselinePerKg: country.avg_shipping_cost_kg_air,
+    weightKg: 5,
+    hsDutyPct: dutyMidpoint,
+    commodityValueUsd: 200,
+    processingFeeUsd: 5,
+    mode: 'air',
+  });
+
+  // VatBurdenTier — destination VAT/GST × de-minimis × duty-range upper.
+  // Inputs sourced from de-minimis.json via customsCtx; FX conversion uses
+  // the snapshot rates in lib/vat-burden-tier.ts (FX_RATES_USD).
+  const dutyUpper = (() => {
+    const range = customsCtx?.generalDutyPctRange;
+    if (!range) return null;
+    const nums = range.match(/[0-9]+(?:\.[0-9]+)?/g);
+    if (!nums || nums.length === 0) return null;
+    return parseFloat(nums[nums.length - 1]);
+  })();
+  const vatBurden = classifyVatBurdenTier({
+    vatOrGstPct: customsCtx?.vatPct ?? null,
+    deMinimisLocal: customsCtx?.deMinimis ?? null,
+    currency: customsCtx?.currency ?? null,
+    dutyRangeUpperPct: dutyUpper,
+  });
+
+  // TransitWindowTier — best published air / sea days from country-routes.json.
+  // Falls back to country.avg_transit_days_air / _sea when the per-route table
+  // is gapped for this destination.
+  type Route = { days?: number | null };
+  const routes = (countryRoutes as Record<string, { fastestAir?: Route[]; cheapestSea?: Route[] }>)[slug];
+  const airDaysCandidate = (() => {
+    const lanes = routes?.fastestAir ?? [];
+    const days = lanes.map((r) => r.days ?? null).filter((d): d is number => d != null && Number.isFinite(d) && d > 0);
+    if (days.length === 0) return country.avg_transit_days_air ?? null;
+    return Math.min(...days);
+  })();
+  const seaDaysCandidate = (() => {
+    const lanes = routes?.cheapestSea ?? [];
+    const days = lanes.map((r) => r.days ?? null).filter((d): d is number => d != null && Number.isFinite(d) && d > 0);
+    if (days.length === 0) return country.avg_transit_days_sea ?? null;
+    return Math.min(...days);
+  })();
+  const transitWindow = classifyTransitWindowTier({
+    airDays: airDaysCandidate,
+    seaDays: seaDaysCandidate,
+  });
+
+  // ShippingInterpretation composite — verdict atop the three lever tiers.
+  // Use the cheaper of (sea, air) landed-cost tier as the headline cost tier;
+  // sea typically dominates the cost decision for ≥5 kg parcels.
+  const headlineLanded = landedSea.tier ?? landedAir.tier ?? null;
+  const interpretation = interpretShipping({
+    countryName: country.name,
+    landedCostTier: headlineLanded,
+    vatBurdenTier: vatBurden.tier,
+    transitWindowTier: transitWindow.tier,
+  });
+
+  const metrics = getCountryMetrics(country, slug);
+
   const autoFaqs = generateAutoFAQs(country, regionAvg, seaPorts.length, airPorts.length);
   const faqs = [
     {
@@ -104,7 +201,7 @@ export default async function CountryPage({ params }: Props) {
   ];
 
   return (
-    <div>
+    <article data-toc-root>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema(
         `Shipping to ${country.name}`,
         `International shipping costs and transit times for ${country.name}`,
@@ -140,8 +237,17 @@ export default async function CountryPage({ params }: Props) {
         { label: country.name },
       ]} />
 
+      <div className="mb-3 flex items-center gap-3">
+        <CountryFlag code={country.code} size="xl" title={`${country.name} flag`} />
+        <div className="text-xs text-slate-500 font-mono">
+          <span className="uppercase tracking-wider">{country.code}</span>
+          {' · '}
+          <span>{country.region}</span>
+        </div>
+      </div>
+
       <AnswerHero
-        title={`Shipping to ${country.name} ${countryCodeToFlag(country.code)}`}
+        title={`Shipping to ${country.name}`}
         subtitle={country.region}
         tagline={`Air freight averages ${formatCost(country.avg_shipping_cost_kg_air)}/kg with ${formatDays(country.avg_transit_days_air)} transit. Sea freight is cheaper at ${formatCost(country.avg_shipping_cost_kg_sea)}/kg but takes ${formatDays(country.avg_transit_days_sea)}. Figures are industry-typical baselines \u2014 your quoted rate depends on weight, dimensions, and carrier.`}
         badges={[
@@ -172,6 +278,12 @@ export default async function CountryPage({ params }: Props) {
         alternativesLabel={`Other ${country.region} destinations`}
       />
 
+      {/* Above-the-fold Wikimedia photo (graceful null when manifest lacks an entry). */}
+      {(() => {
+        const img = getCountryImage(slug);
+        return img ? <CountryHeroImage img={img} /> : null;
+      })()}
+
       <TrustBlock
         sources={[
           {
@@ -197,6 +309,167 @@ export default async function CountryPage({ params }: Props) {
         ]}
         updated={DATA_LAST_UPDATED}
       />
+
+      {metrics && (
+        <ProprietaryMetricsBlock
+          landedCostEfficiency={metrics.landedCostEfficiency}
+          customsSimplicity={metrics.customsSimplicity}
+          accessibilityGrade={metrics.accessibilityGrade}
+          commentary={metrics.commentary}
+        />
+      )}
+
+      {/* ShippingInterpretation — composite verdict (LandedCostTier × VatBurdenTier × TransitWindowTier) — PSU 1차 2026-05-12 */}
+      <ShippingInterpretation interpretation={interpretation} countryName={country.name} />
+
+      {/* ShippingModelMethodologyNote — first-person Experience/E-E-A-T provenance of the composite synthesis (AEO Experience patch) */}
+      <ShippingModelMethodologyNote
+        countryName={country.name}
+        landed={landedSea.tier != null ? landedSea : landedAir}
+        vat={vatBurden}
+        transit={transitWindow}
+        interpretation={interpretation}
+        dutyMidpointPct={dutyMidpoint}
+      />
+
+      {/* VatBurdenTier — destination VAT/GST × de-minimis × duty range classifier (PSU 1차 2026-05-12) */}
+      {vatBurden.tier != null && (
+        <section
+          data-upgrade="vat-burden-tier"
+          className={`mb-6 rounded-lg border bg-white px-5 py-4 border-${(() => {
+            switch (vatBurden.tier) {
+              case 'A': return 'emerald';
+              case 'B': return 'green';
+              case 'C': return 'amber';
+              case 'D': return 'orange';
+              case 'E': return 'rose';
+              default: return 'slate';
+            }
+          })()}-200`}
+        >
+          <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+            <h2 className="text-base font-bold text-slate-900 m-0">
+              VAT-burden tier — {country.name}
+            </h2>
+            <p className="text-xs text-slate-500 m-0">
+              Destination VAT/GST × de-minimis × WCO HS duty range
+            </p>
+          </div>
+          <p className="text-sm text-slate-700 m-0">
+            <strong className="text-slate-900">Tier {vatBurden.tier}</strong>
+            {vatBurden.vatPct != null ? ` · ${vatBurden.vatPct.toFixed(1)}% VAT/GST` : ' · no published VAT/GST'}
+            {vatBurden.deMinimisUsd != null ? ` · de-minimis ≈ $${vatBurden.deMinimisUsd.toFixed(0)} USD` : ''}
+            {vatBurden.dutyRangeUpperPct != null ? ` · general duty up to ${vatBurden.dutyRangeUpperPct.toFixed(0)}%` : ''}
+          </p>
+        </section>
+      )}
+
+      {/* TransitWindowTier — per-route air/sea day classifier (PSU 1차 2026-05-12) */}
+      {transitWindow.tier != null && (
+        <section
+          data-upgrade="transit-window-tier"
+          className={`mb-6 rounded-lg border bg-white px-5 py-4 border-${(() => {
+            switch (transitWindow.tier) {
+              case 'A': return 'emerald';
+              case 'B': return 'green';
+              case 'C': return 'amber';
+              case 'D': return 'orange';
+              case 'E': return 'rose';
+              default: return 'slate';
+            }
+          })()}-200`}
+        >
+          <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+            <h2 className="text-base font-bold text-slate-900 m-0">
+              Transit-window tier — {country.name}
+            </h2>
+            <p className="text-xs text-slate-500 m-0">
+              Best published air / sea lane from country-routes.json
+            </p>
+          </div>
+          <p className="text-sm text-slate-700 m-0">
+            <strong className="text-slate-900">Tier {transitWindow.tier}</strong>
+            {transitWindow.airDays != null ? ` · best air ${transitWindow.airDays} days` : ' · no published air lane'}
+            {transitWindow.seaDays != null ? ` · best sea ${transitWindow.seaDays} days` : ' · no published sea lane'}
+          </p>
+        </section>
+      )}
+
+      {/* LandedCostTier — FBX × WCO HS × CBP-equivalent fee classifier (PSU 0차 2026-05-11) */}
+      <section
+        data-upgrade="landed-cost-tier"
+        className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-5 py-4"
+      >
+        <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
+          <h2 className="text-lg font-bold text-amber-900 m-0">
+            Landed cost tier — {country.name}
+          </h2>
+          <p className="text-xs text-slate-500 m-0">
+            5 kg parcel · $200 commodity reference · FBX × WCO HS × CBP-equivalent processing
+          </p>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {(['sea', 'air'] as const).map((mode) => {
+            const r = mode === 'sea' ? landedSea : landedAir;
+            const tone = tierToneColor(r.tier);
+            return (
+              <div
+                key={mode}
+                data-upgrade={`landed-cost-tier-${mode}`}
+                className={`rounded-md border bg-white px-4 py-3 border-${tone}-200`}
+              >
+                <p className="text-xs uppercase tracking-wider text-slate-500 m-0">
+                  {mode === 'sea' ? 'Sea freight' : 'Air freight'}
+                </p>
+                <p className={`text-xl font-bold text-${tone}-700 m-0 mt-1`}>
+                  {tierLabel(r.tier)}
+                </p>
+                {r.totalCostUsd != null && (
+                  <p className="text-sm text-slate-700 m-0 mt-1">
+                    ≈ ${r.totalCostUsd.toFixed(2)} total · ${r.shippingCostUsd?.toFixed(2)} shipping
+                    {r.dutyCostUsd && r.dutyCostUsd > 0 ? ` · $${r.dutyCostUsd.toFixed(2)} duty` : ''}
+                    {r.processingFeeUsd > 0 ? ` · $${r.processingFeeUsd.toFixed(2)} processing` : ''}
+                  </p>
+                )}
+                <p className="text-sm text-slate-600 m-0 mt-2">{tierBlurb(r.tier)}</p>
+              </div>
+            );
+          })}
+        </div>
+        <details className="mt-3 text-sm text-slate-600">
+          <summary className="cursor-pointer text-amber-700 hover:underline">
+            What goes into this tier — and what doesn&apos;t
+          </summary>
+          <div className="mt-2 space-y-2">
+            <p className="m-0">
+              <strong>Inputs.</strong> Freightos Baltic Index-derived per-kg baseline from
+              our shipping.db for {country.name}, scaled to a 5 kg reference parcel;
+              {dutyMidpoint != null
+                ? ` WCO HS duty midpoint of ${dutyMidpoint.toFixed(1)}% applied to a $200 commodity reference;`
+                : ' WCO HS duty omitted (no published duty range for this destination);'}{' '}
+              CBP-equivalent processing fee of $5 (US MPF for under-$800 Section 321 entries,
+              or destination-country processing equivalent).
+            </p>
+            <p className="m-0">
+              <strong>Five tiers.</strong>{' '}
+              {TIER_CUTOFF_SUMMARY.map((row) =>
+                row.highUsd
+                  ? `Tier ${row.tier} (${row.label}) $${row.lowUsd}–$${row.highUsd}`
+                  : `Tier ${row.tier} (${row.label}) $${row.lowUsd}+`,
+              ).join(' · ')}
+              . See{' '}
+              the full methodology guide{' '}
+              for tier examples.
+            </p>
+            <p className="m-0 text-slate-500">
+              <strong>Not included.</strong> Fuel surcharge, peak-season GRI, anti-dumping
+              and Section 301 surtaxes, cargo insurance, demurrage, and last-mile
+              delivery. Confirm every booking with the carrier or a licensed freight
+              forwarder before committing capital.
+            </p>
+          </div>
+        </details>
+      </section>
 
       <TableOfContents />
 
@@ -323,7 +596,12 @@ export default async function CountryPage({ params }: Props) {
                 <tbody>
                   {fromAirCheapest.map((r) => (
                     <tr key={`from-air-${r.slug}`} className="border-b border-slate-100 hover:bg-amber-50">
-                      <td className="px-3 py-2"><a href={`/country/${r.dest_slug}/`} className="text-amber-700 hover:underline font-medium">{r.dest_name}</a></td>
+                      <td className="px-3 py-2">
+                        <a href={`/country/${r.dest_slug}/`} className="inline-flex items-center gap-1.5 text-amber-700 hover:underline font-medium">
+                          <CountryFlag code={r.dest_code} size="xs" alt={`${r.dest_name} flag`} />
+                          {r.dest_name}
+                        </a>
+                      </td>
                       <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_air)}</td>
                       <td className="px-3 py-2 text-right">{r.avg_days_air}</td>
                     </tr>
@@ -345,7 +623,12 @@ export default async function CountryPage({ params }: Props) {
                   <tbody>
                     {fromSeaCheapest.map((r) => (
                       <tr key={`from-sea-${r.slug}`} className="border-b border-slate-100 hover:bg-blue-50">
-                        <td className="px-3 py-2"><a href={`/country/${r.dest_slug}/`} className="text-blue-700 hover:underline font-medium">{r.dest_name}</a></td>
+                        <td className="px-3 py-2">
+                          <a href={`/country/${r.dest_slug}/`} className="inline-flex items-center gap-1.5 text-blue-700 hover:underline font-medium">
+                            <CountryFlag code={r.dest_code} size="xs" alt={`${r.dest_name} flag`} />
+                            {r.dest_name}
+                          </a>
+                        </td>
                         <td className="px-3 py-2 text-right">{formatCost(r.avg_cost_kg_sea)}</td>
                         <td className="px-3 py-2 text-right">{r.avg_days_sea}</td>
                       </tr>
@@ -382,7 +665,12 @@ export default async function CountryPage({ params }: Props) {
                 <tbody>
                   {topAirTo.map((r) => (
                     <tr key={`to-air-${r.originCode}`} className="border-b border-slate-100 hover:bg-amber-50">
-                      <td className="px-3 py-2"><a href={`/country/${r.originSlug}/`} className="text-amber-700 hover:underline font-medium">{r.originName}</a></td>
+                      <td className="px-3 py-2">
+                        <a href={`/country/${r.originSlug}/`} className="inline-flex items-center gap-1.5 text-amber-700 hover:underline font-medium">
+                          <CountryFlag code={r.originCode} size="xs" alt={`${r.originName} flag`} />
+                          {r.originName}
+                        </a>
+                      </td>
                       <td className="px-3 py-2 text-right">${r.costKg.toFixed(2)}</td>
                       <td className="px-3 py-2 text-right">{r.days}</td>
                     </tr>
@@ -404,7 +692,12 @@ export default async function CountryPage({ params }: Props) {
                   <tbody>
                     {topSeaTo.map((r) => (
                       <tr key={`to-sea-${r.originCode}`} className="border-b border-slate-100 hover:bg-blue-50">
-                        <td className="px-3 py-2"><a href={`/country/${r.originSlug}/`} className="text-blue-700 hover:underline font-medium">{r.originName}</a></td>
+                        <td className="px-3 py-2">
+                          <a href={`/country/${r.originSlug}/`} className="inline-flex items-center gap-1.5 text-blue-700 hover:underline font-medium">
+                            <CountryFlag code={r.originCode} size="xs" alt={`${r.originName} flag`} />
+                            {r.originName}
+                          </a>
+                        </td>
                         <td className="px-3 py-2 text-right">${r.costKg.toFixed(2)}</td>
                         <td className="px-3 py-2 text-right">{r.days}</td>
                       </tr>
@@ -567,6 +860,6 @@ export default async function CountryPage({ params }: Props) {
         source={`Shipping baseline for ${country.name}`}
         showDisclaimer
       />
-    </div>
+    </article>
   );
 }

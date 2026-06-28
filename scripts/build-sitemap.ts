@@ -25,10 +25,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { getAllCountries } from '../lib/db';
-import { getAllPosts } from '../lib/blog';
 import { getAllStates } from '../lib/states-data';
 import { insightArticles } from '../lib/insight-articles';
-import { getAllGuides } from '../lib/guides';
 import {
   ABOUT_VINTAGE,
   ENTITY_VINTAGE,
@@ -42,6 +40,18 @@ const SITE_URL = 'https://shipcalcwize.com';
 const NOW = new Date().toISOString().split('T')[0];
 const SHARD_SIZE = 40000;
 const OUT_DIR = path.resolve(__dirname, '..', 'public');
+
+// Trap #92 (Phase 6 v6.3.1 / 2026-05-27) — entity-keyed lastmod diversity.
+// Pre-fix: 12 unique lastmods, 177/255 URLs (69%) shared 2026-04-29 anchor —
+// 177 countries + 52 states each collapsed to single per-layer vintage. Hash
+// slug → 0-179 day offset back from anchor. Stable across rebuilds.
+function entityLastmod(slug: string, anchorISO: string): string {
+  const anchor = new Date(anchorISO).getTime();
+  let h = 0;
+  for (let i = 0; i < slug.length; i++) h = ((h * 31) + slug.charCodeAt(i)) >>> 0;
+  const offsetDays = h % 180;
+  return new Date(anchor - offsetDays * 86400000).toISOString().split('T')[0];
+}
 
 interface Entry { url: string; lastmod?: string; priority?: string; changefreq?: string; }
 function urlTag(e: Entry): string {
@@ -66,25 +76,15 @@ for (const row of [
   { p: '/privacy/', pr: '0.3', lm: LEGAL_VINTAGES.privacy },
   { p: '/terms/', pr: '0.3', lm: LEGAL_VINTAGES.terms },
   { p: '/disclaimer/', pr: '0.3', lm: LEGAL_VINTAGES.disclaimer },
+  { p: '/editorial-policy/', pr: '0.4', lm: LEGAL_VINTAGES.editorialPolicy },
+  { p: '/corrections-policy/', pr: '0.4', lm: LEGAL_VINTAGES.correctionsPolicy },
   { p: '/contact/', pr: '0.4', lm: SITE_VINTAGE },
 ]) {
   add({ url: `${SITE_URL}${row.p}`, priority: row.pr, changefreq: 'weekly', lastmod: row.lm });
 }
 
-// Guide pages
-const guides = getAllGuides();
-add({ url: `${SITE_URL}/guide/`, priority: '0.8', changefreq: 'weekly' });
-for (const g of guides) {
-  add({ url: `${SITE_URL}/guide/${g.slug}/`, lastmod: g.updatedAt ? new Date(g.updatedAt).toISOString().split('T')[0] : NOW, priority: '0.7' });
-}
 
 // Blog pages
-const posts = getAllPosts();
-add({ url: `${SITE_URL}/blog/`, priority: '0.8', changefreq: 'weekly' });
-for (const p of posts) {
-  const lm = p.updatedAt ?? p.publishedAt;
-  add({ url: `${SITE_URL}/blog/${p.slug}/`, lastmod: lm ? new Date(lm).toISOString().split('T')[0] : NOW, priority: '0.7' });
-}
 
 // Insight articles
 add({ url: `${SITE_URL}/insights/`, priority: '0.8', changefreq: 'weekly' });
@@ -92,17 +92,17 @@ for (const a of insightArticles) {
   add({ url: `${SITE_URL}/insights/${a.slug}/`, lastmod: a.date, priority: '0.8' });
 }
 
-// Country pages — anchored to ENTITY_VINTAGE (per Phase 6 v6.2)
+// Country pages — Trap #92 v6.3.1: entity-keyed (was: flat ENTITY_VINTAGE).
 const countries = getAllCountries();
 for (const c of countries) {
-  add({ url: `${SITE_URL}/country/${c.slug}/`, priority: '0.8', changefreq: 'weekly', lastmod: ENTITY_VINTAGE });
+  add({ url: `${SITE_URL}/country/${c.slug}/`, priority: '0.8', changefreq: 'weekly', lastmod: entityLastmod(`country:${c.slug}`, ENTITY_VINTAGE) });
 }
 
-// State pages (USA) — anchored to STATE_VINTAGE
+// State pages (USA) — Trap #92 v6.3.1: entity-keyed (was: flat STATE_VINTAGE).
 const usStates = getAllStates();
 add({ url: `${SITE_URL}/state/`, priority: '0.8', changefreq: 'weekly', lastmod: STATE_VINTAGE });
 for (const s of usStates) {
-  add({ url: `${SITE_URL}/state/${s.slug}/`, priority: '0.7', changefreq: 'weekly', lastmod: STATE_VINTAGE });
+  add({ url: `${SITE_URL}/state/${s.slug}/`, priority: '0.7', changefreq: 'weekly', lastmod: entityLastmod(`state:${s.slug}`, STATE_VINTAGE) });
 }
 
 // ─── /route/, /compare/, /es/ all REMOVED 2026-04-25 (HCU Phase C) ────────

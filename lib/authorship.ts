@@ -12,12 +12,13 @@
 export const ENTITY_VINTAGE = '2026-04-29';
 // STATE: 52 US-state ground shipping aggregates (USPS/UPS/FedEx zone presence)
 export const STATE_VINTAGE = '2026-04-22';
-// METHODOLOGY: how baselines are derived (FBX + WB LPI + UNCTAD)
-export const METHODOLOGY_VINTAGE = '2026-03-15';
+// METHODOLOGY: how baselines are derived (FBX + WB LPI + UNCTAD + WCO + CBP +
+// LandedCostTier / VatBurdenTier / TransitWindowTier / ShippingInterpretation)
+export const METHODOLOGY_VINTAGE = '2026-05-12';
 // ABOUT: editorial mission/scope
-export const ABOUT_VINTAGE = '2026-04-12';
+export const ABOUT_VINTAGE = '2026-05-12';
 // SITE: schema.org WebSite root
-export const SITE_VINTAGE = '2026-03-15';
+export const SITE_VINTAGE = '2026-05-11';
 // LEGAL: separate per page (honest review cycles, not bulk-touched)
 // Privacy is reviewed more often than Terms because of AdSense disclosure
 // requirements; Disclaimer changes least often. ingredipeek 교훈 — single
@@ -25,7 +26,9 @@ export const SITE_VINTAGE = '2026-03-15';
 export const LEGAL_VINTAGES = {
   privacy: '2026-03-27',
   terms: '2026-02-18',
-  disclaimer: '2025-11-04',
+  disclaimer: '2026-05-09',
+  editorialPolicy: '2026-04-17',
+  correctionsPolicy: '2026-04-30',
 };
 
 // Back-compat: callers using DB_UPDATED keep working (alias to entity vintage).

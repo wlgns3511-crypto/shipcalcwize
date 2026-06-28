@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AuthorBox } from "@/components/AuthorBox";
 import { METHODOLOGY_VINTAGE } from "@/lib/authorship";
+import { datasetSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Our Methodology — How ShipCalcWize Builds Its Shipping Data",
@@ -13,6 +14,32 @@ export const metadata: Metadata = {
 export default function MethodologyPage() {
   return (
     <article className="prose prose-slate max-w-3xl mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            datasetSchema(
+              'ShipCalcWize — Country & State Shipping Baselines',
+              'Country-level sea/air shipping baselines, US state ground-shipping aggregates, customs de-minimis thresholds, and HS classification context derived from FBX, WB LPI, UNCTAD, WCO HS, and CBP releases.',
+              {
+                spatialCoverage: 'Global (177 countries) + United States (50 states + DC)',
+                variableMeasured: [
+                  'Sea freight rate per kg (FBX-derived)',
+                  'Air freight rate per kg (industry-typical)',
+                  'Country logistics performance score (WB LPI 0–5)',
+                  'Transit days air & sea',
+                  'De-minimis threshold (local + USD equivalent)',
+                  'HS duty range percent (WCO HS Nomenclature)',
+                  'LandedCostTier 5-band classifier',
+                  'VatBurdenTier 5-band classifier',
+                  'TransitWindowTier 5-band classifier',
+                ],
+                vintage: METHODOLOGY_VINTAGE,
+              },
+            ),
+          ),
+        }}
+      />
       <h1>Our Methodology</h1>
       <p className="lead text-lg text-slate-600">
         Freight quotes are a real money decision for importers, e-commerce
@@ -170,6 +197,81 @@ export default function MethodologyPage() {
           cost, at the price of 3&ndash;8 extra weeks of transit.
         </li>
       </ul>
+
+      <h2>Three editorial reading layers atop FBX, WB LPI, UNCTAD, WCO HS, and CBP</h2>
+      <p>
+        On top of the FBX-derived shipping baseline, the WB LPI transit
+        calibration, the UNCTAD capacity context, the WCO HS Nomenclature
+        duty figure, and the CBP Section 321 de-minimis guidance, ShipCalcWize
+        layers three deterministic editorial readers. Each reader is a fixed
+        classifier — given the same FBX, WB LPI, UNCTAD, WCO, or CBP inputs,
+        the output is reproducible — and each is presented on the country
+        page with the underlying FBX, WB LPI, UNCTAD, WCO, or CBP figure
+        labelled separately so readers can see the source vintage at every
+        step.
+      </p>
+
+      <h3>LandedCostTier — FBX shipping baseline × WCO HS duty × CBP processing fee</h3>
+      <p>
+        The LandedCostTier classifier composes (a) the FBX-derived sea or air
+        shipping baseline at a reference weight, (b) the WCO HS duty upper
+        bound for the reference HS classification line in the destination
+        country, and (c) the CBP processing fee (or the destination
+        country&apos;s equivalent published processing fee) into a single
+        5-band reader: A under $50, B $50 to $200, C $200 to $500, D $500 to
+        $1,500, and E $1,500 and above. The FBX figure is the spot-rate
+        anchor; the WCO HS duty is the six-digit MFN rate; the CBP fee (where
+        applicable) is the published merchandise processing fee. The tier is
+        an editorial reading layer — not endorsed by FBX, the WCO, or CBP —
+        and a freight forwarder&apos;s quote or a customs broker&apos;s
+        landed-cost computation will always be tighter than the LandedCostTier
+        band suggests.
+      </p>
+
+      <h3>VatBurdenTier — destination VAT/GST × CBP-equivalent de-minimis × WCO HS duty upper bound</h3>
+      <p>
+        The VatBurdenTier classifier composes (a) the destination country VAT
+        or GST percent published by the country&apos;s tax authority, (b) the
+        CBP-equivalent de-minimis threshold drawn from each country&apos;s
+        customs authority (with the US Section 321 $800 baseline cross-
+        referenced as our anchor), and (c) the WCO HS duty upper bound from
+        the WCO Nomenclature into a 5-band reader: A no VAT, B low-VAT under
+        10%, C standard-EU 10–20% with mid de-minimis, D high-VAT over 20% or
+        very-low de-minimis under $50 USD, and E compounding when high VAT
+        stacks with a very-low de-minimis and a high WCO HS duty band. The
+        VatBurdenTier is an editorial reading layer that exists to help readers
+        see why two shipments with the same FBX-derived freight figure can
+        land in very different total-cost positions once the destination
+        country&apos;s VAT/GST and WCO HS duty are layered in.
+      </p>
+
+      <h3>TransitWindowTier — WB LPI transit calibration × UNCTAD capacity context</h3>
+      <p>
+        The TransitWindowTier classifier reads the per-country air and sea
+        transit-day baselines (calibrated against the WB LPI score and the
+        UNCTAD capacity context) into a 5-band reader: A same-week air under
+        5 days, B standard 6 to 10 days air or under 28 days sea, C slow 11
+        to 20 days air or 29 to 45 days sea, D marine-only when air is not
+        published and sea is under 60 days, and E restricted when sea is over
+        60 days or air is over 20 days with no sea alternative. The
+        TransitWindowTier is an editorial reading layer atop the WB LPI score
+        and the UNCTAD capacity baseline — neither the World Bank nor UNCTAD
+        endorses our 5-band reading.
+      </p>
+
+      <h3>ShippingInterpretation — composite verdict over LandedCostTier × VatBurdenTier × TransitWindowTier</h3>
+      <p>
+        The ShippingInterpretation composite is a 4-paragraph verdict atop the
+        three tiers above. It reads the (LandedCostTier × VatBurdenTier ×
+        TransitWindowTier) tuple top-down through five decisionFraming branches
+        (cost-low-vat-low-fast / vat-stack-customs-clear / compounding-burden /
+        marine-only-bulk-edge / data-incomplete) and renders a deterministic
+        narrative that quotes the underlying FBX, WB LPI, UNCTAD, WCO HS, and
+        CBP figures alongside the reading. When any tier is unavailable for a
+        country, the composite returns the data-incomplete branch rather than
+        guess — the FBX, WB LPI, UNCTAD, WCO, and CBP source labels remain
+        honest about which vintage backs which reading.
+      </p>
 
       <h2>Update frequency</h2>
       <p>

@@ -8,10 +8,24 @@ import { DataFeedback } from '@/components/DataFeedback';
 import { FreshnessTag } from '@/components/FreshnessTag';
 import { StateRich } from '@/components/state/StateRich';
 import { AuthorBox } from '@/components/AuthorBox';
-import { getRoutesByOrigin } from '@/lib/db';
+import { getRoutesByOrigin, getAllCountries } from '@/lib/db';
 import { formatCost } from '@/lib/format';
 import { pickVariant } from '@/lib/content-helpers';
 import { STATE_VINTAGE } from '@/lib/authorship';
+import { classifyLandedCostTier, tierLabel, tierBlurb, tierToneColor, TIER_CUTOFF_SUMMARY } from '@/lib/landed-cost-tier';
+import {
+  decodeStateShipFlow,
+  composeStateShipFlowTitle,
+  composeStateShipFlowDescription,
+  shipFlowMultiCreatorDatasetSchema,
+} from '@/lib/crosswalk-shipflow';
+import { CrosswalkBridge } from '@/components/upgrades/CrosswalkBridge';
+import { StateHeroImage } from '@/components/StateHeroImage';
+import { getStateImageByName } from '@/lib/state-images';
+import { TrustBlock } from '@/components/upgrades/TrustBlock';
+import { TableOfContents } from '@/components/upgrades/TableOfContents';
+import { InsightBlock } from '@/components/upgrades/InsightBlock';
+import { ShippingCalculator } from '@/components/ShippingCalculator';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -29,8 +43,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const state = getStateBySlug(slug);
   if (!state) return {};
 
+  // Phase 7 v2.3 §4.0 — title.absolute bypasses ` | ShipCalcWize` layout
+  // suffix (15c ≥ 13c threshold). Legacy template title runs near or over
+  // the 60c Google SERP cap on long state names (e.g., "Shipping Costs in
+  // District of Columbia — Hubs, Carriers & Ports | ShipCalcWize" = 81c).
+  // The composed verdict body alone is the SERP-visible title.
+  const cw = decodeStateShipFlow(slug);
+  if (cw) {
+    return {
+      title: { absolute: composeStateShipFlowTitle(cw) },
+      description: composeStateShipFlowDescription(cw),
+      alternates: { canonical: `/state/${slug}/` },
+      openGraph: { url: `/state/${slug}/`, title: composeStateShipFlowTitle(cw) },
+    };
+  }
+
+  // Honest-null fallback (no state currently triggers this — all 51 emit).
   return {
-    title: `Shipping Costs in ${state.name} — Hubs, Carriers & Ports`,
+    title: `${state.name} shipping baseline`,
     description: `Average ground shipping in ${state.name} costs $${state.avgGroundCostLbs.toFixed(2)}/lb. Major hubs: ${state.shippingHubs.slice(0, 3).join(', ')}. USPS, UPS, FedEx presence, ports of entry, and shipping volume rank #${state.shippingVolumeRank}.`,
     alternates: { canonical: `/state/${slug}/` },
     openGraph: { url: `/state/${slug}/` },
@@ -41,6 +71,9 @@ export default async function StatePage({ params }: Props) {
   const { slug } = await params;
   const state = getStateBySlug(slug);
   if (!state) notFound();
+
+  // Phase 7 P0 — Ship-Flow Cross-Walk composite (BTS × USPS × CBP × UPU).
+  const crosswalk = decodeStateShipFlow(slug);
 
   const allStates = getAllStates();
   const nationalAvg = getAvgGroundCostNational();
@@ -58,6 +91,24 @@ export default async function StatePage({ params }: Props) {
     .sort((a, b) => a.avgGroundCostLbs - b.avgGroundCostLbs)
     .slice(0, 5);
 
+  const countries = getAllCountries();
+  const countryOptions = countries.map((c) => ({ code: c.code, name: c.name }));
+
+  const insights = [
+    {
+      text: `At ${formatCost(state.avgGroundCostLbs)}/lb, ground shipping inside ${state.name} is ${isAboveAvg ? `${diffPct}% more expensive than` : `${diffPct}% cheaper than`} the national baseline of ${formatCost(nationalAvg)}/lb.`,
+      sentiment: isAboveAvg ? "negative" as const : "positive" as const,
+    },
+    {
+      text: `${state.name} ranks #${state.shippingVolumeRank} in the US for commercial freight volume. ${state.shippingVolumeRank <= 10 ? "Its top-tier volume density attracts competitive carrier pricing and more frequent pickup runs." : state.shippingVolumeRank <= 25 ? "This indicates a well-developed shipping infrastructure with solid carrier coverage." : "Lower commercial density can occasionally lead to slightly longer dispatch times or rural route surcharges."}`,
+      sentiment: "neutral" as const,
+    },
+    {
+      text: `${state.name}'s key transit points include ${state.shippingHubs.slice(0, 2).join(' and ')}${state.portsOfEntry.length > 0 ? `, backed by ${state.portsOfEntry.length} official ports of entry to handle cross-border and international cargo.` : ' serving as the main domestic sorting nodes.'}`,
+      sentiment: "neutral" as const,
+    },
+  ];
+
   // Layer 1+ international destinations (HCU 2026-04-29) — top cheap export lanes from US.
   const usExportRoutes = getRoutesByOrigin('US');
   const topExportAir = [...usExportRoutes]
@@ -68,6 +119,18 @@ export default async function StatePage({ params }: Props) {
     .filter((r) => (r.avg_cost_kg_sea ?? 0) > 0)
     .sort((a, b) => (a.avg_cost_kg_sea ?? 0) - (b.avg_cost_kg_sea ?? 0))
     .slice(0, 3);
+
+  // LandedCostTier — US-domestic ground variant. No customs/duty (domestic).
+  // Reference: 5kg parcel × per-kg ground rate (state.avgGroundCostLbs converted lb→kg).
+  // 1 lb ≈ 0.4536 kg → per-kg rate = per-lb / 0.4536.
+  const stateGroundPerKg = state.avgGroundCostLbs / 0.4536;
+  const stateLanded = classifyLandedCostTier({
+    baselinePerKg: stateGroundPerKg,
+    weightKg: 5,
+    hsDutyPct: 0,
+    processingFeeUsd: 0,
+    mode: 'sea',
+  });
 
   const hasSeaPort = state.portsOfEntry.some((p) => /port|harbor|seattle|long beach|los angeles|new york|new jersey|miami|houston|charleston|savannah|oakland/i.test(p));
   const hasAirHub = state.portsOfEntry.some((p) => /jfk|lax|atl|ord|airport|atlanta|chicago/i.test(p)) || state.shippingHubs.some((h) => /atlanta|memphis|louisville|cincinnati|los angeles/i.test(h));
@@ -124,7 +187,7 @@ export default async function StatePage({ params }: Props) {
   ];
 
   return (
-    <div>
+    <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(crumbs)) }} />
       {faqs.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }} />}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema(
@@ -147,12 +210,26 @@ export default async function StatePage({ params }: Props) {
           vintage: STATE_VINTAGE,
         }
       )) }} />
+      {/* Phase 7 P4 — multi-creator Ship-Flow Dataset @graph (BTS + USPS + CBP + UPU). */}
+      {crosswalk && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify(shipFlowMultiCreatorDatasetSchema({
+            cw: crosswalk,
+            urlPath: `/state/${slug}/`,
+            dateModified: STATE_VINTAGE,
+            siteDomain: 'shipcalcwize.com',
+          })),
+        }} />
+      )}
 
       <Breadcrumb items={[
         { label: 'Home', href: '/' },
         { label: 'By State', href: '/state/' },
         { label: state.name },
       ]} />
+
+
+      {(() => { const stateImage = getStateImageByName(state.name); return stateImage ? <StateHeroImage img={stateImage} /> : null; })()}
 
       <section className="mb-8">
         <h1 className="text-3xl font-bold mb-3 text-amber-900">
@@ -168,6 +245,151 @@ export default async function StatePage({ params }: Props) {
           )}{' '}
           the national average. Shipping volume rank: <strong>#{state.shippingVolumeRank}</strong> of 51.
         </p>
+      </section>
+
+      <TrustBlock
+        sources={[
+          { name: 'Bureau of Transportation Statistics (BTS)', url: 'https://www.bts.gov/' },
+          { name: 'USPS Zone Rate Tables', url: 'https://pe.usps.com/' },
+          { name: 'US Customs and Border Protection (CBP)', url: 'https://www.cbp.gov/' },
+          { name: 'Universal Postal Union (UPU)', url: 'https://www.upu.int/' }
+        ]}
+        updated={STATE_VINTAGE}
+      />
+
+      <TableOfContents />
+
+      <InsightBlock
+        entityName={state.name}
+        insights={insights}
+      />
+
+      {/* Phase 7 P0 — Ship-Flow cross-walk verdict strip (BTS × USPS × CBP × UPU) */}
+      {crosswalk && (
+        <section
+          data-upgrade="ship-flow-crosswalk"
+          className="mb-6 rounded-xl border border-indigo-200 bg-indigo-50/40 px-5 py-4"
+        >
+          <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+            <h2 className="text-base font-bold text-indigo-900 m-0">
+              Ship-Flow Cross-Walk — {crosswalk.stateName}
+            </h2>
+            <p className="text-xs text-slate-500 m-0">
+              BTS volume × USPS rate sheets × CBP ports × UPU cross-border framework
+            </p>
+          </div>
+          <p className="text-2xl font-bold text-indigo-800 m-0 mt-1">
+            {crosswalk.shipFlowTierLabel} ({crosswalk.composedScore}/100)
+          </p>
+          <p className="text-sm text-slate-700 mt-2 leading-relaxed">{crosswalk.decoderNotes}</p>
+          <dl className="mt-3 grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-2 text-xs">
+            <div>
+              <dt className="text-slate-500 uppercase tracking-wider">Ground baseline</dt>
+              <dd className="font-semibold text-slate-800">
+                ${crosswalk.groundCostPerLbUsd.toFixed(2)}/lb
+              </dd>
+            </div>
+            <div>
+              <dt className="text-slate-500 uppercase tracking-wider">vs national</dt>
+              <dd className="font-semibold text-slate-800">
+                {crosswalk.groundCostDeltaPct >= 0 ? '+' : ''}
+                {crosswalk.groundCostDeltaPct.toFixed(1)}%
+              </dd>
+            </div>
+            <div>
+              <dt className="text-slate-500 uppercase tracking-wider">Volume rank (BTS)</dt>
+              <dd className="font-semibold text-slate-800">
+                #{crosswalk.volumeRank} of {crosswalk.totalStates}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-slate-500 uppercase tracking-wider">CBP ports of entry</dt>
+              <dd className="font-semibold text-slate-800">
+                {crosswalk.portCount}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-slate-500 uppercase tracking-wider">Sea port</dt>
+              <dd className="font-semibold text-slate-800">
+                {crosswalk.hasSeaPort ? 'Yes' : 'No'}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-slate-500 uppercase tracking-wider">Air hub</dt>
+              <dd className="font-semibold text-slate-800">
+                {crosswalk.hasAirHub ? 'Yes' : 'No'}
+              </dd>
+            </div>
+          </dl>
+        </section>
+      )}
+
+      {/* LandedCostTier — US-domestic ground variant (PSU 0차 2026-05-11) */}
+      <section
+        data-upgrade="landed-cost-tier"
+        className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-5 py-4"
+      >
+        <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
+          <h2 className="text-lg font-bold text-amber-900 m-0">
+            Landed cost tier — {state.name} (domestic ground)
+          </h2>
+          <p className="text-xs text-slate-500 m-0">
+            5 kg parcel · domestic ground · no customs duty
+          </p>
+        </div>
+        {(() => {
+          const tone = tierToneColor(stateLanded.tier);
+          return (
+            <div
+              data-upgrade="landed-cost-tier-domestic"
+              className={`rounded-md border bg-white px-4 py-3 border-${tone}-200`}
+            >
+              <p className={`text-xl font-bold text-${tone}-700 m-0`}>
+                {tierLabel(stateLanded.tier)}
+              </p>
+              {stateLanded.totalCostUsd != null && (
+                <p className="text-sm text-slate-700 m-0 mt-1">
+                  ≈ ${stateLanded.totalCostUsd.toFixed(2)} for a 5 kg parcel ·{' '}
+                  ${stateGroundPerKg.toFixed(2)}/kg ground baseline (USPS, UPS, FedEx aggregated)
+                </p>
+              )}
+              <p className="text-sm text-slate-600 m-0 mt-2">{tierBlurb(stateLanded.tier)}</p>
+            </div>
+          );
+        })()}
+        <details className="mt-3 text-sm text-slate-600">
+          <summary className="cursor-pointer text-amber-700 hover:underline">
+            How this differs from the international tier
+          </summary>
+          <div className="mt-2 space-y-2">
+            <p className="m-0">
+              <strong>Domestic ground.</strong> US-domestic parcels do not clear US CBP and
+              are not assessed WCO HS duty or Section 321 processing fees — so the
+              domestic tier reflects only the ground shipping baseline, not the full
+              international landed cost. Compare with any{' '}
+              <a href="/country/" className="text-amber-700 hover:underline">
+                country page
+              </a>{' '}
+              to see the duty layer.
+            </p>
+            <p className="m-0">
+              <strong>Five tiers.</strong>{' '}
+              {TIER_CUTOFF_SUMMARY.map((row) =>
+                row.highUsd
+                  ? `Tier ${row.tier} (${row.label}) $${row.lowUsd}–$${row.highUsd}`
+                  : `Tier ${row.tier} (${row.label}) $${row.lowUsd}+`,
+              ).join(' · ')}
+              . Full methodology at{' '}
+              
+              .
+            </p>
+            <p className="m-0 text-slate-500">
+              <strong>Not included.</strong> Fuel surcharge, residential surcharge, address
+              correction fee, dimensional weight overrides, and last-mile zone tables.
+              Confirm with the carrier before booking.
+            </p>
+          </div>
+        </details>
       </section>
 
       {/* Overview cards */}
@@ -356,6 +578,12 @@ export default async function StatePage({ params }: Props) {
         </div>
       </section>
 
+      {/* Shipping Calculator */}
+      <section className="mb-10">
+        <h2 className="text-xl font-bold mb-3">Calculate International Shipping from {state.name}</h2>
+        <ShippingCalculator countries={countryOptions} defaultOrigin="US" />
+      </section>
+
       {/* Similar states */}
       <section className="mb-10">
         <h2 className="text-xl font-bold mb-3">Similar Shipping States</h2>
@@ -423,11 +651,14 @@ export default async function StatePage({ params }: Props) {
 
       <StateRich slug={slug} state={state} />
 
+      {/* Phase 7 P5 — Internal Cross-Walk Bridge (4 portfolio siblings join on state slug). */}
+      <CrosswalkBridge crosswalk={crosswalk} stateSlug={slug} />
+
       <AuthorBox
         vintage={STATE_VINTAGE}
         source={`${state.name} ground-shipping baseline`}
       />
 
-    </div>
+    </main>
   );
 }

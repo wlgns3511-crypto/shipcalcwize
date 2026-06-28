@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getAllCountries, getCarriers, getCountriesByRegion } from "@/lib/db";
 import { formatCost } from "@/lib/format";
+import { CountryFlag } from "@/components/CountryFlag";
 import { ShippingCalculator } from "@/components/ShippingCalculator";
 import { AdSlot } from "@/components/AdSlot";
 import { datasetSchema, faqSchema } from "@/lib/schema";
@@ -134,7 +135,8 @@ export default function Home() {
                 <h3 className="font-semibold text-amber-700 mb-2">{region} ({countries.length})</h3>
                 <ul className="space-y-1 text-sm">
                   {countries.slice(0, 8).map((c) => (
-                    <li key={c.code}>
+                    <li key={c.code} className="flex items-center gap-1.5">
+                      <CountryFlag code={c.code} size="xs" alt={`${c.name} flag`} />
                       <a
                         href={`/country/${c.slug}`}
                         className="text-slate-600 hover:text-amber-600 hover:underline"

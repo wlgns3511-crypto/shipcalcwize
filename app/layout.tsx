@@ -96,8 +96,6 @@ export default function RootLayout({
               <a href="/about/" className="text-slate-600 hover:text-amber-600">About</a>
               <a href="/state/" className="text-slate-600 hover:text-amber-600">By State</a>
               <a href="/insights/" className="text-slate-600 hover:text-amber-600">Insights</a>
-              <a href="/guide/" className="text-slate-600 hover:text-amber-600">Guides</a>
-              <a href="/blog/" className="text-slate-600 hover:text-amber-600">Articles</a>
             </nav>
           </div>
         </header>
@@ -110,6 +108,12 @@ export default function RootLayout({
             </p>
             <p className="mt-2">
               <a href="/about/" className="hover:text-amber-600">About</a>
+              {" | "}
+              <a href="/methodology/" className="hover:text-amber-600">Methodology</a>
+              {" | "}
+              <a href="/editorial-policy/" className="hover:text-amber-600">Editorial Policy</a>
+              {" | "}
+              <a href="/corrections-policy/" className="hover:text-amber-600">Corrections</a>
               {" | "}
               <a href="/privacy/" className="hover:text-amber-600">Privacy</a>
               {" | "}

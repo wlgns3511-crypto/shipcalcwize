@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllInsightArticles, getInsightArticleBySlug } from '@/lib/insight-articles';
+import { AuthorBox } from '@/components/AuthorBox';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -117,6 +118,8 @@ export default async function InsightPage({ params }: Props) {
           {/* HCU 2026-04-25 — /compare/ 410'd. */}
         </div>
       </div>
+
+      <AuthorBox />
 
       {others.length > 0 && (
         <section className="mt-12">

@@ -1,0 +1,27 @@
+# ShipCalcWize
+
+> International Shipping Cost Calculator & Comparison
+
+Compare international shipping costs, transit times, and carriers. Free calculator for air freight, ocean freight, and express shipping rates worldwide.
+
+## Core pages
+- [Methodology and data sources](https://shipcalcwize.com/methodology/): how every figure is derived, with primary-source citations
+- [About and editorial standards](https://shipcalcwize.com/about/): authorship and review policy
+
+## Key country
+- [Shipping Cost Inflation 2026](https://shipcalcwize.com/insights/shipping-cost-inflation-2026/)
+- [Cheapest Shipping Methods](https://shipcalcwize.com/insights/cheapest-shipping-methods/)
+- [Shipping Zones Explained](https://shipcalcwize.com/insights/shipping-zones-explained/)
+- [Afghanistan](https://shipcalcwize.com/country/afghanistan/)
+- [Albania](https://shipcalcwize.com/country/albania/)
+- [Algeria](https://shipcalcwize.com/country/algeria/)
+- [Andorra](https://shipcalcwize.com/country/andorra/)
+- [Angola](https://shipcalcwize.com/country/angola/)
+- [Argentina](https://shipcalcwize.com/country/argentina/)
+- [Armenia](https://shipcalcwize.com/country/armenia/)
+- [Australia](https://shipcalcwize.com/country/australia/)
+- [Austria](https://shipcalcwize.com/country/austria/)
+
+## Data
+- Primary sources: Freightos Baltic Index (FBX), World Bank — Logistics Performance Index, UNCTAD — Review of Maritime Transport, World Customs Organization (WCO HS)
+- All figures are derived from these primary sources; see /methodology/ for derivation and vintage.

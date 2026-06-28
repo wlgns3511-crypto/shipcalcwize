@@ -3,7 +3,8 @@
 // noindex,follow so won't be indexed; just keep it functional for users.
 import type { Metadata } from "next";
 import { searchRoutes, getPopularRoutes } from "@/lib/db";
-import { formatCost, formatDays, countryCodeToFlag } from "@/lib/format";
+import { formatCost, formatDays } from "@/lib/format";
+import { CountryFlag } from "@/components/CountryFlag";
 
 export const metadata: Metadata = {
   title: "Search Shipping Routes - ShipCalcWize",
@@ -78,8 +79,12 @@ export default async function SearchPage({ searchParams }: Props) {
               className="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-amber-300 hover:bg-amber-50 transition-all"
             >
               <div>
-                <span className="font-semibold text-amber-800 text-sm">
-                  {countryCodeToFlag(r.origin_code)} {r.origin_name} → {countryCodeToFlag(r.dest_code)} {r.dest_name}
+                <span className="inline-flex items-center gap-1.5 font-semibold text-amber-800 text-sm">
+                  <CountryFlag code={r.origin_code} size="sm" alt={`${r.origin_name} flag`} />
+                  {r.origin_name}
+                  <span className="text-slate-400">→</span>
+                  <CountryFlag code={r.dest_code} size="sm" alt={`${r.dest_name} flag`} />
+                  {r.dest_name}
                 </span>
                 <div className="flex gap-4 mt-1 text-xs text-slate-500">
                   <span>Air: {formatCost(r.avg_cost_kg_air)}/kg · {formatDays(r.avg_days_air)}</span>
@@ -103,8 +108,12 @@ export default async function SearchPage({ searchParams }: Props) {
                 className="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-amber-300 hover:bg-amber-50 transition-all"
               >
                 <div>
-                  <span className="font-semibold text-amber-800 text-sm">
-                    {countryCodeToFlag(r.origin_code)} {r.origin_name} → {countryCodeToFlag(r.dest_code)} {r.dest_name}
+                  <span className="inline-flex items-center gap-1.5 font-semibold text-amber-800 text-sm">
+                    <CountryFlag code={r.origin_code} size="sm" alt={`${r.origin_name} flag`} />
+                    {r.origin_name}
+                    <span className="text-slate-400">→</span>
+                    <CountryFlag code={r.dest_code} size="sm" alt={`${r.dest_name} flag`} />
+                    {r.dest_name}
                   </span>
                   <div className="flex gap-4 mt-1 text-xs text-slate-500">
                     <span>Air: {formatCost(r.avg_cost_kg_air)}/kg · {formatDays(r.avg_days_air)}</span>

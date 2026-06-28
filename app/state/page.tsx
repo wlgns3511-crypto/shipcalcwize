@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getAllStates, getAvgGroundCostNational } from '@/lib/states-data';
 import { breadcrumbSchema, itemListSchema } from '@/lib/schema';
 import { Breadcrumb } from '@/components/Breadcrumb';
+import { AuthorBox } from '@/components/AuthorBox';
 
 export const metadata: Metadata = {
   title: 'Shipping Costs by State — All 50 US States + DC',
@@ -118,6 +119,8 @@ export default function StatesIndex() {
           {/* HCU 2026-04-25 — /compare/ 410'd. */}
         </ul>
       </section>
+
+      <AuthorBox />
     </div>
   );
 }

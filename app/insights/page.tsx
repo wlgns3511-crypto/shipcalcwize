@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllInsightArticles } from '@/lib/insight-articles';
 import { TrustBlock } from '@/components/upgrades/TrustBlock';
+import { AuthorBox } from '@/components/AuthorBox';
 import { DATA_LAST_UPDATED } from '@/lib/data-updated';
 
 const SITE_URL = 'https://shipcalcwize.com';
@@ -85,6 +86,8 @@ export default function InsightsIndex() {
           {/* HCU 2026-04-25 — /compare/ 410'd. */}
         </ul>
       </section>
+
+      <AuthorBox />
     </div>
   );
 }

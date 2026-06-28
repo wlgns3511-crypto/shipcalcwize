@@ -32,12 +32,19 @@ export function datasetSchema(
   description: string,
   opts: DatasetSchemaOpts = {},
 ) {
+  // schema.org role split (Trap #105 honest attribution):
+  //   creator           = the upstream organization that produced the data
+  //                       (FBX = primary; full list in sourceOrganization).
+  //   publisher         = the platform that publishes this page (ShipCalcWize
+  //                       under DataPeek Research Network).
+  //   sourceOrganization = full list of upstream data origins backing the page.
+  //   reviewedBy        = the editorial team that maintains the page copy.
   return {
     '@context': 'https://schema.org',
     '@type': 'Dataset',
     name,
     description,
-    creator: PUBLISHER_NODE,
+    creator: SOURCE_AUTHORITIES[0],
     publisher: PUBLISHER_NODE,
     sourceOrganization: SOURCE_AUTHORITIES.map((s) => ({
       '@type': 'Organization',
